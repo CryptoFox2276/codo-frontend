@@ -2,48 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Common */
 .bg-gray-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(120 120 120 / var(--tw-bg-opacity));
 }
-#dashboard .swiper {
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-#dashboard .swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 400px;
-  height: 400px;
-  border-radius: 10px;
-}
-
-#dashboard .swiper-slide img {
-  display: block;
-  width: 100%;
-  border-radius: 10px;
-  opacity: .8;
-}
-
-#dashboard .swiper-slide.swiper-slide-active.swiper-slide-visible {
-    box-shadow: 0px 0px 20px 1px gold;
-    /* transform: translate(0px, -30px)!important; */
-    transform: scale(1.2) !important;
-    transition: all .3s;
-}
-
-#dashboard .swiper-slide.swiper-slide-active.swiper-slide-visible img {
-    opacity: 1 !important;
-    transition: all .3s;
-}
-#dashboard span.swiper-pagination-bullet.swiper-pagination-bullet-active {
-    background-color: gold;
-}
 
 section {
-  /* margin-top: 5rem; */
+  margin-top: 5rem;
   margin-bottom: 10rem;
 }
 section .title {
@@ -54,29 +20,26 @@ section .sub-title {
   color: #0764a6;
   padding-bottom: 20px;
 }
-#dashboard .title {
-  padding-bottom: 2rem;
-}
 
 .title-50 {
   font-size: 50px;
   font-weight: 750;
-  line-height: 50px;  
+  line-height: 50px;
 }
 .title-40 {
   font-size: 40px;
   font-weight: 600;
-  line-height: 40px;  
+  line-height: 40px;
 }
 .title-30 {
   font-size: 30px;
   font-weight: 600;
-  line-height: 30px;  
+  line-height: 30px;
 }
 .title-20 {
   font-size: 20px;
   font-weight: 600;
-  line-height: 20px;  
+  line-height: 20px;
 }
 
 .text-uppercase {
@@ -105,11 +68,56 @@ section .sub-title {
   border-radius: 9999px;
 }
 
-#home .content {
-  font-size: 24px;
-  width: 60%;
+/* dashboard */
+
+#dashboard .swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#dashboard .swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 400px;
+  height: 400px;
+  border-radius: 10px;
+}
+
+#dashboard .swiper-slide img {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+  opacity: 0.8;
+}
+
+#dashboard .swiper-slide.swiper-slide-active.swiper-slide-visible {
+  box-shadow: 0px 0px 20px 1px gold;
+  /* transform: translate(0px, -30px)!important; */
+  transform: scale(1.2) !important;
+  transition: all 0.3s;
+}
+
+#dashboard .swiper-slide.swiper-slide-active.swiper-slide-visible img {
+  opacity: 1 !important;
+  transition: all 0.3s;
+}
+#dashboard span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: gold;
+}
+
+#dashboard .title {
+  padding-bottom: 2rem;
+  font-size: 3rem;
+  font-weight: 750;
+}
+
+#dashboard .content {
+  font-size: 2rem;
+  /* width: 80%; */
   margin: auto;
   margin-top: 3rem;
+  text-align: left;
 }
 
 #home .panel {
@@ -125,7 +133,7 @@ section .sub-title {
   padding: 1rem;
 }
 #home .panel h2 {
-  font-size: 30px;
+  /* font-size: 30px; */
 }
 #home .panel .sub-panel {
   display: flex;
@@ -137,13 +145,13 @@ section .sub-title {
   padding: 1rem;
   border-radius: 1rem;
 }
-#home #roadmap .item:hover {
-    background-color: #0764a6;
-    transition: all .3s;
+#dashboard #roadmap .item:hover {
+  background-color: #0764a6;
+  transition: all 0.3s;
 }
-#home #roadmap .item.active {
-    background-color: #0764a6;
-    transition: all .3s;
+#dashboard #roadmap .item.active {
+  background-color: #0764a6;
+  transition: all 0.3s;
 }
 
 /* Presale */
@@ -162,12 +170,24 @@ section .sub-title {
   border-radius: 5px;
 }
 
-.presale { background-color: #9a2328; }
-.fd { background-color: #784895; }
-.airdrop { background-color: #da286a; }
-.liquidity { background-color: #1e4e8b; }
-.team { background-color: #df6b30; }
-.dex { background-color: #e5a82f; }
+.presale {
+  background-color: #9a2328;
+}
+.fd {
+  background-color: #784895;
+}
+.airdrop {
+  background-color: #da286a;
+}
+.liquidity {
+  background-color: #1e4e8b;
+}
+.team {
+  background-color: #df6b30;
+}
+.dex {
+  background-color: #e5a82f;
+}
 
 #presale #tokenomics img {
   max-width: 500px;
@@ -178,7 +198,7 @@ section .sub-title {
 }
 
 #presale #about {
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 #presale #about .panel {
   padding: 50px 50px;
@@ -189,7 +209,7 @@ section .sub-title {
   background-color: #eee;
   padding: 12px 24px;
   border-radius: 10px;
-  color:#333;
+  color: #333;
   font-weight: 600;
 }
 
@@ -213,8 +233,19 @@ footer .text-email {
 }
 
 @media (max-width: 768px) {
-  #home .content {
-    width: 80%;
+  #dashboard .title {
+    padding-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: 750;
+    line-height: 2.5rem;
+  }
+  
+  #dashboard .content {
+    font-size: 1.125rem;
+    width: 100%;
+    margin: auto;
+    margin-top: 1rem;
+    text-align: left;
   }
   #home .swiper-slide {
     width: 250px;
