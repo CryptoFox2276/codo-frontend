@@ -8,6 +8,8 @@ export default function Header() {
   const handleClick = () => {
     setActive(!active);
   };
+
+  const onConnectWallet = () => {}
   return (
     <header className="sticky inset-x-0 top-0 z-50 bg-gray-900">
       <nav
@@ -19,7 +21,7 @@ export default function Header() {
             <span>
               <span className="sr-only">CODO</span>
               <img
-                className="h-8 w-auto h-auto"
+                className="h-8 w-auto h-auto cursor-pointer"
                 src="/assets/images/CODO.png"
                 alt=""
               />
@@ -79,24 +81,23 @@ export default function Header() {
           </a>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-6">
-          <Link href="/presale" className="text-sm font-semibold leading-6">
+          <Link href="/presale" className="text-sm font-semibold leading-6 cursor-pointer">
             <Image
               src={"/assets/images/share.png"}
               alt="share"
-              width={32}
-              height={34}
+              className=" cursor-pointer"
+              width={34}
+              height={32}
             />
           </Link>
           <Link href="/presale">
-            <p className="text-sm font-semibold leading-6 text-white bg-sky-600 rounded-full px-3 py-2">
+            <p className="btn text-sm font-semibold leading-6 text-white bg-sky-600 rounded px-3 py-2">
               JOIN PRESALE
             </p>
           </Link>
-          <Link href="#">
-            <p className="text-sm font-semibold leading-6 text-white bg-sky-600 rounded-full px-3 py-2">
+            <a onClick={onConnectWallet} className="btn rounded text-sm font-semibold leading-6 text-white bg-sky-600 px-3 py-2">
               CONNECT WALLET
-            </p>
-          </Link>
+            </a>
         </div>
       </nav>
       {active && (

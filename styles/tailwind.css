@@ -58,7 +58,7 @@ section .sub-title {
   width: fit-content;
   padding: 10px 25px;
   border-radius: 5px;
-  margin: auto;
+  /* margin: auto; */
   font-weight: 600;
 }
 .btn:hover {

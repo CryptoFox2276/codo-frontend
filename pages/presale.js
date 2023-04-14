@@ -58,12 +58,12 @@ export default function Presale() {
                     </div>
                     <div className="grid grid-cols-2 md:mt-10 sm:mt-5">
                       <div className="button-area mb-4">
-                        <div className="btn rounded text-uppercase md:text-lg text-sm font-bold">
+                        <div className="btn rounded text-uppercase md:text-lg text-sm font-bold m-auto">
                           Buy With Eth
                         </div>
                       </div>
                       <div className="button-area mb-4">
-                        <div className="btn rounded text-uppercase md:text-lg text-sm font-bold">
+                        <div className="btn rounded text-uppercase md:text-lg text-sm font-bold m-auto">
                           Buy With USDT
                         </div>
                       </div>

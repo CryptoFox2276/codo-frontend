@@ -659,6 +659,9 @@ video {
 .w-full {
   width: 100%;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -992,7 +995,7 @@ section .sub-title {
   width: fit-content;
   padding: 10px 25px;
   border-radius: 5px;
-  margin: auto;
+  /* margin: auto; */
   font-weight: 600;
 }
 .btn:hover {
@@ -1451,11 +1454,6 @@ footer .text-email {
   .lg\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
-  }
-
-  .lg\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
   }
 }
 

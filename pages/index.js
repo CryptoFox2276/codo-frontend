@@ -214,7 +214,7 @@ export default function Home() {
                   disableOnInteraction: false,
                 }}
                 pagination={true}
-                modules={[EffectCoverflow, Pagination]}
+                modules={[Autoplay, EffectCoverflow, Pagination]}
                 className="mySwiper"
               >
                 <SwiperSlide>
