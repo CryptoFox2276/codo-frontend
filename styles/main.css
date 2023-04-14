@@ -517,9 +517,6 @@ video {
 .fixed {
   position: fixed;
 }
-.absolute {
-  position: absolute;
-}
 .sticky {
   position: sticky;
 }
@@ -599,20 +596,11 @@ video {
 .mt-20 {
   margin-top: 5rem;
 }
-.mt-24 {
-  margin-top: 6rem;
-}
 .mt-5 {
   margin-top: 1.25rem;
 }
 .mt-6 {
   margin-top: 1.5rem;
-}
-.ml-auto {
-  margin-left: auto;
-}
-.ml-0 {
-  margin-left: 0px;
 }
 .block {
   display: block;
@@ -647,6 +635,9 @@ video {
 .w-1\/2 {
   width: 50%;
 }
+.w-2\/3 {
+  width: 66.666667%;
+}
 .w-6 {
   width: 1.5rem;
 }
@@ -655,9 +646,6 @@ video {
 }
 .w-full {
   width: 100%;
-}
-.w-2\/3 {
-  width: 66.666667%;
 }
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -934,13 +922,13 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(120 120 120 / var(--tw-bg-opacity));
 }
-#home .swiper {
+#dashboard .swiper {
   width: 100%;
   padding-top: 50px;
   padding-bottom: 50px;
 }
 
-#home .swiper-slide {
+#dashboard .swiper-slide {
   background-position: center;
   background-size: cover;
   width: 400px;
@@ -948,25 +936,25 @@ video {
   border-radius: 10px;
 }
 
-#home .swiper-slide img {
+#dashboard .swiper-slide img {
   display: block;
   width: 100%;
   border-radius: 10px;
   opacity: .8;
 }
 
-#home .swiper-slide.swiper-slide-active.swiper-slide-visible {
+#dashboard .swiper-slide.swiper-slide-active.swiper-slide-visible {
     box-shadow: 0px 0px 20px 1px gold;
     /* transform: translate(0px, -30px)!important; */
     transform: scale(1.2) !important;
     transition: all .3s;
 }
 
-#home .swiper-slide.swiper-slide-active.swiper-slide-visible img {
+#dashboard .swiper-slide.swiper-slide-active.swiper-slide-visible img {
     opacity: 1 !important;
     transition: all .3s;
 }
-#home span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+#dashboard span.swiper-pagination-bullet.swiper-pagination-bullet-active {
     background-color: gold;
 }
 
@@ -976,12 +964,14 @@ section {
 }
 section .title {
   color: #ff8926;
-  text-align: center;
   padding-bottom: 20px;
 }
 section .sub-title {
   color: #0764a6;
   padding-bottom: 20px;
+}
+#dashboard .title {
+  padding-bottom: 2rem;
 }
 
 .title-50 {

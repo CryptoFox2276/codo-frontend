@@ -24,14 +24,14 @@ export default function Home() {
 
   return (
     <main
-      id="home"
+      id="dashboard"
       className="bg-gray-900 text-white w-full overflow-y-auto py-10"
     >
-      <section className="p-5 pt-20">
+      <section id="home" className="p-5 pt-20">
         <div>
           <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-4 py-10">
             <div className="text-center px-10 m-auto">
-              <h1 className="title title-50 pb-5">
+              <h1 className="title title-40 pb-5">
                 Unlocking the Future of Finance and Entertainment
               </h1>
               <p className="content">
@@ -193,7 +193,7 @@ export default function Home() {
       </section>
       <section id="vip-net">
         <div className="container m-auto">
-          <div className=" px-5">
+          <div className="px-5">
             <h1 className="title title-50 pb-20 text-center">CODO VIP CLUB NFT</h1>
             <div>
               <Swiper
@@ -214,7 +214,7 @@ export default function Home() {
                   disableOnInteraction: false,
                 }}
                 pagination={true}
-                modules={[Autoplay, EffectCoverflow, Pagination]}
+                modules={[EffectCoverflow, Pagination]}
                 className="mySwiper"
               >
                 <SwiperSlide>
