@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -82,7 +81,7 @@ export default function Header() {
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-6">
           <Link href="/presale" className="text-sm font-semibold leading-6 cursor-pointer">
-            <Image
+            <img
               src={"/assets/images/share.png"}
               alt="share"
               className=" cursor-pointer"
