@@ -1,8 +1,9 @@
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-900 text-white py-10">
       <div className="container m-auto">
-        <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-x-52 px-10">
+        {/* <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-x-52 px-10"> */}
+        <div className="flex flex-row flex-wrap gap-20 justify-between px-10">
           <div>
             <div className="text-left">
               <div className="mb-5 text-uppercase text-2xl font-bold">Docs</div>
@@ -81,9 +82,9 @@ export default function Footer() {
               </ul>
             </div>
           </div>
-        </div>
-        <div className="flex justify-center py-20">
-          <img src="/assets/images/codo-footer.png" width={300}/>
+          <div className="flex justify-center py-20">
+            <img src="/assets/images/codo-footer.png" width={300}/>
+          </div>
         </div>
         <div className="flex justify-center pb-20">
           <p className="text-white text-xl font-bold text-center">

@@ -1,26 +1,43 @@
-import Head from "next/head";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "../store/actions/postAction";
-import Header from "../components/header";
-import Footer from "../components/footer";
-import Image from "next/dist/client/image";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { Autoplay, EffectCoverflow, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
+import ProgressBar from "../components/progress-bar";
 
-import { Autoplay, EffectCoverflow, Pagination } from "swiper";
+import { ethers } from "ethers";
+
+import { eth } from "../state/eth";
+
+const UINT256_MAX = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
+const NETWORK_ID = Number(process.env.NEXT_PUBLIC_CHAINID)
+const DEFAULT_PROVIDER = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPCURL, NETWORK_ID)
 
 export default function Home() {
-  const dispatch = useDispatch();
-  const { posts } = useSelector((state) => state.post);
 
-  useEffect(() => {
-    dispatch(fetchPosts());
-  }, []);
+  const {
+    walletConnected,
+    address,
+    stage,
+    price,
+    totalSupply,
+    totalPresaleAmount,
+    totalSoldAmount,
+    totalSoldCost,
+    totalSoldPercent,
+    soldAmount,
+    soldCost,
+    soldPercent,
+    nextStagePrice,
+    connectWallet,
+    disConnectWallet,
+    addCommas
+  } = eth.useContainer();
+
+  const [loading, setLoading] = useState(false);  
 
   return (
     <main
@@ -45,69 +62,74 @@ export default function Home() {
               <div className="">
                 <div className="panel lg:w-3/4 w-full">
                   <div className="row bg-gray-700 panel-header">
-                    <h2 className="md:text-3xl text-2xl font-bold">Presale 1 Live</h2>
+                    <h2 className="md:text-3xl text-2xl font-bold">Presale {stage} Live</h2>
                   </div>
-                  <div className="grid md:grid-cols-2 gap-x-10 py-5 md:px-10 px-5">
+                  <div className="grid lg:grid-cols-2 lg:gap-10 gap-3 py-5 lg:px-10 px-5">
                     <div className="text-left">
-                      <h2 className=" text-sky-500 md:text-2xl text-lg font-bold">STAGE 1</h2>
-                      <p className="text-right text-gray-500 font-semibold lg:text-lg text-md">
+                      <h2 className=" text-sky-500 lg:text-2xl text-lg font-bold">STAGE {stage}</h2>
+                      <p className="lg:text-right text-left text-gray-500 font-semibold lg:text-lg text-md">
                         CURRENT STAGE
                       </p>
                     </div>
                     <div className="text-left">
-                      <h2 className=" text-yellow-500 md:text-2xl text-lg font-bold">$100,000</h2>
-                      <p className="text-right text-gray-500 font-semibold lg:text-lg text-md">
-                        $300,000 RAISED
+                      <h2 className=" text-yellow-500 lg:text-2xl text-lg font-bold">${soldCost}</h2>
+                      <p className="lg:text-right text-left text-gray-500 font-semibold lg:text-lg text-md">
+                        ${totalSoldCost} RAISED
                       </p>
                     </div>
                     <div></div>
                   </div>
-                  <div className="sub-panel md:mx-10 mx-3">
-                    <div className="my-auto">
-                      <h2 className="text-yellow-500 font-bold lg:text-xl text-lg ">
-                        79.35% <span className="text-sky-500">SOLD</span>
-                      </h2>
+                  <div className="lg:mx-10 mx-3" style={{position:"relative"}}>
+                    <div className="sub-panel" style={{position: "relative", zIndex:1}}>
+                      <div className="my-auto">
+                        <h2 className="text-yellow-500 font-bold lg:text-xl text-lg ">
+                          {totalSoldPercent} % <span className="text-sky-500">SOLD</span>
+                        </h2>
+                      </div>
+                      <div className="text-left">
+                        <p className="font-bold lg:text-lg text-md">{totalPresaleAmount > 0 ? 100 - totalSoldPercent : 0} %</p>
+                        <p className=" text-slate-500 font-bold lg:text-md text-sm">REMAINING</p>
+                      </div>                    
                     </div>
-                    <div className="text-left">
-                      <p className="font-bold lg:text-lg text-md">20.65 %</p>
-                      <p className=" text-slate-500 font-bold lg:text-md text-sm">REMAINING</p>
+                    <div className="" style={{position:"absolute", bottom:"-10px", width:"100%"}}>
+                      <ProgressBar bgcolor="#0764a6" completed={soldPercent} label={false}/>
                     </div>
                   </div>
-                  <div className="lg:mx-10 mx-5 grid grid-cols-2 lg:gap-10 gap-1  pt-1 mb-10">
+                  <div className="lg:mx-10 mx-5 grid grid-cols-2 lg:gap-10 gap-1 pt-3 lg:mb-10 mb-6">
                     <p className="text-left lg:text-md text-sm">
                       <span className=" text-slate-500 font-bold">
-                        $0.02 USDT
+                        {addCommas(price)} USDT
                       </span> &nbsp;
                       <span className="text-yellow-500 font-bold">
-                        = 1 $CODO
+                        = 1 CODO
                       </span>
                     </p>
-                    <p className="text-right lg:text-md text-sm">
+                    <p className="text-right lg:text-md text-sm flex lg:flex-row flex-col">
                       <span className=" text-slate-500 font-bold">
                         NEXT STAGE:
-                      </span> &nbsp;
-                      <span className="text-sky-500 font-bold">0.025$</span>
+                      </span>
+                      <span className="text-sky-500 font-bold">{nextStagePrice} USDT</span>
                     </p>
                   </div>
-                  <div className="bg-gray-700 lg:mx-10 lg:px-10 mx-3 px-3 py-3 rounded-full">
+                  <div className="bg-gray-700 lg:mx-10 lg:px-10 px-3 py-3 mx-3 mb-10 rounded-full">
                     <h2 className="font-bold lg:text-xl text-lg">
-                      <span className="text-sky-500 font-bold">5,000,000</span> &nbsp;
+                      <span className="text-sky-500 font-bold">{totalSoldAmount}</span> &nbsp;
                       Tokens Sold
                     </h2>
                     <p>
                       only &nbsp;
                       <span className="text-yellow-500 font-bold">
-                        15,000,000
+                        {addCommas(totalSupply - totalSoldAmount)}
                       </span> &nbsp;
                       tokens remain
                     </p>
                   </div>
-                  <div className="mx-10 my-10">
-                    <button className="w-full rounded-lg bg-sky-500 px-10 py-5 ">
-                      <h2 className="font-bold md:text-3xl text-2xl ">BUY $CODO</h2>
-                    </button>
+                  <div className="lg:mx-10 mx-5 lg:mb-10 pb-6">
+                    <Link  href="/presale" className="">
+                      <p className="rounded-lg bg-sky-500 font-bold lg:text-3xl text-2xl px-10 py-5 ">BUY $CODO</p>
+                    </Link>
                     <h4 className="pt-3 text-gray-400 font-bold">
-                      How to buy?
+                      <Link href="/presale/#howtobuy">How to buy?</Link>                      
                     </h4>
                   </div>
                 </div>
@@ -254,7 +276,7 @@ export default function Home() {
                 <div className="text-center">
                   <h1 className="title pb-10">ROADMAP</h1>
                 </div>
-                <div className="grid md:grid-cols-3 sm:grid-colos-1 gap-3">
+                <div className="grid lg:grid-cols-3 sm:grid-colos-1 gap-3">
                   <div className="item flex flex-col mx-auto px-10 py-10 w-full rounded-lg">
                     <img src="/assets/images/testimonials-user-2.png" width={250}/>
                     <div className="mt-10">

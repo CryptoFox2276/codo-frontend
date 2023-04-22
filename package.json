@@ -6,13 +6,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next export",
+    "lint": "next lint",
     "build:css": "postcss styles/tailwind.css -o styles/main.css",
     "build:watch": "postcss styles/tailwind.css -o styles/main.css --watch",
-    "prod:build": "NODE_ENV=production yarn run build:css && yarn run build"
+    "prod:build": "set NODE_ENV=production && yarn run build:css && yarn run build"
   },
   "dependencies": {
     "@chakra-ui/react": "2.0.0-next.3",
+    "@headlessui/react": "^1.7.14",
+    "@walletconnect/web3-provider": "^1.8.0",
     "autoprefixer": "^10.4.14",
+    "ethereum-multicall": "^2.16.1",
+    "ethers": "^5.6.4",
+    "ethers-multicall": "^0.2.3",
+    "lint": "^0.8.19",
     "next": "11.1.3",
     "next-redux-wrapper": "^6.0.2",
     "postcss": "^8.4.21",
@@ -24,6 +32,9 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "swiper": "^9.2.0",
-    "tailwindcss": "^3.3.1"
+    "tailwindcss": "^3.3.1",
+    "unstated-next": "^1.1.0",
+    "web3": "^1.9.0",
+    "web3modal": "^1.9.12"
   }
 }

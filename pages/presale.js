@@ -1,20 +1,149 @@
-import Head from "next/head";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "../store/actions/postAction";
+import { useEffect, useState } from "react";
 import ProgressBar from "../components/progress-bar";
+import Modal from "../components/Modal";
+import { eth } from "../state/eth";
+import { ethers } from "ethers";
+import abiCodoPresale from '/abi/CodoPresale.json';
+import abiERC20 from '/abi/ERC20.json';
 
-import Header from "../components/header";
-import Footer from "../components/footer";
-import Image from "next/dist/client/image";
+const UINT256_MAX = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
+const NETWORK_ID = Number(process.env.NEXT_PUBLIC_CHAINID)
+const DEFAULT_PROVIDER = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPCURL, NETWORK_ID)
 
 export default function Presale() {
-  const dispatch = useDispatch();
-  const { posts } = useSelector((state) => state.post);
+  const {
+    walletConnected,
+    address,
+    signer,
+    stage,
+    price,
+    priceETH,
+    stageSupply,
+    totalSupply,
+    totalPresaleAmount,
+    totalSoldAmount,
+    totalSoldCost,
+    totalSoldPercent,
+    soldAmount,
+    soldCost,
+    soldPercent,
+    nextStagePrice,
+    userBalance,
+    userUSDCIsApproved,
+    setUserUSDCIsApproved,
+    userUSDCBalance,
+    userETHBalance,
+    connectWallet,
+    disConnectWallet,
+    addCommas,
+    loadBalance,
+    loadCurrentBalance,
+    loadUserBalance
+  } = eth.useContainer();
 
-  useEffect(() => {
-    dispatch(fetchPosts());
-  }, []);
+  
+
+  const [show, setShow] = useState(false);
+  const [modalTitle, setModalTitle] = useState('buy with eth')
+  const [isEth, setIsEth] = useState(true);
+  const [amount, setAmount] = useState(0);
+  const [codo, setCodo] = useState(0);
+  const [isExchange, setIsExchange] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+
+  const hideModal = () => {setShow(false)}
+  const showModal = () => setShow(true);
+
+  const init = () => {
+    setCodo(0);
+    setAmount(0);
+    setIsExchange(false)
+  }
+
+  const onUpdate = () => {
+    loadBalance()
+    loadCurrentBalance()
+    loadUserBalance()
+  }
+  const openEthModal = ()=>{
+    init();
+    setModalTitle('buy with eth');
+    setIsEth(true)
+    showModal()
+  }
+
+  const openUSDTModal = ()=>{
+    init();
+    setModalTitle('buy with usdt');
+    setIsEth(false)
+    showModal()
+  }
+
+  const onBuy = () => {
+    try {
+      setLoading(true);
+      const presaleContract = new ethers.Contract(process.env.NEXT_PUBLIC_CODO_PRESALE ?? "", abiCodoPresale, signer);
+      if(isEth) {
+        console.log("Buying with ETH...", codo);
+        presaleContract.buyWithEth(ethers.utils.parseEther(codo.toString()), { value: ethers.utils.parseEther(amount)}).then(res => {
+          console.log("Bought with ETH Successfully!");
+          setLoading(false)
+        }).catch(err=>{
+          console.log(err)
+          setLoading(false);
+        })
+      } else {
+        console.log("Buying with USDT...", codo);
+        presaleContract.buyWithUSDT(ethers.utils.parseEther(codo.toString())).then(res => {
+          console.log("Bought with USDT Successfully!");
+          setLoading(false)
+          onUpdate()
+        }).catch(err=>{
+          console.log(err)
+          setLoading(false);
+        })
+      }
+    } catch(err) {
+      console.log(err)
+      setLoading(false);
+    }
+  }
+
+  const onApprove = () => {
+    const usdtContract = new ethers.Contract(process.env.NEXT_PUBLIC_USDC ?? "", abiERC20, signer);
+    setLoading(true);
+    usdtContract.approve(process.env.NEXT_PUBLIC_CODO_PRESALE, UINT256_MAX).then(()=>{
+      console.log("Approved Successfully!");
+      setLoading(false);
+      setUserUSDCIsApproved(true);
+    }).catch(err => {
+      console.log(err);
+      setLoading(false);
+    })
+  }
+
+  useEffect(()=>{
+    console.log("amount, codo", typeof parseInt(codo, 10).toString);
+    if(isExchange) {
+      if(isEth) {
+        setAmount(parseFloat(priceETH * codo, 10).toFixed(8))
+      } else {
+        setAmount(parseFloat(price * codo, 10).toFixed(4))
+      }
+      setCodo(parseInt(codo, 10));
+    } else {
+      if(isEth) {
+        setCodo(parseInt(amount/priceETH, 10))
+      } else {
+        setCodo(parseInt(amount/price, 10))
+      }
+    }
+  }, [amount, codo]);
+  useEffect(()=>{
+    console.log("isExchange", parseInt(codo, 10));
+    if(isExchange) {setCodo(parseInt(codo, 10))}
+    else {setAmount(amount)}
+  },[isExchange]);
 
   return (
     <main
@@ -29,41 +158,41 @@ export default function Presale() {
                 <div>
                   <div
                     id="connected"
-                    className="d-block text-center xl:p-20 lg:p-10 md:p-10 sm:p-10"
+                    className="d-block text-center lg:p-10 md:p-10 sm:p-10"
                   >
                     <h2 className="title title-40 pb-10">
-                      Presale 1 live 0.000013 ETH
+                      Presale {stage} live {addCommas(price)} USDT
                     </h2>
                     <p className="text-lg font-bold">Hurry and buy before</p>
-                    <p className="text-lg font-bold">presale 1 sells out</p>
+                    <p className="text-lg font-bold">presale {stage} sells out</p>
                     <div className="py-5">
-                      <ProgressBar bgcolor="#0764a6" completed={60} />
-                      <p className="text-right">$300,000</p>
+                      <ProgressBar bgcolor="#0764a6" completed={soldPercent} label={true}/>
+                      <p className="text-right">${addCommas(price * stageSupply)}</p>
                     </div>
                     <div className="grid sm:grid-cols-2 xl:gap-15 md:gap-10 sm:gap-5 xs:gap-2 xl:pl-10 xl:pr-10 lg:pl-5 lg:pr-10">
                       <div className="detail text-left mb-4">
-                        <p>Raised: 700 ETH</p>
+                        <p>Raised: {addCommas(price * soldAmount)} USDT</p>
                       </div>
                       <div className="detail text-left mb-4">
-                        <p>Remaining: 100m CODO</p>
+                        <p>Remaining: {addCommas(stageSupply - soldAmount)} CODO</p>
                       </div>
                     </div>
                     <div className="grid sm:grid-cols-2 xl:gap-15 lg:gap-10 md:gap-10 sm:gap-5 xl:pl-10 xl:pr-10 lg:pl-5 lg:pr-10">
                       <div className="detail text-left mb-4">
-                        <p>Sold: 5000,0000 $CODO</p>
+                        <p>Sold: {addCommas(soldAmount)} CODO</p>
                       </div>
                       <div className="detail text-left mb-4">
-                        <p>Your purchased CODO = 0</p>
+                        <p>Your purchased CODO = {addCommas(userBalance)}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 md:mt-10 sm:mt-5">
                       <div className="button-area mb-4">
-                        <div className="btn rounded text-uppercase md:text-lg text-sm font-bold m-auto">
+                        <div className="btn rounded text-uppercase md:text-lg text-sm font-bold m-auto" onClick={openEthModal}>
                           Buy With Eth
                         </div>
                       </div>
                       <div className="button-area mb-4">
-                        <div className="btn rounded text-uppercase md:text-lg text-sm font-bold m-auto">
+                        <div className="btn rounded text-uppercase md:text-lg text-sm font-bold m-auto" onClick={openUSDTModal}>
                           Buy With USDT
                         </div>
                       </div>
@@ -212,38 +341,38 @@ export default function Presale() {
         <div className="container m-auto">
           <div className="m-auto w-full lg:w-2/3 md:w-4/5 px-5">
             <div className="panel">
-              <div className="flex flex-row flex-wrap justify-between mb-10 sm:mb-5">
-                <div>
-                  <div className="sub-title title-20 text-uppercase text-left">
+              <div className="flex flex-row flex-wrap mb-10 sm:mb-5">
+                <div className="lg:w-1/2 w-full mb-10 sm:mb-5">
+                  <div className="font-bold sub-title title-20 text-uppercase text-left">
                     token name
                   </div>
                   <div className="font-bold text-left">Codo Finance</div>
                 </div>
-                <div>
-                  <div className="sub-title title-20 text-uppercase text-left">
+                <div className="lg:w-1/2 w-full mb-10 sm:mb-5">
+                  <div className="font-bold sub-title title-20 text-uppercase text-left">
                     token type
                   </div>
                   <div className="font-bold text-left">ERC-20 (Ethereum)</div>
                 </div>
               </div>
-              <div className="flex flex-row flex-wrap justify-between mb-10 sm:mb-5">
-                <div>
-                  <div className="sub-title title-20 text-uppercase text-left">
+              <div className="flex flex-row flex-wrap mb-10 sm:mb-5">
+                <div className="lg:w-1/2 w-full mb-10 sm:mb-5">
+                  <div className="font-bold sub-title title-20 text-uppercase text-left">
                     token symbol
                   </div>
-                  <div className="font-bold text-center">CODO</div>
+                  <div className="font-bold text-left">CODO</div>
                 </div>
-                <div>
-                  <div className="sub-title title-20 text-uppercase text-left">
+                <div className="lg:w-1/2 w-full mb-10 sm:mb-5">
+                  <div className="font-bold sub-title title-20 text-uppercase text-left">
                     token decimal
                   </div>
-                  <div className="font-bold text-center">18</div>
+                  <div className="font-bold text-left">18</div>
                 </div>
               </div>
               <div className="mt-20">
                 <div>
                   <p className="text-uppercase text-lg text-left font-bold mb-3">
-                    token contract address
+                    Presale contract address
                   </p>
                   <div className="content-address">
                     <div className="flex flex-row justify-between">
@@ -286,6 +415,25 @@ export default function Presale() {
           </div>
         </div>
       </section>
+      <Modal 
+        show={show}
+        handleClose={hideModal}
+        title={modalTitle}
+        isEth={isEth}
+        price={price}
+        priceETH={priceETH}
+        amount={amount}
+        setAmount={setAmount}
+        codo={codo}
+        setCodo={setCodo}
+        isLoading={isLoading}
+        isApproved={userUSDCIsApproved}
+        isExchange={isExchange}
+        setIsExchange={setIsExchange}
+        onConfirm={()=>onBuy()}
+        onApprove={()=>onApprove()}
+      >        
+      </Modal>
     </main>
   );
 }

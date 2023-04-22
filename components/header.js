@@ -1,14 +1,24 @@
 import React from "react";
 import Link from "next/link";
 import { useState } from "react";
+import { eth } from "../state/eth";
 
 export default function Header() {
+  const { walletConnected, address, connectWallet, disConnectWallet } = eth.useContainer();
   const [active, setActive] = useState(false);
+
   const handleClick = () => {
     setActive(!active);
   };
 
-  const onConnectWallet = () => {}
+  const onConnectWallet = () => {
+    connectWallet();
+  }
+
+  const onDisconnect = () => {
+    disConnectWallet();
+  }
+
   return (
     <header className="sticky inset-x-0 top-0 z-50 bg-gray-900">
       <nav
@@ -90,13 +100,20 @@ export default function Header() {
             />
           </Link>
           <Link href="/presale">
-            <p className="btn text-sm font-semibold leading-6 text-white bg-sky-600 rounded px-3 py-2">
+            <p className="btn text-uppercase text-center text-sm font-semibold leading-6 text-white bg-sky-600 rounded px-3 py-2">
               JOIN PRESALE
             </p>
           </Link>
-            <a onClick={onConnectWallet} className="btn rounded text-sm font-semibold leading-6 text-white bg-sky-600 px-3 py-2">
+          {address ? (
+            <a onClick={onDisconnect} className="btn rounded text-uppercase text-center text-sm font-semibold leading-6 text-white bg-sky-600 px-3 py-2">
+              {address}
+            </a>
+          ) : (
+            <a onClick={onConnectWallet} className="btn rounded text-uppercase text-center text-sm font-semibold leading-6 text-white bg-sky-600 px-3 py-2">
               CONNECT WALLET
             </a>
+          )}
+            
         </div>
       </nav>
       {active && (
@@ -124,13 +141,13 @@ export default function Header() {
                   className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
                   aria-hidden="true"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
@@ -176,15 +193,20 @@ export default function Header() {
               </div>
             </div>
             <Link href="/presale">
-              <p className="w-2/3 text-lg font-semibold leading-6 text-white bg-sky-600 rounded-lg text-center px-3 py-2 mb-5">
+              <p className="w-2/3 text-uppercase text-lg font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5">
                 JOIN PRESALE
               </p>
             </Link>
-            <Link href="#">
-              <p className="w-2/3 text-lgt font-semibold leading-6 text-white bg-sky-600 rounded-lg text-center px-3 py-2 mb-5">
+            {address ? (
+              <p className="w-2/3 text-uppercase text-lgt font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5" onClick={onDisconnect} >
+                {address}
+              </p>
+            ) : (
+              <p className="w-2/3 text-uppercase text-lgt font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5" onClick={onConnectWallet} >
                 CONNECT WALLET
               </p>
-            </Link>
+            )}
+            
             <div className="grid grid-cols-4 gap-4 sm:gap-6 xs:gap-6 justify-center">
                 
                 <div className="m-auto">
