@@ -25,7 +25,7 @@ export default function Header() {
         className="flex items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1">
+        <div className="flex">
           <Link href="/" className="-m-1.5 p-1.5">
             <span>
               <span className="sr-only">CODO</span>
@@ -88,17 +88,28 @@ export default function Header() {
           >
             NFT
           </a>
+          
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-6">
-          <Link href="/presale" className="text-sm font-semibold leading-6 cursor-pointer">
+        <div className="hidden lg:flex lg:justify-end w-1/2 lg:gap-x-6">
+          <div class="dropdown my-auto">
             <img
               src={"/assets/images/share.png"}
               alt="share"
-              className=" cursor-pointer"
-              width={34}
-              height={32}
+              className=" cursor-pointer dropbtn"
+              width={40}
+              height={40}
             />
-          </Link>
+            <div class="dropdown-content">
+              <a href="#" className="flex"><img src="/assets/images/002-instagram.png" width={35} className=" inline-block"/> <span>Instagram</span></a>
+              <a href="#" className="flex"><img src="/assets/images/003-telegram.png" width={35} className=" inline-block"/> <span>Telegram</span></a>
+              <a href="#" className="flex"><img src="/assets/images/004-twitter.png" width={35} className=" inline-block"/> <span>Twitter</span></a>
+              <a href="#" className="flex"><img src="/assets/images/001-facebook.png" width={35} className=" inline-block"/> <span>Facebook</span></a>
+              <a href="#" className="flex"><img src="/assets/images/medium.png" width={35} className=" inline-block"/> <span>Medium</span></a>
+              <a href="#" className="flex"><img src="/assets/images/006-youtube.png" width={35} className=" inline-block"/> <span>Youtube</span></a>
+              <a href="#" className="flex"><img src="/assets/images/005-reddit.png" width={35} className=" inline-block"/> <span>Reddit</span></a>
+              <a href="#" className="flex"><img src="/assets/images/discord.png" width={35} className=" inline-block"/> <span>Discord</span></a>
+            </div>
+          </div>
           <Link href="/presale">
             <p className="btn text-uppercase text-center text-sm font-semibold leading-6 text-white bg-sky-600 rounded px-3 py-2">
               JOIN PRESALE

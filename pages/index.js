@@ -42,7 +42,7 @@ export default function Home() {
   return (
     <main
       id="dashboard"
-      className="bg-gray-900 text-white w-full overflow-y-auto"
+      className="text-white w-full overflow-y-auto"
     >
       <section id="home" className="px-5">
         <div className="container m-auto">
@@ -72,7 +72,7 @@ export default function Home() {
                       </p>
                     </div>
                     <div className="text-left">
-                      <h2 className=" text-yellow-500 lg:text-2xl text-lg font-bold">${soldCost}</h2>
+                      <h2 className=" text-yellow-500 lg:text-2xl text-lg font-bold text-ellipsis overflow-hidden">${soldCost}</h2>
                       <p className="lg:text-right text-left text-gray-500 font-semibold lg:text-lg text-md">
                         ${totalSoldCost} RAISED
                       </p>
@@ -126,14 +126,32 @@ export default function Home() {
                   </div>
                   <div className="lg:mx-10 mx-5 lg:mb-10 pb-6">
                     <Link  href="/presale" className="">
-                      <p className="rounded-lg bg-sky-500 font-bold lg:text-3xl text-2xl px-10 py-5 ">BUY $CODO</p>
+                      <p className="rounded-lg bg-sky-500 font-bold lg:text-3xl text-2xl px-10 py-5 cursor-pointer">BUY $CODO</p>
                     </Link>
                     <h4 className="pt-3 text-gray-400 font-bold">
-                      <Link href="/presale/#howtobuy">How to buy?</Link>                      
+                      <Link href="/presale/#howtobuy">How to buy?</Link>
                     </h4>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="document" className="px-5">
+        <div className="container m-auto">
+          <div className="grid sm:grid-cols-1 xs:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-20 md:px-20 sm:px-10 xs:px-10">
+            <div className="border border-slate-700 rounded-lg p-5">
+              <p className="sub-title title-30 text-uppercase text-center">Whitepaper</p>
+              <a className="flex gap-10 m-auto border rounded-lg border-gray-700 max-w-max  px-5 py-1 cursor-pointer"><img src="/assets/images/download.png" alt="whitepaper" width="30"/> PDF</a>
+            </div>
+            <div className="border border-slate-700 rounded-lg p-5">
+              <p className="sub-title title-30 text-uppercase text-center">KYC</p>
+              <a className="flex gap-10 m-auto border-gray-700 max-w-max border rounded-lg px-5 py-1 cursor-pointer"><img src="/assets/images/download.png" alt="kyc" width="30"/> PDF</a>
+            </div>
+            <div className="border border-slate-700 rounded-lg p-5">
+              <p className="sub-title title-30 text-uppercase text-center">AUDIT</p>
+              <a className="flex gap-10 m-auto border-gray-700 max-w-max border rounded-lg px-5 py-1 cursor-pointer"><img src="/assets/images/download.png" alt="audit" width="30"/> PDF</a>
             </div>
           </div>
         </div>

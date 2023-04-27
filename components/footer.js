@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-10">
+    <footer className="text-white py-10">
       <div className="container m-auto">
         {/* <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-x-52 px-10"> */}
         <div className="flex flex-row flex-wrap gap-20 justify-between px-10">

@@ -6,6 +6,8 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import { Multicall } from 'ethereum-multicall';
 import abiCodoPresale from '/abi/CodoPresale.json';
 import abiERC20 from '/abi/ERC20.json';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const INFURA_ID = "460f40a260564ac4a4f4b3fffb032dad";
 const NETWORK_ID = Number(process.env.NEXT_PUBLIC_CHAINID)
@@ -55,19 +57,19 @@ function useEth() {
   const connectWallet = async () => {
     try {
       if (!walletConnected) {
-        web3ModalRef.current = new Web3Modal({
-          network: "mainnet",
-          cacheProvider: true,
-          providerOptions,
-          // disableInjectedProvider: false,
-        });
+        
         const _provider = await web3ModalRef.current.connect();
         const _web3Provider = new ethers.providers.Web3Provider(_provider);
         const _signer = _web3Provider.getSigner();
         const _address = await _signer.getAddress();
         const { chainId } = await _web3Provider.getNetwork();
   
-        console.log(_address, chainId);
+        console.log(_address, chainId, typeof chainId, typeof process.env.NEXT_PUBLIC_CHAINID);
+        if(chainId !== Number(process.env.NEXT_PUBLIC_CHAINID)) {
+          console.log("Please switch your network");
+          toast.info(`Please switch your metamask network to "${process.env.NEXT_PUBLIC_NETWORK_NAME}"`)
+          return;
+        }
         setWalletConnected(true);
         setProvider(_provider);
         setWeb3Provider(_web3Provider);
@@ -89,7 +91,7 @@ function useEth() {
     setAddress(null);
   };
   
-  const loadBalance = async () => {    
+  const loadBalance = async () => {
     const calls = [];
     calls.push({
       reference: 'CODO',
@@ -218,9 +220,17 @@ function useEth() {
     }
     return str.join('.');
   }
-
-  useEffect(() => {    
-      connectWallet();
+  
+  useEffect(() => {
+    if(typeof window !== "undefined") {
+      web3ModalRef.current = new Web3Modal({
+        network: "mainnet",
+        cacheProvider: true,
+        providerOptions,
+        // disableInjectedProvider: false,
+      });
+    }
+      // connectWallet();
       loadBalance();
     }, []);
   useEffect(()=>{
@@ -237,6 +247,71 @@ function useEth() {
     console.log(soldAmount, price * soldAmount, stageSupply)
     setSoldPercent(stageSupply > 0 ? parseFloat(100 * soldAmount / stageSupply).toFixed(2) : 0);
   },[soldAmount, stageSupply])
+
+  useEffect(() => {
+    if (provider?.on) {
+      const handleAccountsChanged = (accounts) => {
+        console.log("Changed Web3 Account");
+        setAddress(accounts[0])
+        // dispatch({
+        //   type: "SET_ADDRESS",
+        //   address: accounts[0],
+        // } as Web3Action);
+      };
+
+      // https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes
+      const handleChainChanged = (_hexChainId) => {
+
+        if (typeof window !== "undefined") {
+          console.log("switched to chain...", _hexChainId);
+          // window.location.reload();
+          return;
+        } else {
+          console.log("window is undefined");
+        }
+      };
+
+      const handleDisconnect = (error) => {
+        // eslint-disable-next-line no-console
+        console.log("disconnect", error);
+
+        disconnect();
+      };
+
+      provider.on("accountsChanged", handleAccountsChanged);
+      provider.on("chainChanged", handleChainChanged);
+      provider.on("disconnect", handleDisconnect);
+
+      // Subscription Cleanup
+      return () => {
+        if (provider.removeListener) {
+          provider.removeListener("accountsChanged", handleAccountsChanged);
+          provider.removeListener("chainChanged", handleChainChanged);
+          provider.removeListener("disconnect", handleDisconnect);
+        }
+      };
+    }
+
+    if (web3Provider?.on) {
+      const handleNetworkChanged = (newNetwork, oldNetwork) => {
+        // When a Provider makes its initial connection, it emits a "network"
+        // event with a null oldNetwork along with the newNetwork. So, if the
+        // oldNetwork exists, it represents a changing network
+        console.log({ oldNetwork, newNetwork });
+        if (oldNetwork) {
+          window.location.reload();
+        }
+      };
+
+      web3Provider.on("network", handleNetworkChanged);
+
+      return () => {
+        if (web3Provider.removeListener) {
+          web3Provider.removeListener("network", handleNetworkChanged);
+        }
+      };
+    }
+  }, [provider, web3Provider, web3ModalRef]);
 
   return {
     walletConnected,
