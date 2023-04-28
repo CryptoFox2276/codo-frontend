@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import ProgressBar from "../components/progress-bar";
+import Countdown from "react-countdown";
 
 import { ethers } from "ethers";
 
@@ -15,6 +16,9 @@ import { eth } from "../state/eth";
 const UINT256_MAX = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
 const NETWORK_ID = Number(process.env.NEXT_PUBLIC_CHAINID)
 const DEFAULT_PROVIDER = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPCURL, NETWORK_ID)
+
+const expireDate = new Date(2023, 5, 9, 0, 0, 0);
+const nowCountDown = new Date();
 
 export default function Home() {
 
@@ -39,6 +43,64 @@ export default function Home() {
 
   const [loading, setLoading] = useState(false);  
 
+  const Completionist = () => (
+    <div className="center mt-5">
+        <h4>Presale Phase Ended</h4>
+    </div>
+  );
+
+  const renderer = ({days, hours, minutes, seconds, completed}) => {
+    if(completed) {
+        return <Completionist />
+    } else {
+        return <>
+            {
+                    <div className="">
+                        <div className="center p-3">
+                            <p className="font-bold text-slate-500">SALES END IN</p>
+                        </div>
+                        <div className="hidden lg:flex xl:flex lg:justify-around lg:items-center lg:p-auto ">
+                            <div className="countdown-item px-4 w-25">
+                                <div className="countdown-time justify-between">
+                                    <p>{('0'+days).substr(-2)}</p>
+                                </div>
+                                <div>
+                                    <p>Days</p>
+                                </div>
+                            </div>
+                            <div className=" text-2xl font-bold">:</div>
+                            <div className="countdown-item px-4 w-25">
+                                <div className="countdown-time justify-between">
+                                    <p>{('0'+hours).substr(-2)}</p>
+                                </div>
+                                <div><p>Hours</p></div>
+                            </div>
+                            <div className=" text-2xl font-bold">:</div>
+                            <div className="countdown-item px-4 w-25">
+                                <div className="countdown-time justify-between">
+                                    <p>{('0'+minutes).substr(-2)}</p>
+                                </div>
+                                <div><p>Mins</p></div>
+                            </div>
+                            <div className=" text-2xl font-bold">:</div>
+                            <div className="countdown-item px-4">
+                                <div className="countdown-time justify-content-between">
+                                    <p>{('0'+seconds).substr(-2)}</p>
+                                </div>
+                                <div><p>Secs</p></div>
+                            </div>
+                        </div>
+                        <div className="block lg:hidden xl:hidden">
+                          <h3 className="tf-text">
+                              {('0'+days).substr(-2)} : {('0'+hours).substr(-2)} : {('0'+minutes).substr(-2)} : {('0'+seconds).substr(-2)}
+                          </h3>
+                        </div>
+                    </div>
+            }
+        </>
+    }
+  }
+
   return (
     <main
       id="dashboard"
@@ -60,9 +122,11 @@ export default function Home() {
             </div>
             <div className="lg:w-2/3 w-full lg:px-5 lg:mt-5 mt-10 ">
               <div className="">
-                <div className="panel lg:w-3/4 w-full">
-                  <div className="row bg-gray-700 panel-header">
-                    <h2 className="md:text-3xl text-2xl font-bold">Presale {stage} Live</h2>
+                <div className="panel lg:w-3/4 w-full relative">
+                  <img src="/assets/images/badge.png" className="badge absolute -right-8 -top-8"/>
+                  <div className="flex justify-center gap-10 bg-gray-700 panel-header">
+                    <h2 className="md:text-3xl text-2xl font-bold">Presale {stage} Live </h2>
+                    <img src="/assets/images/startup.png" width={35} className="my-auto"/>
                   </div>
                   <div className="grid lg:grid-cols-2 lg:gap-10 gap-3 py-5 lg:px-10 px-5">
                     <div className="text-left">
@@ -128,6 +192,9 @@ export default function Home() {
                     <Link  href="/presale" className="">
                       <p className="rounded-lg bg-sky-500 font-bold lg:text-3xl text-2xl px-10 py-5 cursor-pointer">BUY $CODO</p>
                     </Link>
+                    <div className="countdown m-auto">
+                      <Countdown date={Date.now() + 60 * 60 * 1000} renderer={renderer} />
+                    </div>
                     <h4 className="pt-3 text-gray-400 font-bold">
                       <Link href="/presale/#howtobuy">How to buy?</Link>
                     </h4>

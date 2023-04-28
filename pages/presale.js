@@ -200,7 +200,7 @@ export default function Presale() {
                     <img src="/assets/images/presale/asa.png" alt="banner" />
                   </div>
                 </div>
-                <div className="m-auto w-full lg:w-2/3">
+                <div className=" relative m-auto w-full lg:w-2/3 panel">
                   <div
                     id="connected"
                     className="d-block text-center lg:p-10 md:p-10 sm:p-10"
@@ -260,6 +260,7 @@ export default function Presale() {
                       </div>
                     </div>
                   </div>
+                  <img src="/assets/images/badge.png" alt="badge" className="badge  absolute -right-8 -top-8"/>
                 </div>
                 
               </div>

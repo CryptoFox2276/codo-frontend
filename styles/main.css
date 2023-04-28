@@ -537,6 +537,12 @@ video {
   top: 0px;
   bottom: 0px;
 }
+.-right-8 {
+  right: -2rem;
+}
+.-top-8 {
+  top: -2rem;
+}
 .right-0 {
   right: 0px;
 }
@@ -812,6 +818,9 @@ video {
 .p-2\.5 {
   padding: 0.625rem;
 }
+.p-3 {
+  padding: 0.75rem;
+}
 .p-5 {
   padding: 1.25rem;
 }
@@ -825,6 +834,10 @@ video {
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .px-5 {
   padding-left: 1.25rem;
@@ -1173,6 +1186,9 @@ section .sub-title {
 #home .panel h2 {
   /* font-size: 30px; */
 }
+#home .badge {
+  width: 100px;
+}
 #home .panel .sub-panel {
   display: flex;
   justify-content: space-between;
@@ -1198,9 +1214,10 @@ section .sub-title {
   background-color: #333;
   padding: 5px 10px;
   border-radius: 5px;
+  box-shadow: 0px 0px 5px 1px #111;
 }
 #presale .panel {
-  background-color: #333;
+  background-color: #222;
   padding: 35px 55px;
   border-radius: 10px;
 }
@@ -1342,6 +1359,24 @@ footer .text-email {
   display: none;
 }
 
+.countdown {
+  padding: 10px 0 30px;
+}
+.countdown .countdown-item {
+  font-size: 1rem;
+  line-height: 1.5;
+  /* border: 1px solid; */
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 0px 1rem;
+  z-index: 80;
+  /* background-color: #333; */
+  box-shadow: 0px 0px 5px 1px #111;
+}
+.countdown .countdown-item .countdown-time{
+  font-size: 1.5rem;
+}
+
 @media (max-width: 768px) {
   #dashboard .title {
     padding-bottom: 1rem;
@@ -1360,6 +1395,11 @@ footer .text-email {
   #home .swiper-slide {
     width: 250px;
     height: 250px;
+  }
+  #home .badge {
+    width: 60px;
+    right: -15px;
+    top: -20px;
   }
   #presale .panel {
     padding: 35px 25px;
@@ -1585,8 +1625,16 @@ footer .text-email {
     flex-direction: row;
   }
 
+  .lg\:items-center {
+    align-items: center;
+  }
+
   .lg\:justify-end {
     justify-content: flex-end;
+  }
+
+  .lg\:justify-around {
+    justify-content: space-around;
   }
 
   .lg\:gap-10 {
@@ -1672,6 +1720,14 @@ footer .text-email {
 }
 
 @media (min-width: 1280px) {
+
+  .xl\:flex {
+    display: flex;
+  }
+
+  .xl\:hidden {
+    display: none;
+  }
 
   .xl\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));

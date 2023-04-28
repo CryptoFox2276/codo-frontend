@@ -197,6 +197,9 @@ section .sub-title {
 #home .panel h2 {
   /* font-size: 30px; */
 }
+#home .badge {
+  width: 100px;
+}
 #home .panel .sub-panel {
   display: flex;
   justify-content: space-between;
@@ -222,9 +225,10 @@ section .sub-title {
   background-color: #333;
   padding: 5px 10px;
   border-radius: 5px;
+  box-shadow: 0px 0px 5px 1px #111;
 }
 #presale .panel {
-  background-color: #333;
+  background-color: #222;
   padding: 35px 55px;
   border-radius: 10px;
 }
@@ -366,6 +370,24 @@ footer .text-email {
   display: none;
 }
 
+.countdown {
+  padding: 10px 0 30px;
+}
+.countdown .countdown-item {
+  font-size: 1rem;
+  line-height: 1.5;
+  /* border: 1px solid; */
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 0px 1rem;
+  z-index: 80;
+  /* background-color: #333; */
+  box-shadow: 0px 0px 5px 1px #111;
+}
+.countdown .countdown-item .countdown-time{
+  font-size: 1.5rem;
+}
+
 @media (max-width: 768px) {
   #dashboard .title {
     padding-bottom: 1rem;
@@ -384,6 +406,11 @@ footer .text-email {
   #home .swiper-slide {
     width: 250px;
     height: 250px;
+  }
+  #home .badge {
+    width: 60px;
+    right: -15px;
+    top: -20px;
   }
   #presale .panel {
     padding: 35px 25px;
