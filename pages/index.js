@@ -117,13 +117,13 @@ export default function Home() {
           <div className="flex lg:flex-row sm:flex-col flex-col">
             <div className="text-center lg:px-10 m-auto lg:w-3/4 w-full">
               <h1 className="title pb-5">
-                Unlocking the Future of Finance and Entertainment
+              Innovate, Invest, and Inspire with Codo Finance
               </h1>
               <p className="content lg:pl-16 lg:pr-8">
-                Codo Finance takes its users on a journey to the borders of the
-                Metaverse universe with its multi-chain ecosystem. GamePad, NFT
-                Market, Special NFT Collections and $CODO Token will accompany
-                you on this journey.
+              Welcome to Codo Finance, where we're reshaping the 
+              decentralized finance landscape with innovative Initial NFT Offerings (INOs) and Initial Game Offerings (IGOs). 
+              Join us in our mission to create a thriving ecosystem that unlocks new possibilities for investors, creators, 
+              and gamers, while setting new benchmarks for DeFi platforms. 
               </p>
             </div>
             <div className="lg:w-2/3 w-full lg:px-5 lg:mt-5 mt-10 ">
@@ -246,14 +246,11 @@ export default function Home() {
         <div className="container m-auto">
           <div className="flex lg:flex-row sm:flex-col flex-col lg:gap-10 gap-20">
             <div className="lg:w-3/4 w-full m-auto px-5">
-              <h1 className="title pb-20">Multichain and Interoperability</h1>
+              <h1 className="title pb-20">A Comprehensive Platform for DeFi, NFTs, and GameFi</h1>
               <p className="content">
-                Codo Finance is dedicated to providing our users with the best
-                possible experience, which is why we support multiple chains and
-                offer cross-chain connectivity with Codo Bridge. By using the
-                CODO token, you'll be able to access a wide range of DeFi
-                products and take advantage of the benefits of our platform on
-                your preferred chain.
+              Discover Codo Finance, a pioneering platform that seamlessly integrates DeFi,
+              NFTs, and GameFi. Our innovative ecosystem empowers investors, creators, and
+              gamers to unlock new opportunities and shape the future of decentralized finance.
               </p>
             </div>
             <div className="lg:w-2/3 w-full">
@@ -269,14 +266,10 @@ export default function Home() {
               <img src="/assets/images/Layer6.png" width={250}  className="section-image m-auto"/>
             </div>
             <div className="lg:w-3/4 w-full m-auto px-5">
-              <h1 className="title pb-20">Multichain and Interoperability</h1>
+              <h1 className="title pb-20">Driving Innovation in GameFi and NFT Markets</h1>
               <p className="content">
-                Codo Finance is dedicated to providing our users with the best
-                possible experience, which is why we support multiple chains and
-                offer cross-chain connectivity with Codo Bridge. By using the
-                CODO token, you'll be able to access a wide range of DeFi
-                products and take advantage of the benefits of our platform on
-                your preferred chain.
+              Codo Finance harnesses the power of GameFi and NFTs, offering a platform for unparalleled digital asset investments. 
+              Through our INO and IGO offerings, we connect creators with investors, fostering the growth of next-gen projects and assets.
               </p>
             </div>
           </div>
@@ -286,14 +279,11 @@ export default function Home() {
         <div className="container m-auto">
           <div className="flex lg:flex-row sm:flex-col flex-col lg:gap-10 gap-20">
             <div className="lg:w-3/4 w-full m-auto px-5">
-              <h1 className="title pb-20">Multichain and Interoperability</h1>
+              <h1 className="title pb-20">Streamlining DeFi with Innovative Solutions</h1>
               <p className="content">
-                Codo Finance is dedicated to providing our users with the best
-                possible experience, which is why we support multiple chains and
-                offer cross-chain connectivity with Codo Bridge. By using the
-                CODO token, you'll be able to access a wide range of DeFi
-                products and take advantage of the benefits of our platform on
-                your preferred chain.
+              Experience the next level of DeFi with Codo Finance. Our platform delivers cutting-edge products like CodoSwap and Stakin,
+              designed to provide seamless, secure, and rewarding financial experiences.
+              Embrace the future of decentralized finance with Codo Finance's advanced and professional solutions.
               </p>
             </div>
             <div className="lg:w-2/3 w-full">
@@ -329,31 +319,31 @@ export default function Home() {
                 className="mySwiper"
               >
                 <SwiperSlide>
-                  <img src="/assets/images/demo/1.png" />
+                  <img src="/assets/images/nft-0.jpg" />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img src="/assets/images/demo/2.png" />
+                  <img src="/assets/images/nft-1.jpg" />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img src="/assets/images/demo/3.png" />
+                  <img src="/assets/images/nft-2.jpg" />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img src="/assets/images/demo/4.png" />
+                  <img src="/assets/images/nft-3.jpg" />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img src="/assets/images/demo/5.png" />
+                  <img src="/assets/images/nft-4.jpg" />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img src="/assets/images/demo/6.png" />
+                  <img src="/assets/images/nft-5.jpg" />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img src="/assets/images/demo/7.png" />
+                  <img src="/assets/images/nft-6.jpg" />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img src="/assets/images/demo/8.png" />
+                  <img src="/assets/images/nft-7.jpg" />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img src="/assets/images/demo/9.png" />
+                  <img src="/assets/images/nft-8.jpg" />
                 </SwiperSlide>
               </Swiper>
             </div>

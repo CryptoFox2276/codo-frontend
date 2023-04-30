@@ -229,8 +229,8 @@
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: true,  
-        prevArrow: '<span className="prev"><i className="flaticon-left"></i></span>',
-        nextArrow: '<span className="next"><i className="flaticon-right"></i></span>',  
+        prevArrow: '<span class="prev"><i class="flaticon-left"></i></span>',
+        nextArrow: '<span class="next"><i class="flaticon-right"></i></span>',  
         fade: false,
         asNavFor: '.testimonials-thumb'
     });
