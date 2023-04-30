@@ -32,6 +32,8 @@ export default function Presale() {
     nextStagePrice,
     userBalance,
     userUSDCIsApproved,
+    saleActive,
+    startTime,
     setUserUSDCIsApproved,
     userUSDCBalance,
     userETHBalance,
@@ -230,18 +232,20 @@ export default function Presale() {
                         <p>Your purchased CODO = {addCommas(userBalance)}</p>
                       </div>
                     </div>
-                    <div className="grid sm:grid-cols-1 xs:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 sm:mt-5 xs:mt-5 mt-10 ">
-                      <div className="button-area mb-4">
-                        <div className="btn rounded text-uppercase md:text-lg text-sm font-bold m-auto" onClick={openEthModal}>
-                          Buy With Eth
+                    {saleActive && (Date.now() - new Date(startTime)) >= 0 && (
+                      <div className="grid sm:grid-cols-1 xs:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 sm:mt-5 xs:mt-5 mt-10 ">
+                        <div className="button-area mb-4">
+                          <div className="btn rounded text-uppercase md:text-lg text-sm font-bold m-auto" onClick={openEthModal}>
+                            Buy With Eth
+                          </div>
+                        </div>
+                        <div className="button-area mb-4">
+                          <div className="btn rounded text-uppercase md:text-lg text-sm font-bold m-auto" onClick={openUSDTModal}>
+                            Buy With USDT
+                          </div>
                         </div>
                       </div>
-                      <div className="button-area mb-4">
-                        <div className="btn rounded text-uppercase md:text-lg text-sm font-bold m-auto" onClick={openUSDTModal}>
-                          Buy With USDT
-                        </div>
-                      </div>
-                    </div>
+                    )}
                   </div>
                   <div
                     id="nonconnect"

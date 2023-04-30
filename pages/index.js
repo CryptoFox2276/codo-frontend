@@ -17,7 +17,7 @@ const UINT256_MAX = '11579208923731619542357098500868790785326998466564056403945
 const NETWORK_ID = Number(process.env.NEXT_PUBLIC_CHAINID)
 const DEFAULT_PROVIDER = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPCURL, NETWORK_ID)
 
-const expireDate = new Date(2023, 5, 9, 0, 0, 0);
+
 const nowCountDown = new Date();
 
 export default function Home() {
@@ -36,28 +36,30 @@ export default function Home() {
     soldCost,
     soldPercent,
     nextStagePrice,
+    saleActive,
+    startTime,
     connectWallet,
     disConnectWallet,
     addCommas
   } = eth.useContainer();
 
-  const [loading, setLoading] = useState(false);  
+  const [loading, setLoading] = useState(false);
 
   const Completionist = () => (
-    <div className="center mt-5">
-        <h4>Presale Phase Ended</h4>
-    </div>
+    <Link  href="/presale" className="">
+      <p className="rounded-lg bg-sky-500 font-bold lg:text-3xl text-2xl px-10 py-5 cursor-pointer">BUY $CODO</p>
+    </Link>
   );
 
   const renderer = ({days, hours, minutes, seconds, completed}) => {
     if(completed) {
-        return <Completionist />
+        return (<Completionist />)
     } else {
         return <>
             {
-                    <div className="">
+                    <div className="countdown">
                         <div className="center p-3">
-                            <p className="font-bold text-slate-500">SALES END IN</p>
+                            <p className="font-bold text-slate-500 text-uppercase">Presale start in</p>
                         </div>
                         <div className="hidden lg:flex xl:flex lg:justify-around lg:items-center lg:p-auto ">
                             <div className="countdown-item px-4 w-25">
@@ -99,6 +101,10 @@ export default function Home() {
             }
         </>
     }
+  }
+
+  const PresaleCountDown = () => {
+    return <Countdown date={startTime > 0 ? (new Date(startTime)).getTime() : 0} renderer={renderer} />
   }
 
   return (
@@ -189,11 +195,9 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="lg:mx-10 mx-5 lg:mb-10 pb-6">
-                    <Link  href="/presale" className="">
-                      <p className="rounded-lg bg-sky-500 font-bold lg:text-3xl text-2xl px-10 py-5 cursor-pointer">BUY $CODO</p>
-                    </Link>
-                    <div className="countdown m-auto">
-                      <Countdown date={Date.now() + 60 * 60 * 1000} renderer={renderer} />
+                    
+                    <div className="m-auto">
+                      <PresaleCountDown />
                     </div>
                     <h4 className="pt-3 text-gray-400 font-bold">
                       <Link href="/presale/#howtobuy">How to buy?</Link>

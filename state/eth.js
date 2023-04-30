@@ -42,6 +42,8 @@ function useEth() {
   const [soldCost, setSoldCost] = useState(0)
   const [soldPercent, setSoldPercent] = useState(0) // Percent of tokens sold on the current stage
   const [nextStagePrice, setNextStagePrice] = useState(0)
+  const [saleActive, setSaleActive] = useState(false)
+  const [startTime, setStartTime] = useState(0)
 
   const [totalSupply, setTotalSupply] = useState(0)
   const [totalPresaleAmount, setTotalPresaleAmount] = useState(0)
@@ -106,6 +108,8 @@ function useEth() {
         { reference: 'totalSoldCost', methodName: 'totalSoldPrice', methodParameters:[] },
         { reference: 'currentSoldAmount', methodName: 'getSoldOnCurrentStage', methodParameters:[] },
         { reference: 'currentPriceETH', methodName: 'ethBuyHelper', methodParameters:[ethers.utils.parseEther("1")] },
+        { reference: 'saleActive', methodName: 'saleActive', methodParameters:[] },
+        { reference: 'startTime', methodName: 'startTime', methodParameters:[] },
       ]
     })
 
@@ -124,15 +128,21 @@ function useEth() {
       let _totalSoldCost      = result.results['CODO'].callsReturnContext[5].success ? result.results['CODO'].callsReturnContext[5].returnValues[0] : 0;
       let _soldAmount         = result.results['CODO'].callsReturnContext[6].success ? result.results['CODO'].callsReturnContext[6].returnValues[0] : 0;
       let _priceEth           = result.results['CODO'].callsReturnContext[7].success ? result.results['CODO'].callsReturnContext[7].returnValues[0] : 0;
+      let _saleActive         = result.results['CODO'].callsReturnContext[8].success ? result.results['CODO'].callsReturnContext[8].returnValues[0] : 0;
+      let _startTime          = result.results['CODO'].callsReturnContext[9].success ? result.results['CODO'].callsReturnContext[9].returnValues[0] : 0;
+
+      console.log(_saleActive, _totalSoldCost, ethers.BigNumber.from(_totalSoldCost.hex).toNumber())
 
       setStage(_currentTier);
       setPrice(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_currentPrice.hex).toString(), 6)).toFixed(4));
       setTotalSupply(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_totalSupply.hex).toString(), 18)).toFixed());
       setTotalPresaleAmount(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_totalPresaleAmount.hex).toString(), 18)).toFixed());
       setTotalSoldAmount(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_totalSoldAmount.hex).toString(), 18)).toFixed());
-      setTotalSoldCost(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_totalSoldCost.hex).toString(), 18)).toFixed());
+      setTotalSoldCost(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_totalSoldCost.hex).toString(), 6)).toFixed(4));
       setSoldAmount(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_soldAmount.hex).toString(), 18)).toFixed());
       setPriceETH(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_priceEth.hex).toString(), 18)));
+      setSaleActive(_saleActive)
+      setStartTime(ethers.BigNumber.from(_startTime.hex).toNumber() * 1000)
 
     } catch(err) {
       console.log(err);
@@ -335,6 +345,8 @@ function useEth() {
     setUserUSDCIsApproved,
     userUSDCBalance,
     userETHBalance,
+    saleActive,
+    startTime,
     connectWallet,
     disConnectWallet,
     addCommas,

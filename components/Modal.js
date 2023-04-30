@@ -75,6 +75,7 @@ const Modal = (props) => {
                   min={0}
                   step={1}
                   pattern="[1-9][0-9]*"
+                  placeholder="0.0"
                   onChange={(e) => setCodo(parseInt(e.target.value, 10))}
                 />
               </div>
@@ -96,6 +97,7 @@ const Modal = (props) => {
                   min={0}
                   className="px-5 py-2 rounded-lg"
                   value={amount}
+                  placeholder="0.0"
                   // onChange={(e) => setAmount(e.target.value)}
                   readOnly
                 />
@@ -112,6 +114,7 @@ const Modal = (props) => {
                   min={0}
                   className="px-5 py-2 rounded-lg"
                   value={amount}
+                  placeholder="0.0"
                   onChange={(e) => setAmount(e.target.value)}
                 />
               </div>
@@ -132,6 +135,7 @@ const Modal = (props) => {
                   className="px-5 py-2 rounded-lg"
                   pattern="[1-9][0-9]*"
                   value={codo}
+                  placeholder="0.0"
                   // onChange={(e) => setCodo(parseInt(e.target.value, 10))}
                   readOnly
                 />

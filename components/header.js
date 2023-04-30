@@ -4,7 +4,7 @@ import { useState } from "react";
 import { eth } from "../state/eth";
 
 export default function Header() {
-  const { walletConnected, address, connectWallet, disConnectWallet } = eth.useContainer();
+  const { walletConnected, address, saleActive, startTime, connectWallet, disConnectWallet } = eth.useContainer();
   const [active, setActive] = useState(false);
 
   const handleClick = () => {
@@ -91,7 +91,7 @@ export default function Header() {
           
         </div>
         <div className="hidden lg:flex lg:justify-end w-1/2 lg:gap-x-6">
-          <div class="dropdown my-auto">
+          <div className="dropdown my-auto">
             <img
               src={"/assets/images/share.png"}
               alt="share"
@@ -99,7 +99,7 @@ export default function Header() {
               width={40}
               height={40}
             />
-            <div class="dropdown-content">
+            <div className="dropdown-content">
               <a href="#" className="flex"><img src="/assets/images/002-instagram.png" width={35} className=" inline-block"/> <span>Instagram</span></a>
               <a href="#" className="flex"><img src="/assets/images/003-telegram.png" width={35} className=" inline-block"/> <span>Telegram</span></a>
               <a href="#" className="flex"><img src="/assets/images/004-twitter.png" width={35} className=" inline-block"/> <span>Twitter</span></a>
@@ -110,11 +110,13 @@ export default function Header() {
               <a href="#" className="flex"><img src="/assets/images/discord.png" width={35} className=" inline-block"/> <span>Discord</span></a>
             </div>
           </div>
-          <Link href="/presale">
-            <p className="btn text-uppercase text-center text-sm font-semibold leading-6 text-white bg-sky-600 rounded px-3 py-2">
-              JOIN PRESALE
-            </p>
-          </Link>
+          {saleActive && (Date.now() - new Date(startTime)) >= 0 && (
+            <Link href="/presale">
+              <p className="btn text-uppercase text-center text-sm font-semibold leading-6 text-white bg-sky-600 rounded px-3 py-2">
+                JOIN PRESALE
+              </p>
+            </Link>
+          )}
           {address ? (
             <a onClick={onDisconnect} className="btn rounded text-uppercase text-center text-sm font-semibold leading-6 text-white bg-sky-600 px-3 py-2">
               {address}
@@ -203,11 +205,13 @@ export default function Header() {
                 </div>
               </div>
             </div>
-            <Link href="/presale">
+            {saleActive && (
+              <Link href="/presale">
               <p className="w-2/3 text-uppercase text-lg font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5">
                 JOIN PRESALE
               </p>
             </Link>
+            )}
             {address ? (
               <p className="w-2/3 text-uppercase text-lgt font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5" onClick={onDisconnect} >
                 {address}
