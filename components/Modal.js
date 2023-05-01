@@ -16,6 +16,7 @@ const Modal = (props) => {
     setIsExchange,
     onConfirm,
     onApprove,
+    onSetMaxAmount,
     children,
   } = props;
   const showHideClassName = show ? "modal display-block" : "modal display-none";
@@ -108,6 +109,7 @@ const Modal = (props) => {
               <div className="flex flex-col justify-center mb-5">
                 <div className="mb-1 text-xl font-bold">
                   {isEth ? "ETH" : "USDT"}
+                  <span className="btn-max" onClick={onSetMaxAmount}>Max</span>
                 </div>
                 <input
                   type="number"

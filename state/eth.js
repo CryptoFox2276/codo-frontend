@@ -1,5 +1,5 @@
 import Web3Modal from "web3modal";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { useRef, useState, useEffect } from "react";
 import { createContainer } from "unstated-next";
 import WalletConnectProvider from "@walletconnect/web3-provider";
@@ -49,6 +49,7 @@ function useEth() {
   const [totalPresaleAmount, setTotalPresaleAmount] = useState(0)
   const [totalSoldAmount, setTotalSoldAmount] = useState(0)
   const [totalSoldCost, setTotalSoldCost] = useState(0)
+  const [totalRaised, setTotalRaised] = useState(0)
   const [totalSoldPercent, setTotalSoldPercent] = useState(0);
 
   const [userBalance, setUserBalance] = useState(0);
@@ -137,6 +138,9 @@ function useEth() {
       setPrice(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_currentPrice.hex).toString(), 6)).toFixed(4));
       setTotalSupply(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_totalSupply.hex).toString(), 18)).toFixed());
       setTotalPresaleAmount(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_totalPresaleAmount.hex).toString(), 18)).toFixed());
+
+      
+
       setTotalSoldAmount(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_totalSoldAmount.hex).toString(), 18)).toFixed());
       setTotalSoldCost(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_totalSoldCost.hex).toString(), 6)).toFixed(4));
       setSoldAmount(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_soldAmount.hex).toString(), 18)).toFixed());
@@ -155,11 +159,16 @@ function useEth() {
     }).catch(err=>{
       console.log(err)
     })
-    const res = await presaleContract.getTierSupply(stage)
+    const current_res = await presaleContract.getTierSupply(stage)
+    const previous_res = stage > 0 ? await presaleContract.getTierSupply(stage - 1) : 0;
 
-    console.log("tier supply:", ethers.utils.formatEther(res));
-    setStageSupply(ethers.utils.formatEther(res));
+    console.log("tier supply:", ethers.utils.formatEther(current_res) - ethers.utils.formatEther(previous_res));
+    setStageSupply(ethers.utils.formatEther(current_res) - ethers.utils.formatEther(previous_res));
 
+    // total sold cost = total cost in the previous tier + total cost in the current tier
+    console.log(totalSoldCost, (price * (Number(ethers.utils.formatEther(current_res) - ethers.utils.formatEther(previous_res)) - soldAmount)));
+    let sum = parseFloat(Number(totalSoldCost) + Number(price * (Number(ethers.utils.formatEther(current_res) - ethers.utils.formatEther(previous_res)) - soldAmount))).toFixed(2)
+    setTotalRaised(sum);
   }
 
   const loadUserBalance = async () => {
@@ -240,9 +249,10 @@ function useEth() {
         // disableInjectedProvider: false,
       });
     }
-      // connectWallet();
-      loadBalance();
-    }, []);
+    console.log(walletConnected, address);
+    if(walletConnected) connectWallet();
+    loadBalance();
+  }, []);
   useEffect(()=>{
     loadCurrentBalance();
   }, [stage]);
@@ -250,8 +260,8 @@ function useEth() {
     loadUserBalance();
   }, [address]);
   useEffect(()=>{
-    setTotalSoldPercent(totalSupply > 0 ? parseFloat(100 * totalSoldAmount / totalSupply).toFixed(2) : 0);
-  },[totalSoldAmount])
+    setTotalSoldPercent(totalRaised > 0 ? parseFloat(100 * totalSoldCost / totalRaised).toFixed(2) : 0);
+  },[totalSoldCost, totalRaised])
   useEffect(()=>{
     setSoldCost(price * soldAmount);
     console.log(soldAmount, price * soldAmount, stageSupply)
@@ -335,6 +345,7 @@ function useEth() {
     totalPresaleAmount,
     totalSoldAmount,
     totalSoldCost,
+    totalRaised,
     totalSoldPercent,
     soldAmount,
     soldCost,

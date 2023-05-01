@@ -27,10 +27,12 @@ export default function Home() {
     address,
     stage,
     price,
+    stageSupply,
     totalSupply,
     totalPresaleAmount,
     totalSoldAmount,
     totalSoldCost,
+    totalRaised,
     totalSoldPercent,
     soldAmount,
     soldCost,
@@ -142,9 +144,9 @@ export default function Home() {
                       </p>
                     </div>
                     <div className="text-left">
-                      <h2 className=" text-yellow-500 lg:text-2xl text-lg font-bold text-ellipsis overflow-hidden">${soldCost}</h2>
+                      <h2 className=" text-yellow-500 lg:text-2xl text-lg font-bold text-ellipsis overflow-hidden">${totalSoldCost}</h2>
                       <p className="lg:text-right text-left text-gray-500 font-semibold lg:text-lg text-md">
-                        ${totalSoldCost} RAISED
+                        ${totalRaised} RAISED
                       </p>
                     </div>
                     <div></div>
@@ -157,12 +159,12 @@ export default function Home() {
                         </h2>
                       </div>
                       <div className="text-left">
-                        <p className="font-bold lg:text-lg text-md">{totalPresaleAmount > 0 ? 100 - totalSoldPercent : 0} %</p>
+                        <p className="font-bold lg:text-lg text-md">{totalPresaleAmount > 0 ? parseFloat(100 - totalSoldPercent).toFixed(2) : 0} %</p>
                         <p className=" text-slate-500 font-bold lg:text-md text-sm">REMAINING</p>
                       </div>                    
                     </div>
                     <div className="" style={{position:"absolute", bottom:"-10px", width:"100%"}}>
-                      <ProgressBar bgcolor="#0764a6" completed={soldPercent} label={false}/>
+                      <ProgressBar bgcolor="#0764a6" completed={totalSoldPercent} label={false}/>
                     </div>
                   </div>
                   <div className="lg:mx-10 mx-5 grid grid-cols-2 lg:gap-10 gap-1 pt-3 lg:mb-10 mb-6">
@@ -183,13 +185,13 @@ export default function Home() {
                   </div>
                   <div className="bg-gray-700 lg:mx-10 lg:px-10 px-3 py-3 mx-3 mb-10 rounded-full">
                     <h2 className="font-bold lg:text-xl text-lg">
-                      <span className="text-sky-500 font-bold">{totalSoldAmount}</span> &nbsp;
+                      <span className="text-sky-500 font-bold">{addCommas(totalSoldAmount)}</span> &nbsp;
                       Tokens Sold
                     </h2>
                     <p>
                       only &nbsp;
                       <span className="text-yellow-500 font-bold">
-                        {addCommas(totalSupply - totalSoldAmount)}
+                        {addCommas(stageSupply - soldAmount)}
                       </span> &nbsp;
                       tokens remain
                     </p>

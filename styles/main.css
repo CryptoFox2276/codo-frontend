@@ -621,6 +621,9 @@ video {
 .mt-20 {
   margin-top: 5rem;
 }
+.mt-3 {
+  margin-top: 0.75rem;
+}
 .mt-5 {
   margin-top: 1.25rem;
 }
@@ -1375,6 +1378,24 @@ footer .text-email {
 }
 .countdown .countdown-item .countdown-time{
   font-size: 1.5rem;
+}
+
+.btn-max {
+  float: right;
+  font-size: 13px;
+  font-weight: 200;
+  padding: 0px 13px;
+  color: #999;
+  border: 2px solid #999;
+  border-radius: 50px;
+  transition: all .3s;
+}
+
+.btn-max:hover {
+  cursor: pointer;
+  color: white;
+  border-color: white;
+  transition: all .3s;
 }
 
 @media (max-width: 768px) {

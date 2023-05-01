@@ -1,26 +1,15 @@
 import { useEffect, useState } from "react";
-
 import ProgressBar from "../components/progress-bar";
-
 import Modal from "../components/Modal";
-
 import { eth } from "../state/eth";
-
 import { ethers } from "ethers";
-
 import abiCodoPresale from "/abi/CodoPresale.json";
-
 import abiERC20 from "/abi/ERC20.json";
-
 import { ToastContainer, toast } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
 
-const UINT256_MAX =
-  "115792089237316195423570985008687907853269984665640564039457584007913129639935";
-
+const UINT256_MAX =  "115792089237316195423570985008687907853269984665640564039457584007913129639935";
 const NETWORK_ID = Number(process.env.NEXT_PUBLIC_CHAINID);
-
 const DEFAULT_PROVIDER = new ethers.providers.JsonRpcProvider(
   process.env.NEXT_PUBLIC_RPCURL,
   NETWORK_ID
@@ -29,76 +18,43 @@ const DEFAULT_PROVIDER = new ethers.providers.JsonRpcProvider(
 export default function Presale() {
   const {
     walletConnected,
-
     address,
-
     signer,
-
     stage,
-
     price,
-
     priceETH,
-
     stageSupply,
-
     totalSupply,
-
     totalPresaleAmount,
-
     totalSoldAmount,
-
     totalSoldCost,
-
+    totalRaised,
     totalSoldPercent,
-
     soldAmount,
-
     soldCost,
-
     soldPercent,
-
     nextStagePrice,
-
     userBalance,
-
     userUSDCIsApproved,
-
     saleActive,
-
     startTime,
-
-    setUserUSDCIsApproved,
-
     userUSDCBalance,
-
     userETHBalance,
-
+    setUserUSDCIsApproved,
     connectWallet,
-
     disConnectWallet,
-
     addCommas,
-
     loadBalance,
-
     loadCurrentBalance,
-
     loadUserBalance,
   } = eth.useContainer();
 
   const [show, setShow] = useState(false);
-
   const [modalTitle, setModalTitle] = useState("buy with eth");
-
   const [isEth, setIsEth] = useState(true);
-
-  const [amount, setAmount] = useState(0);
-
-  const [codo, setCodo] = useState(0);
-
+  const [amount, setAmount] = useState();
+  const [codo, setCodo] = useState();
   const [isExchange, setIsExchange] = useState(false);
-
   const [isLoading, setLoading] = useState(false);
 
   const hideModal = () => {
@@ -108,43 +64,55 @@ export default function Presale() {
   const showModal = () => setShow(true);
 
   const init = () => {
-    setCodo(0);
-
-    setAmount(0);
-
+    setCodo('');
+    setAmount('');
     setIsExchange(false);
   };
 
   const onUpdate = () => {
     loadBalance();
-
     loadCurrentBalance();
-
     loadUserBalance();
   };
 
   const openEthModal = () => {
     init();
-
     setModalTitle("buy with eth");
-
     setIsEth(true);
-
     showModal();
   };
 
   const openUSDTModal = () => {
     init();
-
     setModalTitle("buy with usdt");
-
     setIsEth(false);
-
     showModal();
   };
 
+  const onSetMaxAmount = () => {
+    console.log(userETHBalance, userUSDCBalance)
+    if(isEth) {
+      setAmount(userETHBalance);
+    } else {
+      setAmount(userUSDCBalance)
+    }
+  }
+
   const onBuy = async () => {
+    console.log("onbuy:", userETHBalance, userUSDCBalance);
     try {
+      if(!address) {
+        toast.info("First you must connect to the wallet!")
+        return;
+      }
+      if(codo == 0 || !codo) {
+        toast.info("Invalid amount!");
+        return;
+      }
+      if(isEth && userETHBalance < amount) {
+        toast.info("insufficient balance")
+        return;
+      }
       setLoading(true);
 
       const presaleContract = new ethers.Contract(
@@ -157,17 +125,11 @@ export default function Presale() {
         console.log("Buying with ETH...", codo, amount);
 
         // presaleContract.buyWithEth(ethers.utils.parseEther(codo.toString()), { value: ethers.utils.parseEther(amount), gasLimit: 500000}).then(res => {
-
         //   console.log("Bought with ETH Successfully!");
-
         //   setLoading(false)
-
         // }).catch(err=>{
-
         //   console.log(err)
-
         //   setLoading(false);
-
         // })
 
         try {
@@ -196,19 +158,13 @@ export default function Presale() {
         console.log("Buying with USDT...", codo);
 
         // presaleContract.buyWithUSDT(ethers.utils.parseEther(codo.toString()), {gasLimit: 500000}).then(res => {
-
         //   console.log("Bought with USDT Successfully!");
-
         //   setLoading(false)
-
         //   onUpdate()
-
         // }).catch(err=>{
 
         //   console.log(err)
-
         //   setLoading(false);
-
         // })
 
         try {
@@ -251,19 +207,12 @@ export default function Presale() {
     setLoading(true);
 
     // usdtContract.approve(process.env.NEXT_PUBLIC_CODO_PRESALE, UINT256_MAX).then(()=>{
-
     //   console.log("Approved Successfully!");
-
     //   setLoading(false);
-
     //   setUserUSDCIsApproved(true);
-
     // }).catch(err => {
-
     //   console.log(err);
-
     //   setLoading(false);
-
     // })
 
     try {
@@ -273,13 +222,9 @@ export default function Presale() {
       );
 
       let res = await tx.wait();
-
       toast.success("Approved Successfully!");
-
       setLoading(false);
-
       hideModal();
-
       setUserUSDCIsApproved(true);
     } catch (error) {
       toast.error("Failed Approving!");
@@ -352,12 +297,12 @@ export default function Presale() {
                     <div className="py-5">
                       <ProgressBar
                         bgcolor="#0764a6"
-                        completed={soldPercent}
+                        completed={totalSoldPercent}
                         label={true}
                       />
 
                       <p className="text-right text-lg">
-                        ${addCommas(price * stageSupply)}
+                        ${addCommas(totalRaised)}
                       </p>
                     </div>
 
@@ -366,7 +311,7 @@ export default function Presale() {
                         <p>
                           Raised:{" "}
                           <span className=" text-ellipsis overflow-hidden w-auto">
-                            {addCommas(price * soldAmount)}
+                            {addCommas(totalSoldCost)}
                           </span>{" "}
                           USDT
                         </p>
@@ -381,7 +326,7 @@ export default function Presale() {
 
                     <div className="grid sm:grid-cols-2 xl:gap-15 lg:gap-10 md:gap-10 sm:gap-5 xl:pl-10 xl:pr-10 lg:pl-5 lg:pr-10 text-lg">
                       <div className="detail text-left mb-4">
-                        <p>Sold: {addCommas(soldAmount)} CODO</p>
+                        <p>Sold: {addCommas(totalSoldAmount)} CODO</p>
                       </div>
 
                       <div className="detail text-left mb-4">
@@ -711,6 +656,7 @@ export default function Presale() {
         setIsExchange={setIsExchange}
         onConfirm={() => onBuy()}
         onApprove={() => onApprove()}
+        onSetMaxAmount={()=>onSetMaxAmount()}
       ></Modal>
     </main>
   );
