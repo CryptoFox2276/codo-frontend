@@ -621,9 +621,6 @@ video {
 .mt-20 {
   margin-top: 5rem;
 }
-.mt-3 {
-  margin-top: 0.75rem;
-}
 .mt-5 {
   margin-top: 1.25rem;
 }
@@ -1396,6 +1393,15 @@ footer .text-email {
   color: white;
   border-color: white;
   transition: all .3s;
+}
+
+.btn-play {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
 }
 
 @media (max-width: 768px) {

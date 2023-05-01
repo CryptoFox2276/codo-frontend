@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,6 +8,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import ProgressBar from "../components/progress-bar";
 import Countdown from "react-countdown";
+import Switch from 'react-switch';
 
 import { ethers } from "ethers";
 
@@ -46,6 +47,9 @@ export default function Home() {
   } = eth.useContainer();
 
   const [loading, setLoading] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const vidRef = useRef(null);
 
   const Completionist = () => (
     <Link  href="/presale" className="">
@@ -107,6 +111,20 @@ export default function Home() {
 
   const PresaleCountDown = () => {
     return <Countdown date={startTime > 0 ? (new Date(startTime)).getTime() : 0} renderer={renderer} />
+  }
+
+  const playVideo = () => {
+    vidRef.current.play();
+    setIsPlaying(true);
+  }
+
+  const stopVideo = () => {
+    vidRef.current.pause();
+    setIsPlaying(false)
+  }
+
+  const onSwitched = () => {
+    setChecked(!checked);
   }
 
   return (
@@ -234,12 +252,21 @@ export default function Home() {
           <div>
             <h1 className="title pb-10">Watch our Video</h1>
           </div>
-          <div>
-            {/* <img src="/assets/images/layer 4.png" alt="video" /> */}
-            <img
-              src="/assets/images/play-video.png"
+          <div className="relative">
+            {!isPlaying && (<img
+              src="/assets/images/play-flat.png"
               alt="play"
-              className="m-auto"
+              className="m-auto cursor-pointer btn-play"
+              onClick={playVideo}
+            />)}
+            
+            <video
+              style={{ maxWidth: "100%", width: "1000px", margin: "0 auto" }}
+              playsInline
+              loop
+              alt="codo_video"
+              src="https://stream.mux.com/6fiGM5ChLz8T66ZZiuzk1KZuIKX8zJz00/medium.mp4"
+              ref={vidRef}
             />
           </div>
         </div>
@@ -357,49 +384,104 @@ export default function Home() {
                 <div className="text-center">
                   <h1 className="title pb-10">ROADMAP</h1>
                 </div>
-                <div className="grid lg:grid-cols-3 sm:grid-colos-1 gap-3">
-                  <div className="item flex flex-col mx-auto px-10 py-10 w-full rounded-lg">
-                    <img src="/assets/images/testimonials-user-2.png" width={250}/>
-                    <div className="mt-10">
-                      <h3 className="text-yellow-500 font-bold text-3xl pb-5">2022 Q3-Q4</h3>
-                      <p className=" text-xl h-9">CodoHub Publish (Beta)</p>
-                      <p className=" text-xl h-9">CodoHub Vip Club INO</p>
-                      <p className=" text-xl h-9">New Partnerships</p>
-                      <p className=" text-xl h-9">First IGO Start</p>
-                      <p className=" text-xl h-9">Marketplace launch (Beta)</p>
-                      <p className=" text-xl h-9">New Exchanges</p>
-                    </div>        
-                  </div>
-                  <div className="item active flex flex-col mx-auto px-10 py-10 w-full rounded-lg">
-                    <img src="/assets/images/testimonials-user-3.png"  width={250} height={250}/>
-                    <div className="mt-10">
-                      <h3 className="text-yellow-500 font-bold text-3xl pb-5">2022 Q1-Q2</h3>
-                      <p className=" text-xl h-9">Marketing Activities</p>
-                      <p className=" text-xl h-9">Smart Contracts Audit</p>
-                      <p className=" text-xl h-9">Presale Start</p>
-                      <p className=" text-xl h-9">Token Claim</p>
-                      <p className=" text-xl h-9">Token Listing</p>
-                      <p className=" text-xl h-9">Burn Presale 2 Unsold tokens</p>
-                      <p className=" text-xl h-9">CodoHub Testnet</p>
-                      <p className=" text-xl h-9">Codo Vip Club Publish</p>
-                      <p className=" text-xl h-9">Community Expansion</p>
-                    </div>        
-                  </div>
-                  <div className="item flex flex-col  mx-auto px-10 py-10 w-full rounded-lg">
-                    <img src="/assets/images/testimonials-user-4.png"  width={250} height={250}/>
-                    <div className="mt-10">
-                      <h3 className="text-yellow-500 font-bold text-3xl pb-5">2022 Q2-Q3</h3>
-                      <p className=" text-xl h-9">CodoHub Publish (Beta)</p>
-                      <p className=" text-xl h-9">CodoHub Vip Club INO</p>
-                      <p className=" text-xl h-9">New Partnerships</p>
-                      <p className=" text-xl h-9">First IGO Start</p>
-                      <p className=" text-xl h-9">Marketplace launch (Beta)</p>
-                      <p className=" text-xl h-9">New Exchanges</p>
-                    </div>        
-                  </div>
-                  <div></div>
-                  <div></div>
+                <div className="flex justify-center pb-10">
+                  <Switch 
+                    onChange={onSwitched} 
+                    checked={checked}
+                    onColor="#86d3ff"
+                    offColor="#2693e6"
+                    onHandleColor="#2693e6"
+                    handleDiameter={30}
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                    activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                    height={32}
+                    width={58}
+                  />
                 </div>
+                {checked ? (
+                  <div className="grid lg:grid-cols-3 sm:grid-colos-1 gap-3">
+                    <div className="item flex flex-col mx-auto px-10 py-10 w-full rounded-lg">
+                      <img src="/assets/images/testimonials-user-2.png" width={250}/>
+                      <div className="mt-10">
+                        <h3 className="text-yellow-500 font-bold text-3xl pb-5">2022 Q3-Q4</h3>
+                        <p className=" text-xl h-9">Project Start</p>
+                        <p className=" text-xl h-9">Website Launch</p>
+                        <p className=" text-xl h-9">CODO Smart Contracts</p>
+                        <p className=" text-xl h-9">Whitepaper Launch</p>
+                        <p className=" text-xl h-9">Social Media Launch</p>
+                      </div>        
+                    </div>
+                    <div className="item active flex flex-col mx-auto px-10 py-10 w-full rounded-lg">
+                      <img src="/assets/images/testimonials-user-3.png"  width={250} height={250}/>
+                      <div className="mt-10">
+                        <h3 className="text-yellow-500 font-bold text-3xl pb-5">2022 Q1-Q2</h3>
+                        <p className=" text-xl h-9">Marketing Activities</p>
+                        <p className=" text-xl h-9">Smart Contracts Audit</p>
+                        <p className=" text-xl h-9">Presale Start</p>
+                        <p className=" text-xl h-9">Token Claim</p>
+                        <p className=" text-xl h-9">Token Listing</p>
+                        <p className=" text-xl h-9">Burn Presale 2 Unsold tokens</p>
+                        <p className=" text-xl h-9">CodoHub Testnet</p>
+                        <p className=" text-xl h-9">Codo Vip Club Publish</p>
+                        <p className=" text-xl h-9">Community Expansion</p>
+                      </div>        
+                    </div>
+                    <div className="item flex flex-col  mx-auto px-10 py-10 w-full rounded-lg">
+                      <img src="/assets/images/testimonials-user-4.png"  width={250} height={250}/>
+                      <div className="mt-10">
+                        <h3 className="text-yellow-500 font-bold text-3xl pb-5">2022 Q2-Q3</h3>
+                        <p className=" text-xl h-9">CodoHub Publish (Beta)</p>
+                        <p className=" text-xl h-9">CodoHub Vip Club INO</p>
+                        <p className=" text-xl h-9">New Partnerships</p>
+                        <p className=" text-xl h-9">First IGO Start</p>
+                        <p className=" text-xl h-9">Marketplace launch (Beta)</p>
+                        <p className=" text-xl h-9">New Exchanges</p>
+                      </div>        
+                    </div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                ) : (
+                  <div className="grid lg:grid-cols-3 sm:grid-colos-1 gap-3">
+                    <div className="item flex flex-col mx-auto px-10 py-10 w-full rounded-lg">
+                      <img src="/assets/images/testimonials-user-2.png" width={250}/>
+                      <div className="mt-10">
+                        <h3 className="text-yellow-500 font-bold text-3xl pb-5">2022 Q3-Q4</h3>
+                        <p className=" text-xl h-9">CodoHub Alpha Launch</p>
+                        <p className=" text-xl h-9">Marketplace Alpha Launch</p>
+                        <p className=" text-xl h-9">New Partnerships</p>
+                        <p className=" text-xl h-9">New Features for CodoHub</p>
+                        <p className=" text-xl h-9">Community Expansion</p>
+                        <p className=" text-xl h-9">Continue Platform Development</p>
+                      </div>        
+                    </div>
+                    <div className="item active flex flex-col mx-auto px-10 py-10 w-full rounded-lg">
+                      <img src="/assets/images/testimonials-user-3.png"  width={250} height={250}/>
+                      <div className="mt-10">
+                        <h3 className="text-yellow-500 font-bold text-3xl pb-5">2022 Q4-Q1</h3>
+                        <p className=" text-xl h-9">CodoVerse ANN</p>
+                        <p className=" text-xl h-9">New Features for CodoHub</p>
+                        <p className=" text-xl h-9">Continue Platform Development</p>
+                        <p className=" text-xl h-9">Mobile App Release</p>
+                        <p className=" text-xl h-9">CodoHub V2 Release</p>
+                      </div>        
+                    </div>
+                    <div className="item flex flex-col  mx-auto px-10 py-10 w-full rounded-lg">
+                      <img src="/assets/images/testimonials-user-4.png"  width={250} height={250}/>
+                      <div className="mt-10">
+                        <h3 className="text-yellow-500 font-bold text-3xl pb-5">2022 Q1-Q2</h3>
+                        <p className=" text-xl h-9">CodoVerse Launch</p>
+                        <p className=" text-xl h-9">New Partnerships</p>
+                        <p className=" text-xl h-9">CODO DAO Launch</p>
+                        <p className=" text-xl h-9">Loading New Steps</p>
+                      </div>        
+                    </div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                )}
         </div>
       </section>
     </main>

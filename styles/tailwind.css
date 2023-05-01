@@ -406,6 +406,15 @@ footer .text-email {
   transition: all .3s;
 }
 
+.btn-play {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
 @media (max-width: 768px) {
   #dashboard .title {
     padding-bottom: 1rem;
