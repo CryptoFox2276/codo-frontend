@@ -4,7 +4,14 @@ import { useState } from "react";
 import { eth } from "../state/eth";
 
 export default function Header() {
-  const { walletConnected, address, saleActive, startTime, connectWallet, disConnectWallet } = eth.useContainer();
+  const {
+    walletConnected,
+    address,
+    saleActive,
+    startTime,
+    connectWallet,
+    disConnectWallet,
+  } = eth.useContainer();
   const [active, setActive] = useState(false);
 
   const handleClick = () => {
@@ -13,19 +20,19 @@ export default function Header() {
 
   const onConnectWallet = () => {
     connectWallet();
-  }
+  };
 
   const onDisconnect = () => {
     disConnectWallet();
-  }
+  };
 
   return (
     <header className="sticky inset-x-0 top-0 z-50 bg-gray-900">
       <nav
-        className="flex items-center justify-between p-6 lg:px-8"
+        className="flex items-center p-6 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex">
+        <div className="flex lg:pr-8">
           <Link href="/" className="-m-1.5 p-1.5">
             <span>
               <span className="sr-only">CODO</span>
@@ -60,73 +67,63 @@ export default function Header() {
             </svg>
           </button>
         </div>
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div className="hidden lg:flex border-l-3 lg:pl-5 header-menu">
           <a
             href="#"
-            className="text-sm font-semibold leading-6 hover:bg-gray-600 px-3 py-2 rounded text-white"
+            className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
           >
-            HOME
+            Home
+          </a>
+          <a href="#" className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white">
+            Token Sales
+          </a>
+          <a href="#" className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white">
+            Staking & Rewards
+          </a>
+          <a
+            href="#"
+            className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
+          >
+            RoadMap
           </a>
 
           <a
             href="#"
-            className="text-sm font-semibold leading-6 hover:bg-gray-600 px-3 py-2 rounded text-white"
+            className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
           >
-            ABOUT
+            About Us
           </a>
 
           <a
             href="#"
-            className="text-sm font-semibold leading-6 hover:bg-gray-600 px-3 py-2 rounded text-white"
+            className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
           >
-            ROADMAP
+            Contact
           </a>
-
           <a
             href="#"
-            className="text-sm font-semibold leading-6 hover:bg-gray-600 px-3 py-2 rounded text-white"
+            className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
           >
-            NFT
+            FAQs
           </a>
-          
         </div>
-        <div className="hidden lg:flex lg:justify-end w-1/2 lg:gap-x-6">
-          <div className="dropdown my-auto">
-            <img
-              src={"/assets/images/share.png"}
-              alt="share"
-              className=" cursor-pointer dropbtn"
-              width={40}
-              height={40}
-            />
-            <div className="dropdown-content">
-              <a href="#" className="flex"><img src="/assets/images/002-instagram.png" width={35} className=" inline-block"/> <span>Instagram</span></a>
-              <a href="#" className="flex"><img src="/assets/images/003-telegram.png" width={35} className=" inline-block"/> <span>Telegram</span></a>
-              <a href="#" className="flex"><img src="/assets/images/004-twitter.png" width={35} className=" inline-block"/> <span>Twitter</span></a>
-              <a href="#" className="flex"><img src="/assets/images/001-facebook.png" width={35} className=" inline-block"/> <span>Facebook</span></a>
-              <a href="#" className="flex"><img src="/assets/images/medium.png" width={35} className=" inline-block"/> <span>Medium</span></a>
-              <a href="#" className="flex"><img src="/assets/images/006-youtube.png" width={35} className=" inline-block"/> <span>Youtube</span></a>
-              <a href="#" className="flex"><img src="/assets/images/005-reddit.png" width={35} className=" inline-block"/> <span>Reddit</span></a>
-              <a href="#" className="flex"><img src="/assets/images/discord.png" width={35} className=" inline-block"/> <span>Discord</span></a>
-            </div>
-          </div>
-          {saleActive && (Date.now() - new Date(startTime)) >= 0 && (
+        <div className="hidden lg:flex lg:justify-end lg:gap-x-6 lg:m-auto lg:mr-0">
+          {saleActive && Date.now() - new Date(startTime) >= 0 && (
             <Link href="/presale">
-              <p className="btn text-uppercase text-center text-sm font-semibold leading-6 text-white bg-sky-600 rounded px-3 py-2">
-                JOIN PRESALE
+              <p className="btn text-uppercase text-center text-sm font-semibold leading-6 text-white bg-gray-700 px-3 py-2">
+                Buy Now
               </p>
             </Link>
           )}
           {address ? (
-            <a onClick={onDisconnect} className="btn rounded text-uppercase text-center text-sm font-semibold leading-6 text-white bg-sky-600 px-3 py-2">
+            <a onClick={onDisconnect} className="btn btn-bg-colored">
               {address}
             </a>
           ) : (
-            <a onClick={onConnectWallet} className="btn rounded text-uppercase text-center text-sm font-semibold leading-6 text-white bg-sky-600 px-3 py-2">
+            <a onClick={onConnectWallet} className="btn btn-bg-colored">
               CONNECT WALLET
             </a>
           )}
-            
         </div>
       </nav>
       {active && (
@@ -180,75 +177,80 @@ export default function Header() {
                     href="#"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    ABOUT
+                    Token Sale
                   </a>
 
                   <a
                     href="#"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    ROADMAP
+                    Staking & Rewards
                   </a>
 
                   <a
                     href="#"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    Company
+                    About Us
                   </a>
+
                   <a
                     href="#"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    NFT
+                    Contact
+                  </a>
+
+                  <a
+                    href="#"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    FAQs
                   </a>
                 </div>
               </div>
             </div>
             {saleActive && (
-              <Link href="/presale">
-              <p className="w-2/3 text-uppercase text-lg font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5">
-                JOIN PRESALE
-              </p>
-            </Link>
+              <>
+                <Link href="/presale">
+                  <p className="w-2/3 text-uppercase text-lg font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5">
+                    Buy Now
+                  </p>
+                </Link>
+                <Link href="/">
+                  <p className="w-2/3 text-uppercase text-lg font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5">
+                    Staking
+                  </p>
+                </Link>
+              </>
             )}
             {address ? (
-              <p className="w-2/3 text-uppercase text-lgt font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5" onClick={onDisconnect} >
+              <p
+                className="w-2/3 text-uppercase text-lgt font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5"
+                onClick={onDisconnect}
+              >
                 {address}
               </p>
             ) : (
-              <p className="w-2/3 text-uppercase text-lgt font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5" onClick={onConnectWallet} >
+              <p
+                className="w-2/3 text-uppercase text-lgt font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5"
+                onClick={onConnectWallet}
+              >
                 CONNECT WALLET
               </p>
             )}
-            
+
             <div className="grid grid-cols-4 gap-4 sm:gap-6 xs:gap-6 justify-center">
-                
-                <div className="m-auto">
-                  <img src="/assets/images/002-instagram.png" />
-                </div>
-                <div className="m-auto">
-                  <img src="/assets/images/003-telegram.png" />
-                </div>
-                <div className="m-auto">
-                  <img src="/assets/images/004-twitter.png" />
-                </div>
-                <div className="m-auto">
-                  <img src="/assets/images/001-facebook.png" />
-                </div>
-                <div className="m-auto">
-                  <img src="/assets/images/medium.png" />
-                </div>
-                <div className="m-auto">
-                  <img src="/assets/images/006-youtube.png" />
-                </div>
-                <div className="m-auto">
-                  <img src="/assets/images/005-reddit.png" />
-                </div>
-                <div className="m-auto">
-                  <img src="/assets/images/discord.png" width={64}/>
-                </div>
+              <div className="m-auto">
+                <img src="/assets/images/004-twitter.png" />
               </div>
+              <div className="m-auto">
+                <img src="/assets/images/003-telegram.png" />
+              </div>
+              <div className="m-auto">
+                <img src="/assets/images/discord.png" width={64} />
+              </div>
+            </div>
           </div>
         </div>
       )}

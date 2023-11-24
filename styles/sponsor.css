@@ -1,0 +1,8 @@
+section#sponsorship {
+    padding: 0;
+    background-color: white;
+}
+
+section#sponsorship .sponsorshipSwiper .swiper-slide img {
+    height: 200px;
+}
