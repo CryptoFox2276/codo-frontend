@@ -8,6 +8,7 @@
 }
 
 @import url(./sponsor.css);
+@import url(./aboutus.css);
 
 /* Common */
 .bg-gray-300 {
@@ -15,7 +16,7 @@
   background-color: rgb(120 120 120 / var(--tw-bg-opacity));
 }
 
-section {
+section .container{
   padding-top: 5rem;
   padding-bottom: 5rem;
   /* background-image: url('/assets/images/background.png');
@@ -206,6 +207,7 @@ section .sub-title {
   text-align: left;
 }
 #dashboard #home {
+  background-color: #000;
   position: relative;
   overflow: hidden;
 }
@@ -364,7 +366,7 @@ section .sub-title {
 
 /* Footer */
 #root {
-  background-image: url("/assets/images/background_landing.png");
+  /* background-image: url("/assets/images/background_landing.png"); */
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -503,6 +505,10 @@ footer .text-email {
 }
 
 @media (max-width: 768px) {
+  #dashboard .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
   #dashboard #home .title {
     padding-bottom: 1rem;
     font-size: 2rem;

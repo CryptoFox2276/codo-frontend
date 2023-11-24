@@ -1,0 +1,82 @@
+section#about-us {
+    background-color: #222;
+    position: relative;
+    overflow: hidden;
+}
+
+section#about-us .background{
+    background-image: url("/assets/images/Background-main.png");
+  
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+  
+    /* Full height */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+section#about-us .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+section#about-us .container .container-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+section#about-us .container .container-body .container-body-text {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+section#about-us .container .content .content-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    border-bottom: 3px solid #ff8926;
+    padding-bottom: .8rem;
+}
+
+section#about-us .container .content .content-text {
+    padding-top: .8rem;
+    font-size: 1.4rem;
+}
+
+@media (max-width: 768px) {
+    section#about-us .container .content {
+        width: 100%;
+        margin-left: auto;
+    }
+
+    section#about-us .container .container-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    section#about-us .container .container-body .container-body-text {
+        width: 100%;
+        text-align: center;
+    }
+
+    section#about-us .container .container-body .container-body-img {
+        display: none;
+    }
+
+    section#about-us .container .content .content-title {
+        text-align: center;
+    }
+    
+    section#about-us .container .content .content-text {
+        text-align: center;
+    }
+}

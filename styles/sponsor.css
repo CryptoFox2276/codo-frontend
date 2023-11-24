@@ -4,5 +4,5 @@ section#sponsorship {
 }
 
 section#sponsorship .sponsorshipSwiper .swiper-slide img {
-    height: 200px;
+    max-height: 200px;
 }
