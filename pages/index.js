@@ -17,6 +17,9 @@ import { ethers } from "ethers";
 
 import { eth } from "../state/eth";
 import AboutUs from "../components/AboutUs";
+import CuratedProject from "../components/CuratedProject";
+import DigitalAssets from "../components/DigitalAssets";
+import DefiIntegration from "../components/DefiIntegration";
 
 const UINT256_MAX = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
 const NETWORK_ID = Number(process.env.NEXT_PUBLIC_CHAINID)
@@ -240,6 +243,9 @@ export default function Home() {
       </section>
       <Sponsorship />
       <AboutUs />
+      <DigitalAssets />
+      <CuratedProject />
+      <DefiIntegration />
       <section>
   <div className="container m-auto">
     <div className="flex lg:flex-row sm:flex-col flex-col lg:gap-10 gap-20">
