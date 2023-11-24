@@ -9,6 +9,9 @@
 
 @import url(./sponsor.css);
 @import url(./aboutus.css);
+@import url(./curatedproject.css);
+@import url(./digitalassets.css);
+@import url(./defiintegration.css);
 
 /* Common */
 .bg-gray-300 {
@@ -25,7 +28,7 @@ section .container{
 }
 
 section .title {
-  color: #ff8926;
+  color: rgb(245,160,30);
   padding-bottom: 20px;
 }
 section .sub-title {
@@ -66,7 +69,7 @@ section .sub-title {
 
 .btn {
   background-color: rgb(55, 65, 81);
-  color: rgb(200, 150, 35, 1);
+  color: rgb(245,160,30);
   width: 100%;
   max-width: 150px;
   /* width: fit-content; */
@@ -79,7 +82,7 @@ section .sub-title {
   text-overflow: ellipsis;
 }
 .btn-bg-colored {
-  background-color: rgb(200, 150, 35, 1);
+  background-color: rgb(245,160,30);
   color: white;
 }
 .btn:hover {
@@ -101,7 +104,7 @@ section .sub-title {
 
 }
 .menu-item:hover, .menu-item:active, .menu-item.active {
-  color: rgb(200, 150, 35, 1);
+  color: rgb(245,160,30);
 }
 
 /* The dropdown container */
