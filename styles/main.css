@@ -976,6 +976,7 @@ video {
 @import url(./curatedproject.css);
 @import url(./digitalassets.css);
 @import url(./defiintegration.css);
+@import url(./aiinsights.css);
 
 /* Common */
 .bg-gray-300 {
@@ -1162,8 +1163,9 @@ section .sub-title {
 
 #dashboard .title {
   padding-bottom: 2rem;
-  font-size: 3rem;
-  font-weight: 750;
+  font-size: 36px;
+  font-weight: 400;
+  color: #F5A11E;
 }
 
 #dashboard .content {

@@ -1,0 +1,56 @@
+section#ai-insights {
+    background-color: #161A22;
+    position: relative;
+}
+
+section#ai-insights .container .container-body {
+    position: relative;
+}
+
+section#ai-insights .container .container-body .line {
+    position: absolute;
+    border-bottom: 1px solid #F2B830;
+    width: 50%;
+    text-align: center;
+    margin: auto;
+    top: 50%;
+    left: 25%;
+    z-index: 1;
+}
+
+section#ai-insights .container .container-body .line.line-one {
+    transform: rotate(20deg);
+}
+
+section#ai-insights .container .container-body .line.line-two {
+    transform: rotate(-20deg);
+}
+
+section#ai-insights .container .container-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1.5rem;
+}
+
+section#ai-insights .container .container-body {
+    display: flex;
+    justify-content: space-around;
+}
+
+section#ai-insights .container .container-body .text-box {
+    background-color: #161A22;
+    max-width: 330px;
+    border: 1px solid #F2B830;
+    padding: 1rem;
+    text-align: center;
+}
+
+section#ai-insights .container .container-body .text-box .text-box-header {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+section#ai-insights .container .container-body .text-box .text-box-content {
+    font-size: 16px;
+    font-weight: 100;
+}
