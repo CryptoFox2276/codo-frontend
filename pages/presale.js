@@ -462,7 +462,7 @@ export default function Presale() {
         </div>
       </section>
 
-      <section id="tokenomics">
+      {/* <section id="tokenomics">
         <div className="container m-auto">
           <div className="title title-50 text-uppercase text-center mb-20">
             Tokenomics
@@ -530,7 +530,7 @@ export default function Presale() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section id="about">
         <div className="container m-auto">

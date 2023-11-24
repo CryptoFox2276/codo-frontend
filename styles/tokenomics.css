@@ -1,0 +1,12 @@
+section#codo-tokenomics {
+    background-color: #161A22;
+}
+
+section#codo-tokenomics .tokenomic-img{
+    background-image: url("/assets/images/tokenomic.png");
+    width: 100%;
+    height: 100vh;
+    max-height: 880px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
