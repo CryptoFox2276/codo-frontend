@@ -1,0 +1,48 @@
+section#codo-ecosystem {
+    background-color: #030303;
+}
+
+section#codo-ecosystem .container .container-body {
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    position: relative;
+    gap: 5rem;
+    padding-left: 36px;
+    padding-right: 36px;
+}
+
+section#codo-ecosystem .container .container-body .ecosystem-box {
+    display: flex;
+    max-width: 400px;
+    border: 1px solid #F7931A;
+    padding: 1rem 2rem 3rem;
+}
+
+section#codo-ecosystem .container .container-body .ecosystem-box .box-icon {
+    display: flex;    
+    max-width: 100px;
+    width: 100%;
+    height: 100px;
+    padding: 1.3rem 1.7rem;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: -90px;
+    /* background-color: #F7931A; */
+    color: black;
+    border-radius: 50%;
+    font-size: 36px;
+    font-weight: 500;
+}
+
+section#codo-ecosystem .container .container-body .ecosystem-box .box-body {
+    padding-left: 1rem;
+}
+
+section#codo-ecosystem .container .container-body .ecosystem-box .box-body .box-body-header {
+    font-size: 24px;
+    font-weight: 700;
+    padding-bottom: 2rem;
+}
+section#codo-ecosystem .container .container-body .ecosystem-box .box-body .box-body-content {
+    font-size: 16px;
+}
