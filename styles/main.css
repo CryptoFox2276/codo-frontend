@@ -1696,6 +1696,10 @@ footer .text-email {
     margin-top: 1.25rem;
   }
 
+  .lg\:block {
+    display: block;
+  }
+
   .lg\:flex {
     display: flex;
   }
@@ -1786,6 +1790,10 @@ footer .text-email {
 
   .lg\:pt-10 {
     padding-top: 2.5rem;
+  }
+
+  .lg\:text-right {
+    text-align: right;
   }
 
   .lg\:text-3xl {

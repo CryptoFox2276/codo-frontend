@@ -31,6 +31,7 @@
     "react-redux": "^7.2.0",
     "react-switch": "^7.0.0",
     "react-toastify": "^9.1.2",
+    "react-vertical-timeline-component": "^3.6.0",
     "react-youtube": "^10.1.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
