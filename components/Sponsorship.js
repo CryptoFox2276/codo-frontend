@@ -1,6 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Autoplay, FreeMode, Navigation, Pagination, Thumbs } from "swiper";
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { Autoplay, Navigation, Pagination } from "swiper";
 
 const Sponsorship = () => {
     return (
@@ -10,7 +12,7 @@ const Sponsorship = () => {
                 centeredSlides={true}
                 spaceBetween={30}
                 pagination={{
-                type: 'fraction',
+                    type: 'fraction',
                 }}
                 navigation={true}
                 loop={true}

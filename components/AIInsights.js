@@ -5,15 +5,18 @@ const AIInsights = () => {
         <section id="ai-insights">
             <div className="container m-auto">
                 <div className="container-header">
-                    <h1 className="title">AI-Driven Insights</h1>
+                    <span className="title">AI-Driven Insights</span>
                     <Link href="#">
-                        <p className="btn text-uppercase text-center text-sm font-semibold leading-6 text-white bg-gray-700 px-3 py-2 hidden lg:block my-auto">
+                        <p className="btn text-uppercase text-center hidden lg:block">
                             whitepaper
                         </p>
                     </Link>
                 </div>
+                <div className="codo-coin-img">
+                    <img src="/assets/images/codo-coin-2.png" />
+                </div>
                 <div className="container-body">
-                    <div className="flex flex-col gap-10 z-10">
+                    <div className="flex flex-col gap-10 z-10 m-auto">
                         <div className="text-box">
                             <div className="text-box-header">
                                 Invest Intelligently.
@@ -34,7 +37,7 @@ const AIInsights = () => {
                     <div className="z-10 my-auto">
                         <img src="/assets/images/codo-coin-1.png" width={230} />
                     </div>
-                    <div className="flex flex-col gap-10 z-10">
+                    <div className="flex flex-col gap-10 z-10 m-auto">
                         <div className="text-box">
                             <div className="text-box-header">
                             Clearer, Informed Choices.
@@ -55,6 +58,13 @@ const AIInsights = () => {
                     <div className="line line-one"></div>
                     <div className="line line-two"></div>
                 </div>
+                    <div className="btn-whitepaper pt-10 m-auto max-w-max">
+                        <Link href="#">
+                            <p className="btn text-center px-3 py-2 flex justify-center gap-3">
+                                WhitePaper <img src="/assets/images/icons/ArrowRight.png" />
+                            </p>
+                        </Link>
+                    </div>
             </div>
         </section>
     )

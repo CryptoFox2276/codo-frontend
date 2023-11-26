@@ -4,7 +4,27 @@
 
 @font-face {
   font-family: 'BlackOpsOne';
-  src: url('/assets/fonts/BlackOpsOne/BlackOpsOne-Regular.ttf') format('ttf')
+  src: url('/assets/fonts/BlackOpsOne/BlackOpsOne-Regular.ttf')
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/assets/fonts/Montserrat/static/Montserrat-Regular.ttf')
+}
+
+@font-face {
+  font-family: 'DigitalNumber';
+  src: url('/assets/fonts/digitalnumbers-regular.ttf')
+}
+
+@font-face {
+  font-family: 'Lexend';
+  src: url('/assets/fonts/Lexend/static/Lexend-Regular.ttf')
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/assets/fonts/Inter/static/Inter-Regular.ttf')
 }
 
 @import url(./sponsor.css);
@@ -15,6 +35,11 @@
 @import url(./aiinsights.css);
 @import url(./cdecosystem.css);
 @import url(./tokenomics.css);
+@import url(./howtobuy.css);
+@import url(./nextpresale.css);
+@import url(./roadmap.css);
+@import url(./faq.css);
+@import url(./footer.css);
 
 /* Common */
 .bg-gray-300 {
@@ -23,8 +48,7 @@
 }
 
 section .container{
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding: 5rem;
   /* background-image: url('/assets/images/background.png');
   background-repeat: no-repeat;
   background-size: cover; */
@@ -71,21 +95,22 @@ section .sub-title {
 }
 
 .btn {
-  background-color: rgb(55, 65, 81);
-  color: rgb(245,160,30);
+  background-color: #030303;
+  color: #F5A11E;
   width: 100%;
-  max-width: 150px;
+  max-width: 250px;
   /* width: fit-content; */
-  padding: 10px 25px;
+  padding: 15px 25px;
   border-radius: .5rem;
-  /* margin: auto; */
+  font-family: 'Lexend';
+  font-size: 17px;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden !important;
   text-overflow: ellipsis;
 }
 .btn-bg-colored {
-  background-color: rgb(245,160,30);
+  background-color: #F5A11E;
   color: white;
 }
 .btn:hover {
@@ -207,16 +232,27 @@ section .sub-title {
 }
 
 #dashboard .content {
-  font-size: 1.5rem;
-  /* width: 80%; */
-  margin: auto;
+  font-size: 20px;
+  width: 80%;
   /* margin-top: 3rem; */
   text-align: left;
 }
+
+#dashboard #home .title {
+  padding-bottom: 1rem;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 2.5rem;
+}
+
 #dashboard #home {
   background-color: #000;
   position: relative;
   overflow: hidden;
+}
+
+#home .button-group {
+
 }
 
 #dashboard #home .background{
@@ -244,7 +280,8 @@ section .sub-title {
   padding-bottom: 2rem;
   text-align: center;
   border-radius: 1rem;
-  background-color: rgb(221, 180, 34)
+  background-color: #F5A11E;
+  font-family: 'Lexend';
 }
 #home .panel .panel-header {
   border-top-left-radius: 1rem;
@@ -252,8 +289,10 @@ section .sub-title {
   padding: 1rem;
 }
 
-#home .panel h2 {
-  /* font-size: 30px; */
+#home .panel .panel-header h2 {
+  font-size: 36px;
+  font-weight: 700;
+  word-spacing: 10px;
 }
 #home .badge {
   /* width: 50%; */
@@ -261,14 +300,49 @@ section .sub-title {
   bottom: 0;
   left: -50%;
 }
+
+#home .switch-network {
+  background-color: #161A22;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 1rem;
+  width: fit-content;
+  border: 2px solid #161A22;
+  border-radius: 50px;
+}
+
+#home .switch-network .network-item{
+  display: flex;
+  margin: auto;
+  padding: .5rem 1rem;
+  cursor: pointer;
+  transition: .5s;
+}
+
+#home .switch-network .network-item.selected {
+  border-radius: 50px;
+  background-color: #F5A11E;
+}
+
 #home .panel .sub-panel {
   /* display: flex; */
   padding: 1rem;
   margin-bottom: 1rem;
   justify-content: space-between;
-  background: #374151;
+  background: #161A22;
   color: black;
   border-radius: 10px;
+}
+
+#home .panel .sub-panel h2 {
+  font-size: 20px;
+}
+#home .panel .sub-panel h3 {
+  font-size: 14px;
+}
+#home .panel .sub-panel p {
+  font-size: 10px;
 }
 
 #home .panel .sub-panel .progressbar {
@@ -280,12 +354,25 @@ section .sub-title {
   display: flex;
   justify-content: space-between;
   padding-bottom: 1rem;
+  
+}
+
+#home .panel .current-stage p{
+  font-family: 'Lexend';
+  font-size: 10px;
+}
+
+#home .panel .current-stage h2 {
+  font-family: 'Lexend';
+  font-size: 10px;
+  font-weight: 700;
 }
 
 #home .panel .next-stage {
   display: flex;
   justify-content: space-between;
   padding-bottom: 1rem;
+  font-size: 10px;
 }
 
 #home .panel .btn {
@@ -478,9 +565,10 @@ footer .text-email {
 }
 
 .countdown .countdown-item .countdown-time .countdown-time-item {
-  font-family: BlackOpsOne;
-  padding: 5px 11px;
-  background-color: #222;
+  font-size: 20px;
+  font-family: 'DigitalNumber';
+  padding: 5px 0.5rem;
+  background-color: #161A22;
   border-radius: 5px;
 }
 
@@ -513,14 +601,20 @@ footer .text-email {
 
 @media (max-width: 768px) {
   #dashboard .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 2rem 1rem;
+  }
+  #dashboard .title {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
   }
   #dashboard #home .title {
     padding-bottom: 1rem;
-    font-size: 2rem;
-    font-weight: 750;
+    font-size: 24px;
+    font-weight: 700;
     line-height: 2.5rem;
+    color: white;
+    text-align: left;
   }
   
   #dashboard #home .content {
@@ -530,6 +624,10 @@ footer .text-email {
     margin: auto;
     /* margin-top: 1rem; */
     text-align: left;
+  }
+
+  #home .button-group .btn{
+    max-width: 100%;
   }
 
   #dashboard #home .social-link-group {

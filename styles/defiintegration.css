@@ -67,6 +67,11 @@ section#defi-integration .vertical-timeline .vertical-timeline-element .vertical
 }
 
 @media (max-width: 768px) {
+    section#defi-integration .container .container-header {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+    }
     section#defi-integration .vertical-timeline .vertical-timeline-element {
         display: flex;
         flex-direction: column;

@@ -2,6 +2,7 @@ section#about-us {
     background-color: rgb(22,26,34);
     position: relative;
     overflow: hidden;
+    font-family: 'Montserrat';
 }
 
 section#about-us .background{
@@ -36,6 +37,7 @@ section#about-us .container .container-body {
 section#about-us .container .container-body .container-body-text {
     width: 60%;
     display: flex;
+    justify-content: space-around;
     flex-direction: column;
 }
 
@@ -73,10 +75,12 @@ section#about-us .container .content .content-text {
     }
 
     section#about-us .container .content .content-title {
+        font-size: 16px;
         text-align: center;
     }
     
     section#about-us .container .content .content-text {
+        font-size: 14px;
         text-align: center;
     }
 }

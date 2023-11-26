@@ -7,6 +7,7 @@ const CoDoTokenomics = () => {
                 </div>
                 <div className="container-body">
                     <div className="tokenomic-img"></div>
+                    <div className="tokenomic-img-mobile"></div>
                 </div>
             </div>
         </section>

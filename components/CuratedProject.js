@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const CuratedProject = () => {
     return (
         <section id="curated-project">
@@ -38,6 +40,13 @@ const CuratedProject = () => {
                     </div>
                     <div className="container-body-img">
                         <img src="/assets/images/layer5.png" className=" m-auto"/>
+                    </div>
+                    <div className="btn-buy-now pt-10 m-auto">
+                        <Link href="#">
+                            <p className="btn text-uppercase text-center px-3 py-2 flex gap-3">
+                                Buy Now <img src="/assets/images/icons/ArrowRight.png" />
+                            </p>
+                        </Link>
                     </div>
                 </div>
             </div>

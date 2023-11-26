@@ -3,3 +3,152 @@ section#digital-assets {
     position: relative;
     overflow: hidden;
 }
+
+section#digital-assets .container-header {
+    padding-bottom: 3rem;
+}
+section#digital-assets .container-body {
+    display: flex;
+    position: relative;
+}
+
+section#digital-assets .dot-group {
+    border: 1px solid #F5A11E;
+    padding: 1rem;
+    border-radius: 50px;
+    /* width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; */
+    position: absolute;
+    height: 100%;
+    width: 5%;
+}
+
+section#digital-assets .dot-group .dot {
+    background-color: #F5A11E;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    padding: .5rem;
+    margin: 20px 0;
+}
+
+section#digital-assets .assets-group {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 2rem;
+    padding-left: 1.2rem;
+}
+
+section#digital-assets .assets-group .assets-item{
+    display: flex;
+    align-items: center;
+    border: 1px solid #F5A11E;
+    border-radius: 50px;
+}
+
+section#digital-assets .assets-group .dot {
+    background-color: #F5A11E;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding: .5rem;
+    margin: 20px 0;
+}
+
+section#digital-assets .assets-group .line {
+    border: 1px solid #F5A11E;
+}
+
+section#digital-assets .assets-group .line.line-one {
+    width: 40%;
+}
+
+section#digital-assets .assets-group .line.line-two {
+    width: 35%;
+}
+
+section#digital-assets .assets-group .line.line-three {
+    width: 47%;
+}
+
+section#digital-assets .assets-group .line.line-four {
+    width: 37%;
+}
+
+section#digital-assets .assets-group .assets-item .label {
+    border-radius: 50%;
+    background-color:cornflowerblue;
+    margin: auto;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 500;
+}
+
+section#digital-assets .assets-group .assets-item .title {
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 0;
+    text-align: center;
+    border-right: 1px solid gray;
+}
+
+section#digital-assets .assets-group .assets-item .content {
+    font-size: 13px;
+    text-align: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    color: rgba(255,255,255, 70%);
+}
+
+@media (max-width: 768px) {
+    section#digital-assets .assets-group .assets-item .title {
+        border: 0;
+        border-bottom: 1px solid gray;
+    }
+    section#digital-assets .assets-group .line {
+        display: none;
+    }
+    section#digital-assets .assets-group .dot {
+        display: none;
+    }
+    section#digital-assets .dot-group {
+        display: none;
+    }
+    section#digital-assets .assets-group .assets-body .assets-item .assets-item-body .title {
+        font-size: 16px;
+        font-weight: 700;
+    }
+    section#digital-assets .assets-group .assets-body .assets-item .assets-item-body .content {
+        font-size: 12px;
+    }
+    section#digital-assets .assets-group .assets-body:nth-child(odd) .assets-item {
+        flex-direction: row;
+        padding-left: .5rem;
+    }
+    section#digital-assets .assets-group .assets-body:nth-child(even) .assets-item {
+        flex-direction: row-reverse;
+        padding-right: .5rem;
+    }
+
+    section#digital-assets .assets-group .assets-body:nth-child(odd) .assets-item .assets-item-body {
+        padding: .5rem 1rem;
+    }
+    section#digital-assets .assets-group .assets-body:nth-child(even) .assets-item .assets-item-body {
+        padding: .5rem 1rem;
+    }
+
+    section#digital-assets .assets-group .assets-body:nth-child(odd) .assets-item .assets-item-body .title, section#digital-assets .assets-group .assets-body:nth-child(odd) .assets-item .assets-item-body .content {
+        text-align: left;
+        padding: .5rem 0;
+    }
+    section#digital-assets .assets-group .assets-body:nth-child(even) .assets-item .assets-item-body .title, section#digital-assets .assets-group .assets-body:nth-child(even) .assets-item .assets-item-body .content {
+        text-align: right;
+        padding: .5rem 0;
+    }
+}

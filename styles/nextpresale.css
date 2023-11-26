@@ -1,0 +1,61 @@
+section#next-presale {
+    background-color: #161A22;
+}
+
+section#next-presale .container {
+    display: flex;
+    justify-content: space-around;
+}
+
+section#next-presale .container .container-body {
+    margin: auto;
+}
+
+/* section#next-presale .container .next-presale-countdown .title {
+    font-size: 36px;
+    font-weight: 700;
+} */
+
+section#next-presale .container .next-presale-countdown .countdown {
+    display: flex;
+    margin: auto;
+    align-items: center;
+    padding-bottom: .5rem;
+}
+
+section#next-presale .container .next-presale-countdown .countdown .countdown-item {
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: .5rem 1.5rem;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+section#next-presale .container .next-presale-countdown .countdown-label {
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+}
+
+section#next-presale .container .next-presale-countdown .countdown-label .countdown-item-label {
+    border-radius: 5px;
+    padding: .5rem 1.5rem;
+    font-size: 16px;
+    font-weight: 700;
+    /* width: 25%; */
+    /* text-align: center; */
+}
+
+section#next-presale .container .next-presale-countdown .countdown-label .two-dot {
+    color: #161A22;
+}
+
+@media (max-width: 768px) {
+    section#next-presale .container img {
+        display: none;
+    }
+
+    section#next-presale .container .next-presale-countdown .countdown .countdown-item {
+        font-size: 20px;
+    }
+}

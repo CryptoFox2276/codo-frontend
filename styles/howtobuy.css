@@ -1,0 +1,108 @@
+section#how-to-buy {
+    font-family: 'Montserrat';
+    background-color: #030303;
+}
+
+section#how-to-buy .container .container-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1.5rem;
+}
+
+section#how-to-buy .container .container-body {
+    display: flex;
+    gap: 3rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+section#how-to-buy .container .container-body .content-box {
+    text-align: center;
+    width: 25%;
+}
+
+section#how-to-buy .container .container-body .content-box .box-icon {
+    width: fit-content;
+    border: 1px solid white;
+    margin: auto;
+    margin-bottom: 4rem;
+    width: 100px;
+    height: 130px;
+    position: relative;
+}
+
+section#how-to-buy .container .container-body .content-box .box-icon .text {
+    font-size: 36px;
+    font-weight: 500;
+}
+
+section#how-to-buy .container .container-body .content-box .box-icon .icon {
+    position: absolute;
+    background: #F2B830;
+    border-radius: 50%;
+    /* padding: 1rem; */
+    width: 100px;
+    height: 100px;
+    left: -1px;
+    bottom: -35%;
+    display: flex;
+}
+
+section#how-to-buy .container .container-body .content-box .box-icon .icon img {
+    margin: auto;
+}
+
+section#how-to-buy .container .container-body .content-box hr {
+    border-bottom: 2px solid #F2B830;
+    width: 30%;
+    margin: auto;
+}
+
+section#how-to-buy .container .container-body .content-box .box-header {
+    padding-bottom: 2rem;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+section#how-to-buy .container .container-body .content-box .box-content {
+    padding-top: 2rem;
+    font-size: 14px;
+}
+
+section#how-to-buy .btn-buy-now {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    section#how-to-buy .btn-buy-now {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        text-align: center;
+    }
+
+    section#how-to-buy .container .btn {
+        display: none;
+    }
+
+    section#how-to-buy .container .container-header {
+        display: flex;
+        justify-content: center;
+    }
+    section#how-to-buy .container .container-body {
+        flex-direction: column;
+    }
+    section#how-to-buy .container .container-body .content-box {
+        text-align: center;
+        width: 100%;
+    }
+    section#how-to-buy .container .container-body .content-box .box-header {
+        font-size: 20px;
+        padding-bottom: .5rem;
+    }
+    
+    section#how-to-buy .container .container-body .content-box .box-content {
+        font-size: 14px;
+        padding-top: .5rem;
+    }
+}

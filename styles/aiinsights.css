@@ -3,8 +3,16 @@ section#ai-insights {
     position: relative;
 }
 
+section#ai-insights .btn-whitepaper {
+    display: none;
+}
+
 section#ai-insights .container .container-body {
     position: relative;
+}
+
+section#ai-insights .codo-coin-img {
+    display: none;
 }
 
 section#ai-insights .container .container-body .line {
@@ -53,4 +61,33 @@ section#ai-insights .container .container-body .text-box .text-box-header {
 section#ai-insights .container .container-body .text-box .text-box-content {
     font-size: 16px;
     font-weight: 100;
+}
+
+@media (max-width: 768px) {
+    section#ai-insights .btn-whitepaper {
+        display: block;
+    }
+
+    section#ai-insights .container .container-header {
+        display: flex;
+        justify-content: center;
+        padding: 0;
+    }
+    section#ai-insights .codo-coin-img {
+        display: block;
+        padding-bottom: 2rem;
+    }
+    section#ai-insights .codo-coin-img img {
+        margin: auto;
+    }
+    section#ai-insights .container .container-body {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    section#ai-insights .container .container-body .line {
+        display: none;
+    }
+    section#ai-insights .container .container-body img {
+        display: none;
+    }
 }

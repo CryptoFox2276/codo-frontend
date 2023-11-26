@@ -1,0 +1,42 @@
+section#faq {
+    background-color: #030303;
+}
+
+section#faq .container .container-header .title {
+    text-align: center;
+}
+
+section#faq .faq-body .faq-row {
+    border-color: rgba(255,255,255,0.1);
+}
+
+section#faq .faq-body .faq-row:last-child {
+    border: none;
+}
+
+section#faq .faq-body .faq-row .row-title.expanded .row-title-text {
+    color: #F5A11E;
+}
+
+section#faq .faq-body .faq-row .row-title.expanded .icon-wrapper .arrow-image svg{
+    fill: #F5A11E;
+}
+
+section#faq .subtitle {
+    color: #F5A11E;
+    font: 16px;
+    padding-bottom: 2rem;
+}
+
+section#faq p {
+    color: gray;
+    padding-bottom: 1rem;
+}
+section#faq input, section#faq textarea {
+    background-color: #030303;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: 16px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

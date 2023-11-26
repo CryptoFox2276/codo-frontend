@@ -1,5 +1,10 @@
 section#codo-ecosystem {
     background-color: #030303;
+    font-family: 'Montserrat';
+}
+
+section#codo-ecosystem .container {
+    padding-bottom: 3rem;
 }
 
 section#codo-ecosystem .container .container-body {
@@ -7,6 +12,7 @@ section#codo-ecosystem .container .container-body {
     grid-template-columns: 30% 30% 30%;
     position: relative;
     gap: 5rem;
+    padding-top: 3rem;
     padding-left: 36px;
     padding-right: 36px;
 }
@@ -45,4 +51,33 @@ section#codo-ecosystem .container .container-body .ecosystem-box .box-body .box-
 }
 section#codo-ecosystem .container .container-body .ecosystem-box .box-body .box-body-content {
     font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    section#codo-ecosystem .container .container-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    section#codo-ecosystem .container .container-body .ecosystem-box {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    section#codo-ecosystem .container .container-body .ecosystem-box .box-icon{
+        margin-left: -1rem;
+        margin-top: -65px;
+        max-width: 80px;
+        height: 80px;
+        padding: 1rem;
+    }
+
+    section#codo-ecosystem .container .container-body .ecosystem-box .box-body .box-body-header {
+        font-size: 16px;
+        padding: 1rem 0
+    }
+
+    section#codo-ecosystem .container .container-body .ecosystem-box .box-body .box-body-content {
+        font-size: 16px;
+    }
 }

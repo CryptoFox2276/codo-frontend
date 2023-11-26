@@ -1,0 +1,62 @@
+section#roadmap {
+    background-color: #161A22;
+}
+
+section#roadmap .swap-container {
+    display: block;
+}
+section#roadmap .timeline-container {
+    display: none;
+}
+
+section#roadmap .container .container-body{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+section#roadmap .swiper .swiper-slide {
+    display: flex;
+    height: 450px;
+    align-items: normal;
+    
+}
+
+section#roadmap .box{
+    border: 1px solid #F7931A;
+    padding: 1rem 2rem;
+}
+
+section#roadmap .box .box-header{
+    text-align: center;
+    color: #89CDEC;
+    font-size: 32px;
+    font-weight: 700;
+    padding-bottom: 1rem;
+
+}
+
+section#roadmap .box .box-content{
+    text-align: center;
+    font-family: 'Montserrat';
+    font-size: 24px;
+    font-weight: 0;
+    list-style: 140%;
+}
+
+@media (max-width: 768px) {
+    section#roadmap .swap-container {
+        display: none;
+    }
+    section#roadmap .timeline-container {
+        display: block;
+    }
+
+    section#roadmap .timeline-container .content-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: #F7931A;
+    }
+    section#roadmap .timeline-container .content-text {
+        font-size: 12px;
+    }
+}
