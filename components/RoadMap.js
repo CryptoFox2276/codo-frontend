@@ -38,11 +38,7 @@ const RoadMap = () => {
                             pagination={{
                                 type: 'fraction',
                             }}
-                            navigation={true}
-                            autoplay={{
-                                delay: 500,
-                            }}
-                            modules={[Navigation, Autoplay]}
+                            loop={true}
                             onSlideChange={() => console.log('slide change')}
                             onSwiper={(swiper) => console.log(swiper)}
                             className="roadmapSwiper"
@@ -61,12 +57,13 @@ const RoadMap = () => {
                         >
                             {RoadMapData.map((item, index) => (
                                 <VerticalTimelineElement
+                                    key={index}
                                     className="vertical-timeline-element--work"
                                     contentStyle={{background: 'none', color: '#fff', border: 'none', boxShadow: 'none', paddingTop: '0'}}
                                     contentArrowStyle={{border: 'none'}}
                                     iconClassName={index % 2 ? 'element-icon-right':'element-icon-left'}
                                     iconStyle={{padding: '10px', background: '#F7931A', color: '#000', fontWeight: 'bold', border: 'none', boxShadow: 'unset', textAlign: 'center'}}
-                                    icon={("0" + (index + 1)).substring(-2)}
+                                    icon={<IconLabel data={index + 1} />}
                                 >
                                     <div className="content-title">{item.title}</div>
                                     <div className="content-text">{item.content}</div>
@@ -89,4 +86,9 @@ const RoadMapItem = ({title, content}) => {
     )
 }
 
+const IconLabel = ({data}) => {
+    return (
+        "0" + data
+    )
+}
 export default RoadMap;

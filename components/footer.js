@@ -39,7 +39,7 @@ export default function Footer() {
             </div>
             <div className="social-content">
               <div className="flex items-center pb-2">
-                <img src="/assets/images/icons/twitter.png" className="pr-2" /> <span>Twitter</span>
+                <img src="/assets/images/icons/twitter.png" className="pr-2" /> <span>X(Twitter)</span>
               </div>
               <div className="flex items-center pb-2">
                 <img src="/assets/images/icons/telegram.png" className="pr-2" /> <span>Telegram</span>
