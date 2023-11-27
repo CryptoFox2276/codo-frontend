@@ -97,17 +97,18 @@ section .sub-title {
 .btn {
   background-color: #030303;
   color: #F5A11E;
-  width: 100%;
+  /* width: 100%; */
   max-width: 250px;
-  /* width: fit-content; */
+  width: fit-content;
   padding: 15px 25px;
   border-radius: .5rem;
   font-family: 'Lexend';
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden !important;
   text-overflow: ellipsis;
+  text-align: center;
 }
 .btn-bg-colored {
   background-color: #F5A11E;
@@ -251,9 +252,7 @@ section .sub-title {
   overflow: hidden;
 }
 
-#home .button-group {
 
-}
 
 #dashboard #home .background{
   background-image: url("/assets/images/Background-main.png");
@@ -627,7 +626,7 @@ footer .text-email {
   }
 
   #home .button-group .btn{
-    max-width: 100%;
+    width: 100%;
   }
 
   #dashboard #home .social-link-group {
@@ -643,6 +642,7 @@ footer .text-email {
     right: -15px;
     top: -20px;
   }
+
   #presale .panel {
     padding: 35px 25px;
   }

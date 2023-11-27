@@ -9,8 +9,8 @@ const DefiIntegration = () => {
                 <div className="container-header">
                     <h1 className="title">DeFi Integration</h1>
                     <Link href="#">
-                        <p className="btn text-uppercase text-center text-sm font-semibold leading-6 text-white bg-gray-700 px-3 py-2 hidden lg:block my-auto">
-                            TELEGRAM
+                        <p className="btn">
+                            TELEGRAM <img src="/assets/images/icons/ArrowRight.png" />
                         </p>
                     </Link>
                 </div>

@@ -29,21 +29,9 @@ export default function Header() {
   return (
     <header className="sticky inset-x-0 top-0 z-50 bg-gray-900">
       <nav
-        className="flex items-center p-6 lg:px-8"
+        className="flex items-center p-6 lg:px-8 justify-between"
         aria-label="Global"
       >
-        <div className="flex lg:pr-8">
-          <Link href="/" className="-m-1.5 p-1.5">
-            <span>
-              <span className="sr-only">CODO</span>
-              <img
-                className="h-8 w-auto h-auto cursor-pointer"
-                src="/assets/images/CODO.png"
-                alt=""
-              />
-            </span>
-          </Link>
-        </div>
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -67,6 +55,20 @@ export default function Header() {
             </svg>
           </button>
         </div>
+        <div className="flex lg:pr-8">
+          <Link href="/" className="-m-1.5 p-1.5">
+            <span>
+              <span className="sr-only">CODO</span>
+              <img
+                className="h-8 w-auto h-auto cursor-pointer"
+                src="/assets/images/logo.png"
+                alt="codo_logo"
+                style={{width: '200px'}}
+              />
+            </span>
+          </Link>
+        </div>
+        
         <div className="hidden lg:flex border-l-3 lg:pl-5 header-menu">
           <a
             href="#"
@@ -109,13 +111,20 @@ export default function Header() {
         </div>
         <div className="hidden lg:flex lg:justify-end lg:gap-x-6 lg:m-auto lg:mr-0">
           {saleActive && Date.now() - new Date(startTime) >= 0 && (
-            <Link href="/presale">
-              <p className="btn text-uppercase text-center text-sm font-semibold leading-6 text-white bg-gray-700 px-3 py-2">
-                Buy Now
-              </p>
-            </Link>
+            <>
+              <Link href="/presale">
+                <p className="btn text-uppercase text-center text-sm font-semibold leading-6 text-white bg-gray-700 px-3 py-2">
+                  Buy Now
+                </p>
+              </Link>
+              <Link href="/presale">
+                <p className="btn btn-bg-colored text-uppercase text-center text-sm font-semibold leading-6 text-white bg-gray-700 px-3 py-2">
+                  Staking
+                </p>
+              </Link>
+            </>
           )}
-          {address ? (
+          {/* {address ? (
             <a onClick={onDisconnect} className="btn btn-bg-colored">
               {address}
             </a>
@@ -123,13 +132,13 @@ export default function Header() {
             <a onClick={onConnectWallet} className="btn btn-bg-colored">
               CONNECT WALLET
             </a>
-          )}
+          )} */}
         </div>
       </nav>
       {active && (
         <div className="lg:hidden" role="dialog" aria-modal="true">
           <div className="fixed inset-0 z-50"></div>
-          <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10" style={{backgroundColor: '#161A22'}}>
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5">
                 <span>
@@ -143,12 +152,12 @@ export default function Header() {
               </Link>
               <button
                 type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-700"
+                className="-m-2.5 rounded-md p-2.5"
                 onClick={handleClick}
               >
                 <span className="sr-only">Close menu</span>
                 <svg
-                  className="h-6 w-6"
+                  className="h-6 w-6 text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
@@ -168,42 +177,42 @@ export default function Header() {
                 <div className="space-y-2 py-6">
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     HOME
                   </a>
 
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     Token Sale
                   </a>
 
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     Staking & Rewards
                   </a>
 
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     About Us
                   </a>
 
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     Contact
                   </a>
 
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     FAQs
                   </a>
@@ -211,20 +220,20 @@ export default function Header() {
               </div>
             </div>
             {saleActive && (
-              <>
+              <div className="flex justify-between gap-3 pb-10">
                 <Link href="/presale">
-                  <p className="w-2/3 text-uppercase text-lg font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5">
+                  <p className="btn">
                     Buy Now
                   </p>
                 </Link>
                 <Link href="/">
-                  <p className="w-2/3 text-uppercase text-lg font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5">
+                  <p className="btn btn-bg-colored">
                     Staking
                   </p>
                 </Link>
-              </>
+              </div>
             )}
-            {address ? (
+            {/* {address ? (
               <p
                 className="w-2/3 text-uppercase text-lgt font-semibold leading-6 text-white bg-sky-600 btn rounded-lg text-center px-3 py-2 mb-5"
                 onClick={onDisconnect}
@@ -238,17 +247,17 @@ export default function Header() {
               >
                 CONNECT WALLET
               </p>
-            )}
+            )} */}
 
-            <div className="grid grid-cols-4 gap-4 sm:gap-6 xs:gap-6 justify-center">
-              <div className="m-auto">
-                <img src="/assets/images/004-twitter.png" />
+            <div className="flex gap-3">
+              <div>
+                <img src="/assets/images/icons/twitter.png" />
               </div>
-              <div className="m-auto">
-                <img src="/assets/images/003-telegram.png" />
+              <div>
+                <img src="/assets/images/icons/telegram.png" />
               </div>
-              <div className="m-auto">
-                <img src="/assets/images/discord.png" width={64} />
+              <div>
+                <img src="/assets/images/icons/discord.png"/>
               </div>
             </div>
           </div>

@@ -241,8 +241,8 @@ export default function Home() {
                       only<span className="text-yellow-500 font-bold">&nbsp;{addCommas(stageSupply - soldAmount)}&nbsp;</span>tokens remain
                     </p>
                   </div>
-                  <div className="lg:mx-10 mx-5 lg:mb-10 pb-6 pt-3">
-                    <a onClick={onConnectWallet} className="btn btn-bg-colored">
+                  <div className="lg:mx-10 mx-5 lg:mb-10 pt-3">
+                    <a onClick={onConnectWallet} className="btn btn-bg-colored connect-wallet">
                       CONNECT WALLET
                     </a>
                   </div>

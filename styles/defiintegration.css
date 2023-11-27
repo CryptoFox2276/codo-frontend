@@ -11,6 +11,12 @@ section#defi-integration .container .container-header {
     justify-content: space-between;
     padding-bottom: 1.5rem;
 }
+
+section#defi-integration .container .container-header .btn {
+    background-color: #161A22;
+    display: inline-flex;
+    gap: 1rem;
+}
 section#defi-integration .vertical-timeline::before {
     background: unset;
 }
@@ -86,5 +92,9 @@ section#defi-integration .vertical-timeline .vertical-timeline-element .vertical
 
     section#defi-integration .vertical-timeline .vertical-timeline-element .vertical-timeline-element-icon {
         left: 35% !important;
+    }
+
+    section#defi-integration .container .container-header .btn {
+        display: none;
     }
 }

@@ -76,7 +76,7 @@ section#digital-assets .assets-group .line.line-three {
 }
 
 section#digital-assets .assets-group .line.line-four {
-    width: 37%;
+    width: 31%;
 }
 
 section#digital-assets .assets-group .assets-item .label {
@@ -104,6 +104,10 @@ section#digital-assets .assets-group .assets-item .content {
     padding-left: 1rem;
     padding-right: 1rem;
     color: rgba(255,255,255, 70%);
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: left;
+    width: 100%;
 }
 
 @media (max-width: 768px) {

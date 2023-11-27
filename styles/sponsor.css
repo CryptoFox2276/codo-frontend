@@ -3,6 +3,9 @@ section#sponsorship {
     background-color: white;
 }
 
+section#sponsorship .sponsorshipSwiper .swiper-slide {
+    margin: auto;
+}
 section#sponsorship .sponsorshipSwiper .swiper-slide img {
     max-height: 200px;
 }
