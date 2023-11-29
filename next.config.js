@@ -1,5 +1,5 @@
 module.exports = {
-    reactStrictMode: true,
+    reactStrictMode: false,
     serverRuntimeConfig: {
         PROJECT_ROOT: __dirname
     },

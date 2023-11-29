@@ -4,24 +4,27 @@ import { useRef, useState, useEffect } from "react";
 import { createContainer } from "unstated-next";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { Multicall } from "ethereum-multicall";
-import abiCodoPresale from "/abi/CodoPresale.json";
-import abiStaking from "/abi/Staking.json";
-import abiERC20 from "/abi/ERC20.json";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useCallback } from "react";
-import { SUPPORTED_CHAIN_NAME } from "./common";
+
+import { SUPPORTED_CHAIN, SUPPORTED_CHAIN_NAME, isSupportedChain } from "./common";
+import abiCodoPresale from "/abi/CodoPresale.json";
+import abiStaking from "/abi/Staking.json";
+import abiERC20 from "/abi/ERC20.json";
+import abiBinancePayment from "/abi/BinancePayment.json";
+import abiPriceFeed from "/abi/PriceFeed.json";
 
 const ApproveAmount = "0xffffffffffffffffffffffffffffffffffffff";
 const INFURA_ID = "460f40a260564ac4a4f4b3fffb032dad";
 const NETWORK_ID = Number(process.env.NEXT_PUBLIC_CHAINID);
 const multicallAddress = process.env.NEXT_PUBLIC_MULTICALL || "";
 const DEFAULT_PROVIDER = new ethers.providers.JsonRpcProvider(
-  process.env.NEXT_PUBLIC_RPCURL,
-  NETWORK_ID
+  process.env.NEXT_PUBLIC_RPCURL
 );
-
-console.log("staking", process.env.NEXT_PUBLIC_STAKING);
+const BSC_DEFAUKT_PROVIDER = new ethers.providers.JsonRpcProvider(
+  process.env.NEXT_PUBLIC_BSC_RPC_URL
+)
 
 export const providerOptions = {
   walletconnect: {
@@ -55,6 +58,18 @@ function useEth() {
     abiERC20,
     DEFAULT_PROVIDER
   );
+  // const busdContract = new ethers.Contract(
+  //   process.env.NEXT_PUBLIC_BSC_BUSD,
+  //   abiERC20,
+  //   BSC_DEFAUKT_PROVIDER
+  // );
+
+  const bnbPriceFeedContract = new ethers.Contract(
+    process.env.NEXT_PUBLIC_BSC_PRICEFEED,
+    abiPriceFeed,
+    BSC_DEFAUKT_PROVIDER
+  )
+
   const multicall = new Multicall({
     ethersProvider: DEFAULT_PROVIDER,
     multicallCustomContractAddress: multicallAddress,
@@ -73,6 +88,7 @@ function useEth() {
   const [stage, setStage] = useState(0); // current state
   const [price, setPrice] = useState(0); // presale price(USDT) of token in current stage
   const [priceETH, setPriceETH] = useState(0); // presale price(ETH) of token in current stage
+  const [priceBNB, setPriceBNB] = useState(0); // presale price(ETH) of token in current stage
   const [stageSupply, setStageSupply] = useState(0); // Supply of current stage
   const [soldAmount, setSoldAmount] = useState(0); // Amount of tokens sold on the current stage
   const [soldCost, setSoldCost] = useState(0);
@@ -81,6 +97,8 @@ function useEth() {
   const [saleActive, setSaleActive] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [tierEndTime, setTierEndTime] = useState(0);
+
+  const [bnbPriceFeed, setBnbPriceFeed] = useState(0);
 
   const [totalSupply, setTotalSupply] = useState(0);
   const [totalPresaleAmount, setTotalPresaleAmount] = useState(0);
@@ -91,8 +109,11 @@ function useEth() {
 
   const [userBalance, setUserBalance] = useState(0);
   const [userUSDCIsApproved, setUserUSDCIsApproved] = useState(false);
+  const [userBUSDIsApproved, setUserBUSDIsApproved] = useState(false);
   const [userUSDCBalance, setUserUSDCBalance] = useState(0);
+  const [userBUSDCBalance, setUserBUSDCBalance] = useState(0);
   const [userETHBalance, setUserETHBalance] = useState(0);
+  const [userBNBBalance, setUserBNBBalance] = useState(0)
 
   const connectWallet = async () => {
     try {
@@ -104,9 +125,9 @@ function useEth() {
         const _address = await _signer.getAddress();
         const { chainId } = await _web3Provider.getNetwork();
 
-        if (chainId !== Number(process.env.NEXT_PUBLIC_CHAINID)) {
+        if (!isSupportedChain(chainId)) {
           toast.info(
-            `Please switch your metamask network to "${process.env.NEXT_PUBLIC_NETWORK_NAME}"`
+            `Please switch your metamask network`
           );
           return;
         }
@@ -114,7 +135,6 @@ function useEth() {
         setProvider(_provider);
         setWeb3Provider(_web3Provider);
         setAddress(_address);
-        console.log("_signer", _signer);
         setSigner(_signer);
       }
     } catch (err) {
@@ -298,7 +318,6 @@ function useEth() {
 
   const loadCurrentBalance = async () => {
     try {
-      console.log("stage + 1", stage + 1)
       presaleContract
         .getTierPrice(stage + 1)
         .then((res) => {
@@ -339,6 +358,10 @@ function useEth() {
           )
       ).toFixed(2);
       setTotalRaised(sum);
+
+      const tx = await bnbPriceFeedContract.latestAnswer();
+      setBnbPriceFeed(ethers.utils.formatUnits(tx, 8))
+      setPriceBNB(Number(ethers.utils.formatUnits(tx, 8)) > 0 ? parseFloat(price / Number(ethers.utils.formatUnits(tx, 8))) : 0);
     } catch (e) {
       console.error(e);
     }
@@ -359,6 +382,24 @@ function useEth() {
       const balanceInEth = ethers.utils.formatEther(balance);
       setUserETHBalance(balanceInEth);
     });
+
+    BSC_DEFAUKT_PROVIDER.getBalance(address).then((balance) => {
+      const balanceInBNB = ethers.utils.formatUnits(balance, 18);
+      setUserBNBBalance(balanceInBNB);
+    });
+    try {
+      const busdContract = new ethers.Contract(
+        process.env.NEXT_PUBLIC_BSC_BUSD,
+        abiERC20,
+        signer
+      );
+      var tx = await busdContract.balanceOf(address);
+      setUserBUSDCBalance(ethers.utils.formatUnits(tx, 6));
+      tx = await busdContract.allowance(address, process.env.NEXT_PUBLIC_BSC_PAYMENT);
+      setUserBUSDIsApproved(ethers.BigNumber.from(tx).gt(0))
+    } catch(e) {
+      console.error(address, "busdContract.balanceOf error: ", e)
+    }
 
     calls.push({
       reference: "CODO",
@@ -446,6 +487,30 @@ function useEth() {
     }
   };
 
+  const approveBUSD = async () => {
+    try {
+      if (!signer) return false;
+      setLoading(true);
+      const busdContract = new ethers.Contract(
+        process.env.NEXT_PUBLIC_BSC_BUSD,
+        abiERC20,
+        signer
+      );
+      const tx = await busdContract.approve(
+        process.env.NEXT_PUBLIC_BSC_PAYMENT,
+        ApproveAmount
+      );
+      await tx.wait();
+      setUserBUSDIsApproved(true);
+      setLoading(false);
+      return true;
+    } catch (e) {
+      console.error(e);
+      setLoading(false);
+      return false;
+    }
+  }
+
   const buyTokenWithUSDT = async (amount) => {
     try {
       if (!signer) return false;
@@ -490,6 +555,46 @@ function useEth() {
     }
   }
 
+  const buyTokenWithBNB = async (amount) => {
+    try {
+      if (!signer) return false;
+      setLoading(true);
+      const binancePayment = new ethers.Contract(
+        process.env.NEXT_PUBLIC_BSC_PAYMENT,
+        abiBinancePayment,
+        signer
+      );
+      const tx = await binancePayment.receiveBNB({value: ethers.utils.parseEther(amount)});
+      await tx.wait();
+      setLoading(false);
+      return true;
+    } catch (e) {
+      console.error(e);
+      setLoading(false);
+      return false;
+    }
+  }
+
+  const buyTokenWithBUSD = async (amount) => {
+    try {
+      if (!signer) return false;
+      setLoading(true);
+      const binancePayment = new ethers.Contract(
+        process.env.NEXT_PUBLIC_BSC_PAYMENT,
+        abiBinancePayment,
+        signer
+      );
+      const tx = await binancePayment.receiveBUSD(ethers.utils.parseUnits(amount.toString(), 6));
+      await tx.wait();
+      setLoading(false);
+      return true;
+    } catch (e) {
+      console.error(e);
+      setLoading(false);
+      return false;
+    }
+  }
+
   const stakingToken = async (amount) => {
     try {
       if (!signer) return false;
@@ -510,18 +615,23 @@ function useEth() {
     }
   }
 
-  const switchNetwork = async (chainName, chainId) => {
+  const switchNetwork = useCallback(async (_chainId) => {
     try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: chainId }], // chainId must be in hexadecimal numbers
-      });
-      toast.success(`Switched to ${SUPPORTED_CHAIN_NAME[chainName]}`);
-      return;
+      const { chainId } = await DEFAULT_PROVIDER.getNetwork();
+      if(Number(chainId) !== _chainId) {
+        setWalletConnected(false);
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: _chainId }], // chainId must be in hexadecimal numbers
+        });
+        setWalletConnected(false);
+        toast.success(`Switched to ${SUPPORTED_CHAIN_NAME[_chainId]}`);
+        return;
+      }
     } catch (ex) {
       console.error("error", ex);
     }
-  };
+  }, []);
 
   const addCommas = (num) => {
     var str = num.toString().split(".");
@@ -543,8 +653,10 @@ function useEth() {
         providerOptions,
         // disableInjectedProvider: false,
       });
+
     }
     if (walletConnected) connectWallet();
+    
     loadBalance();
   }, []);
 
@@ -566,7 +678,6 @@ function useEth() {
 
   useEffect(() => {
     setSoldCost(price * soldAmount);
-    // console.log(soldAmount, price * soldAmount, stageSupply)
     setSoldPercent(
       stageSupply > 0
         ? parseFloat((100 * soldAmount) / stageSupply).toFixed(2)
@@ -586,10 +697,10 @@ function useEth() {
 
       // https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes
       const handleChainChanged = (_hexChainId) => {
-        console.log("switched to chain...", _hexChainId, Number(NETWORK_ID), Number(_hexChainId));
-        if(Number(NETWORK_ID) !== Number(_hexChainId)) {
+        // console.log("switched to chain...", _hexChainId, Number(NETWORK_ID), Number(_hexChainId));        
+        if(!isSupportedChain(_hexChainId)) {
           toast.info(
-            `Please switch your metamask network to "${process.env.NEXT_PUBLIC_NETWORK_NAME}"`
+            `Please switch your metamask network to "${SUPPORTED_CHAIN_NAME['0x5']}"`
           );
           setWalletConnected(false)
         }
@@ -603,7 +714,7 @@ function useEth() {
 
       const handleDisconnect = (error) => {
         // eslint-disable-next-line no-console
-        disconnect();
+        // disconnectWallet();
       };
 
       provider.on("accountsChanged", handleAccountsChanged);
@@ -649,6 +760,7 @@ function useEth() {
     stage,
     price,
     priceETH,
+    priceBNB,
     stageSupply,
     totalSupply,
     totalPresaleAmount,
@@ -663,8 +775,11 @@ function useEth() {
     userBalance,
     userUSDCIsApproved,
     setUserUSDCIsApproved,
+    userBUSDIsApproved,
+    setUserBUSDCBalance,
     userUSDCBalance,
     userETHBalance,
+    userBNBBalance,
     saleActive,
     startTime,
     tierEndTime,
@@ -675,8 +790,11 @@ function useEth() {
     loadCurrentBalance,
     loadUserBalance,
     approveUSDT,
+    approveBUSD,
     buyTokenWithUSDT,
     buyTokenWithETH,
+    buyTokenWithBNB,
+    buyTokenWithBUSD,
     stakingToken,
     switchNetwork
   };

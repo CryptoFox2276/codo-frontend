@@ -8,7 +8,7 @@ import Select from 'react-select';
 
 import ProgressBar from "./progress-bar";
 import { eth } from "../state/eth";
-import { SUPPORTED_CHAIN, formatAddress } from "../state/common";
+import { SUPPORTED_CHAIN, SUPPORTED_CHAIN_LABEL, SUPPORTED_CHAIN_NAME, formatAddress } from "../state/common";
 import { useCallback } from "react";
 
 
@@ -19,15 +19,19 @@ const DEFAULT_PROVIDER = new ethers.providers.JsonRpcProvider(process.env.NEXT_P
 const Dashboard = () => {
   const {
     loading,
+    currentChainId,
     signer,
     walletConnected,
     address,
     stage,
     price,
     priceETH,
+    priceBNB,
     userETHBalance,
+    userBNBBalance,
     userUSDCBalance,
     userUSDCIsApproved,
+    userBUSDIsApproved,
     stageSupply,
     totalSupply,
     totalPresaleAmount,
@@ -46,32 +50,43 @@ const Dashboard = () => {
     connectWallet,
     disConnectWallet,
     approveUSDT,
+    approveBUSD,
     buyTokenWithUSDT,
     buyTokenWithETH,
+    buyTokenWithBNB,
+    buyTokenWithBUSD,
     stakingToken,
     switchNetwork
   } = eth.useContainer();
 
-  const [selected, setSelected] = useState("ETH");
+  const [selected, setSelected] = useState('ETH');
   
   const [isExchange, setIsExchange] = useState(false)
   const [isEth, setIsEth] = useState(true)
   const [selectedCoin, setSelectedCoin] = useState('USDT');
-  const [payAmount, setPayAamount] = useState('');
+  const [payAmount, setPayAamount] = useState(0.0);
   const [codoAmount, setCodoAmount] = useState('');
 
-  const changeChain = (chain) => {
+  const changeChain = useCallback((chain) => {
     setSelected(chain);
-    switchNetwork(chain, SUPPORTED_CHAIN[chain]);
-  }
+  }, []);
+
+  useEffect(()=>{
+    switchNetwork(SUPPORTED_CHAIN[selected]);
+    setPayAamount(0)
+    setCodoAmount(0)
+  }, [selected])
 
   const onChangePayAmount = useCallback((e) => {
-    var _amount = Number(e.target.value);
-    
+  var _amount = parseFloat(e.target.value);
+    if(_amount < 0) _amount = 0;
     if(selectedCoin === 'ETH') {
       if(Number(_amount) > Number(userETHBalance)) _amount = Number(userETHBalance);    
       setCodoAmount(priceETH > 0 ? Math.round((_amount / priceETH) ): 0);
-    } else {
+    } else if (selectedCoin === 'BNB'){
+      if(Number(_amount) > Number(userETHBalance)) _amount = Number(userETHBalance);    
+      setCodoAmount(priceBNB > 0 ? Math.round((_amount / priceBNB) ): 0);
+    } else{
       if(Number(_amount) > Number(userUSDCBalance)) _amount = Number(userUSDCBalance);    
       setCodoAmount(price > 0 ? Math.round((_amount / price) ): 0);
     }
@@ -80,22 +95,28 @@ const Dashboard = () => {
   }, [selectedCoin, payAmount])
 
   const onChangeCodoAmount = (e) => {
+    console.log("onChangeCodoAmount");
+    
     var _amount = Number(e.target.value);
     if(Number(e.target.value) > Number(stageSupply - soldAmount)) _amount = Number(stageSupply - soldAmount);
     setCodoAmount(_amount);
 
     if(selectedCoin === 'ETH') {
-      setPayAamount(Number(_amount * priceETH).toFixed(4));
-    } else {
+      setPayAamount(Number(_amount * priceETH).toFixed(6));
+    } else if (selectedCoin === 'BNB'){
+      setPayAamount(Number(_amount * priceBNB).toFixed(6));
+    } else{
       setPayAamount(Number(_amount * price).toFixed(2));
     }
   }
 
   const onChangeSelect = (e) => {
-    console.log("onChangeSelect")
-    setSelectedCoin(e.target.value);
-    if(selectedCoin === 'ETH') {
+    const _selectedCoin = e.target.value;
+    setSelectedCoin(_selectedCoin);
+    if(_selectedCoin === 'ETH') {
       setCodoAmount(priceETH > 0 ? Math.round((payAmount / priceETH) ): 0);
+    } else if(_selectedCoin === 'BNB') {
+      setCodoAmount(priceBNB > 0 ? Math.round((payAmount / priceBNB) ): 0);
     } else {
       setCodoAmount(price > 0 ? Math.round((payAmount / price) ): 0);
     }
@@ -110,35 +131,56 @@ const Dashboard = () => {
       toast.info(`Token amount is insufficient`);
       return;
     }
-    if(selectedCoin === 'ETH') {
-      buyTokenWithETH(codoAmount, payAmount).then(res => {
-        if(res) {
-          stakingToken(codoAmount).then(ret => {
-            if(ret) {
-              toast.success("Purchased and staked successfully");
-            } else {
-              toast.error("Failed buying and staking token with " + selectedCoin);
-            }
-          })
-        } else {
-          toast.error("Failed buying and staking token with " + selectedCoin);
-        }
-      })
-    }
-    else {
-      buyTokenWithUSDT(codoAmount).then(res => {
-        if(res) {
-          stakingToken(codoAmount).then(ret => {
-            if(ret) {
-              toast.success("Purchased and staked successfully");
-            } else {
-              toast.error("Failed buying and staking token with " + selectedCoin);
-            }
-          })
-        } else {
-          toast.error("Failed buying and staking token with " + selectedCoin);
-        }
-      })
+    if(selected === 'ETH') {
+      if(selectedCoin === 'ETH') {
+        buyTokenWithETH(codoAmount, payAmount).then(res => {
+          if(res) {
+            stakingToken(codoAmount).then(ret => {
+              if(ret) {
+                toast.success("Purchased and staked successfully");
+              } else {
+                toast.error("Failed buying and staking token with " + selectedCoin);
+              }
+            })
+          } else {
+            toast.error("Failed buying and staking token with " + selectedCoin);
+          }
+        })
+      }
+      else {
+        buyTokenWithUSDT(codoAmount).then(res => {
+          if(res) {
+            stakingToken(codoAmount).then(ret => {
+              if(ret) {
+                toast.success("Purchased and staked successfully");
+              } else {
+                toast.error("Failed buying and staking token with " + selectedCoin);
+              }
+            })
+          } else {
+            toast.error("Failed buying and staking token with " + selectedCoin);
+          }
+        })
+      }
+    } else {
+      if(selectedCoin === 'BNB') {
+        buyTokenWithBNB(payAmount).then(res => {
+          if(res) {
+            toast.success("Purchased successfully with BNB");
+          } else {
+            toast.error("Failed buying token with BNB");
+          }
+        })
+      }
+      else {
+        buyTokenWithBUSD(payAmount).then(res => {
+          if(res) {
+            toast.success("Purchased successfully with BUSD");
+          } else {
+            toast.error("Failed buying token with BUSD");
+          }
+        })
+      }
     }
   }
 
@@ -151,32 +193,60 @@ const Dashboard = () => {
       toast.info(`Token amount is insufficient`);
       return;
     }
-    if(selectedCoin === 'ETH') {
-      buyTokenWithETH(codoAmount, payAmount).then(res => {
-        if(res) {
-          toast.success("Purchased successfully");
-        } else {
-          toast.error("Failed buying token with " + selectedCoin);
-        }
-      })
-    }
-    else {
-      buyTokenWithUSDT(codoAmount).then(res => {
-        if(res) {
-          toast.success("Purchased successfully");
-        } else {
-          toast.error("Failed buying token with " + selectedCoin);
-        }
-      })
+    if(selected === 'ETH') {
+      if(selectedCoin === 'ETH') {
+        buyTokenWithETH(codoAmount, payAmount).then(res => {
+          if(res) {
+            toast.success("Purchased successfully with ETH");
+          } else {
+            toast.error("Failed buying token with " + selectedCoin);
+          }
+        })
+      }
+      else {
+        buyTokenWithUSDT(codoAmount).then(res => {
+          if(res) {
+            toast.success("Purchased successfully with USDT");
+          } else {
+            toast.error("Failed buying token with " + selectedCoin);
+          }
+        })
+      }
+    } else {
+      if(selectedCoin === 'BNB') {
+        buyTokenWithBNB(payAmount).then(res => {
+          if(res) {
+            toast.success("Purchased successfully with BNB");
+          } else {
+            toast.error("Failed buying token with " + selectedCoin);
+          }
+        })
+      }
+      else {
+        buyTokenWithBNB(payAmount).then(res => {
+          if(res) {
+            toast.success("Purchased successfully with BUSD");
+          } else {
+            toast.error("Failed buying token with " + selectedCoin);
+          }
+        })
+      }
     }
   }
 
   const onApprove = () => {
     console.log(signer)
-    approveUSDT().then(res => {
-      if(res) toast.success("Approved successfully");
-      else toast.error("Failed approving");
-    })
+    if(selected === 'ETH') {
+      approveUSDT().then(res => {
+        if(res) toast.success("Approved successfully");
+        else toast.error("Failed approving");
+      })
+    } if(selected === 'BSC') {
+      approveBUSD().then(res => {
+        if(res) toast.success("Approved successfully");
+        else toast.error("Failed approving");
+      })
+    }
   }
 
   const onConnectWallet = () => {
@@ -289,6 +359,12 @@ const Dashboard = () => {
       />
     );
   };
+
+  const onlyNumbers = (e) => {
+    // if ( /[^0-9]+/.test(e.target.value) ){
+    //   e.target.value = e.target.value.replace(/[^0-9]*/g,"")
+    // }
+ }
 
   return (
     <section id="home">
@@ -425,11 +501,19 @@ const Dashboard = () => {
                     <>
                       <div className={`${!isExchange ? "buy-panel flex-col" : "buy-panel flex-col-reversed"}`}>
                         <div className="input-group">
-                          <input type="text" className="input-box" value={payAmount} onChange={(e)=>onChangePayAmount(e)} />
+                          <input type="number" step="0.01" inputMode="decimal" className="input-box" value={payAmount} onChange={(e)=>onChangePayAmount(e)} />
                           <div>
                           <select className="select-coin" onChange={(e)=>onChangeSelect(e)} defaultValue={selectedCoin}>
+                          {selected === 'ETH' ? (<>
                             <option value="ETH">ETH</option>
                             <option value="USDT">USDT</option>
+                          </>) : (
+                            <>
+                              <option value="BNB">BNB</option>
+                              <option value="USDT">BUSD</option>
+                            </>
+                          )}
+                            
                           </select>
                           </div>
                         </div>
@@ -444,13 +528,23 @@ const Dashboard = () => {
                         </div>
                       </div>
                       <div className="py-3">
-                        {selectedCoin === 'USDT' && !userUSDCIsApproved ? (
-                          <button className="btn" onClick={()=>onApprove()} disabled={loading}>{loading ? 'Approving...':'Approve'}</button>
+                        {selected==='ETH' ? (
+                          (selectedCoin === 'USDT' && !userUSDCIsApproved) ? (
+                            <button className="btn" onClick={()=>onApprove()} disabled={loading}>{loading ? 'Approving...':'Approve USDT'}</button>
+                          ) : (
+                            <>
+                              <button className="btn" onClick={()=>onBuyAndStake()} disabled={loading}>{loading ? 'Processing...': selected === 'ETH' ? 'Buy & Stake for 300.00% APY' : 'Buy Now'}</button>
+                              <div className="only-buying">Just want to buy without staking? Click <span className="cursor-pointer text-bold" style={{fontWeight:'bold'}} onClick={()=>onBuy()}>here</span></div>
+                            </>
+                          )
                         ) : (
-                          <>
-                            <button className="btn" onClick={()=>onBuyAndStake()} disabled={loading}>{loading ? 'Processing...':'Buy & Stake for 300.00% APY'}</button>
-                            <div className="only-buying">Just want to buy without staking? Click <span className="cursor-pointer text-bold" style={{fontWeight:'bold'}} onClick={()=>onBuy()}>here</span></div>
-                          </>
+                          (selectedCoin === 'USDT' && !userBUSDIsApproved) ? (
+                            <button className="btn" onClick={()=>onApprove()} disabled={loading}>{loading ? 'Approving...':'Approve BUSD'}</button>
+                          ) : (
+                            <>
+                              <button className="btn" onClick={()=>onBuyAndStake()} disabled={loading}>{loading ? 'Processing...': selected === 'ETH' ? 'Buy & Stake for 300.00% APY' : 'Buy Now'}</button>
+                            </>
+                          )
                         )}
                       </div>
                     </>

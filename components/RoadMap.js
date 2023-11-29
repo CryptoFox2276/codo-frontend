@@ -39,8 +39,6 @@ const RoadMap = () => {
                                 type: 'fraction',
                             }}
                             loop={true}
-                            onSlideChange={() => console.log('slide change')}
-                            onSwiper={(swiper) => console.log(swiper)}
                             className="roadmapSwiper"
                         >
                             {RoadMapData.map((item, index) => (
