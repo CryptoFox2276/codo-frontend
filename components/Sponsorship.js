@@ -20,8 +20,6 @@ const Sponsorship = () => {
                   disableOnInteraction: false,
                 }}
                 modules={[Pagination, Autoplay]}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
                 className="sponsorshipSwiper"
             >
                 <SwiperSlide>

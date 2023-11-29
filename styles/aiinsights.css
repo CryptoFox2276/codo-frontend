@@ -14,6 +14,14 @@ section#ai-insights .container-header .title {
 section#ai-insights .container-header .btn {
     display: inline-flex;
     gap: 1rem;
+    background-color: #030303;
+    display: inline-flex;
+    align-items: center;
+    max-width: 194px;
+    max-height: 56px;
+    border-radius: 0;
+    gap: 1rem;
+    font-size: 17px;
 }
 
 section#ai-insights .btn-whitepaper {

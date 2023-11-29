@@ -34,7 +34,7 @@ const HowToBuy = () => {
                 <div className="container-header">
                     <h1 className="title">How To Buy and Stake</h1>
                     <Link href="#">
-                        <p className="btn flex gap-3 justify-center text-uppercase text-center m-auto mr-0 px-3 py-2">
+                        <p className="btn">
                             Buy Now <img src="/assets/images/icons/ArrowRight.png" />
                         </p>
                     </Link>

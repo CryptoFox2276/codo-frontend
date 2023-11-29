@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
+import Link from "next/link";
 
 const renderer = ({days, hours, minutes, seconds, completed}) => {
     if(completed) {
@@ -29,9 +30,9 @@ const renderer = ({days, hours, minutes, seconds, completed}) => {
                         </div>
                     </div>
                     <div className="countdown-label">
-                        <div className="countdown-item-label">Days</div><div className=" text-4xl font-bold two-dot">:</div>
-                        <div className="countdown-item-label">Hours</div><div className=" text-4xl font-bold two-dot ">:</div>
-                        <div className="countdown-item-label">Mins</div><div className=" text-4xl font-bold two-dot">:</div>
+                        <div className="countdown-item-label">Days</div>
+                        <div className="countdown-item-label">Hours</div>
+                        <div className="countdown-item-label">Mins</div>
                         <div className="countdown-item-label">Secs</div>
                     </div>
                 </div>
@@ -53,12 +54,17 @@ const Nextpresale = () => {
 
     return (
         <section id="next-presale">
-            <div className="container m-auto">
-                <div className="container-body">
+            <div className="background"></div>
+            <div className="container">
+                <div className="container-body m-auto">
                     <NextPresaleCountDown />
-                </div>
-                <div>
-                    <img src="/assets/images/img-2.png" width={450} />
+                    <div className="mt-10">
+                        <Link href="#">
+                            <p className="btn m-auto">
+                                Buy Now <img src="/assets/images/icons/ArrowRight.png" />
+                            </p>
+                    </Link>
+                    </div>
                 </div>
             </div>
         </section>

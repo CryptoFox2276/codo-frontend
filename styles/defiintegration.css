@@ -15,7 +15,12 @@ section#defi-integration .container .container-header {
 section#defi-integration .container .container-header .btn {
     background-color: #161A22;
     display: inline-flex;
+    align-items: center;
+    max-width: 194px;
+    max-height: 56px;
+    border-radius: 0;
     gap: 1rem;
+    font-size: 17px;
 }
 section#defi-integration .vertical-timeline::before {
     background: unset;

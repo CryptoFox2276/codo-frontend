@@ -89,11 +89,11 @@ section#digital-assets .assets-group .assets-item .label {
     font-weight: 500;
 }
 
-section#digital-assets .assets-group .assets-item .title {
+section#digital-assets .assets-group .assets-item .sub-title {
     color: white;
     font-size: 24px;
     font-weight: 700;
-    padding: 0;
+    padding: 0 1rem;
     text-align: center;
     border-right: 1px solid gray;
 }
@@ -111,7 +111,7 @@ section#digital-assets .assets-group .assets-item .content {
 }
 
 @media (max-width: 768px) {
-    section#digital-assets .assets-group .assets-item .title {
+    section#digital-assets .assets-group .assets-item .sub-title {
         border: 0;
         border-bottom: 1px solid gray;
     }
@@ -124,7 +124,7 @@ section#digital-assets .assets-group .assets-item .content {
     section#digital-assets .dot-group {
         display: none;
     }
-    section#digital-assets .assets-group .assets-body .assets-item .assets-item-body .title {
+    section#digital-assets .assets-group .assets-body .assets-item .assets-item-body .sub-title {
         font-size: 16px;
         font-weight: 700;
     }
@@ -147,11 +147,11 @@ section#digital-assets .assets-group .assets-item .content {
         padding: .5rem 1rem;
     }
 
-    section#digital-assets .assets-group .assets-body:nth-child(odd) .assets-item .assets-item-body .title, section#digital-assets .assets-group .assets-body:nth-child(odd) .assets-item .assets-item-body .content {
+    section#digital-assets .assets-group .assets-body:nth-child(odd) .assets-item .assets-item-body .sub-title, section#digital-assets .assets-group .assets-body:nth-child(odd) .assets-item .assets-item-body .content {
         text-align: left;
         padding: .5rem 0;
     }
-    section#digital-assets .assets-group .assets-body:nth-child(even) .assets-item .assets-item-body .title, section#digital-assets .assets-group .assets-body:nth-child(even) .assets-item .assets-item-body .content {
+    section#digital-assets .assets-group .assets-body:nth-child(even) .assets-item .assets-item-body .sub-title, section#digital-assets .assets-group .assets-body:nth-child(even) .assets-item .assets-item-body .content {
         text-align: right;
         padding: .5rem 0;
     }

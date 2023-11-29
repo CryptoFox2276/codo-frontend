@@ -95,13 +95,14 @@ section .sub-title {
 }
 
 .btn {
-  background-color: #030303;
+  background-color: rgba(246,143,149, 10%);
   color: #F5A11E;
   /* width: 100%; */
   max-width: 250px;
+  max-height: 43px;
   width: fit-content;
-  padding: 15px 25px;
-  border-radius: .5rem;
+  padding: 10px 25px;
+  border-radius: .3rem;
   font-family: 'Lexend';
   font-size: 14px;
   font-weight: 600;
@@ -111,7 +112,7 @@ section .sub-title {
   text-align: center;
 }
 .btn-bg-colored {
-  background-color: #F5A11E;
+  background-color: #F5A11E !important;
   color: white;
 }
 .btn:hover {
@@ -227,8 +228,10 @@ section .sub-title {
 
 #dashboard .title {
   padding-bottom: 2rem;
+  font-family: 'Montserrat';
   font-size: 36px;
-  font-weight: 400;
+  font-weight: 700;
+  letter-spacing: 2px;
   color: #F5A11E;
 }
 
@@ -239,23 +242,44 @@ section .sub-title {
   text-align: left;
 }
 
-#dashboard #home .title {
-  padding-bottom: 1rem;
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 2.5rem;
-}
 
 #dashboard #home {
-  background-color: #000;
+  background-color: #161A22;
   position: relative;
   overflow: hidden;
 }
 
+#dashboard #home .title {
+  padding-bottom: 1rem;
+  font-family: 'Lexend';
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+#home .content {
+  font-size:20px;
+  font-family: 'Inter';
+}
+
+#home .container .container-text {
+  width: 100%;
+  height: 100%;
+  max-width: 740px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-top: auto;
+  margin-bottom: auto;
+  list-style: 1.5;
+  gap: 2rem;
+}
+
+#home .container .container-panel {}
 
 
 #dashboard #home .background{
-  background-image: url("/assets/images/Background-main.png");
+  background-image: url("/assets/images/Home-background.png");
 
   filter: blur(2px);
   -webkit-filter: blur(2px);
@@ -274,9 +298,13 @@ section .sub-title {
 
 #home .panel {
   margin: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-bottom: 2rem;
+  width: 100%;
+  height: 100%;
+  max-width: 348px;
+  padding-top: 0.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  /* padding-bottom: 1.5rem; */
   text-align: center;
   border-radius: 1rem;
   background-color: #F5A11E;
@@ -285,7 +313,7 @@ section .sub-title {
 #home .panel .panel-header {
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  padding: 1rem;
+  padding-bottom: .8rem;
 }
 
 #home .panel .panel-header h2 {
@@ -326,12 +354,12 @@ section .sub-title {
 
 #home .panel .sub-panel {
   /* display: flex; */
-  padding: 1rem;
-  margin-bottom: 1rem;
+  padding: 10px;
+  margin-bottom: 10px;
   justify-content: space-between;
   background: #161A22;
   color: black;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 #home .panel .sub-panel h2 {
@@ -356,6 +384,10 @@ section .sub-title {
   
 }
 
+#home .panel .current-stage .text-box {
+  line-height: 1.5;
+}
+
 #home .panel .current-stage p{
   font-family: 'Lexend';
   font-size: 10px;
@@ -367,6 +399,7 @@ section .sub-title {
   font-weight: 700;
 }
 
+
 #home .panel .next-stage {
   display: flex;
   justify-content: space-between;
@@ -374,11 +407,98 @@ section .sub-title {
   font-size: 10px;
 }
 
-#home .panel .btn {
-  background-color: rgb(221, 180, 34);
+#home .panel .btn.connect-wallet {
   border: 1px solid black;
   color: black;
 }
+
+#home .panel .buy-panel {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  gap: 5px;
+}
+
+#home .panel .buy-panel.flex-col-reversed {
+  flex-direction: column-reverse;
+  transition: .5s;
+}
+
+#home .panel .buy-panel .input-group {
+  position: relative;
+  display: flex;
+}
+
+#home .panel .buy-panel .input-group input {
+  width: 100%;
+  height: 100vh;
+  /* max-width: 294px; */
+  max-height: 33px;
+  padding: .5rem;
+  font-size: 12px;
+  color: #2C3131;
+  border: 1px solid #E3E3E3;
+  border-radius: 5px;
+  outline: none;
+  background-color: unset;
+}
+
+#home .panel .buy-panel .input-group .select-coin {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  outline: none;
+  border: none;
+  font-size: 12px;
+  background-color: unset;
+  color: #2C3131;
+}
+
+#home .panel .buy-panel .input-group span.select-coin {
+  position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    font-size: 12px;
+    background-color: unset;
+    color: #2C3131;
+    margin: auto;
+    align-items: center;
+    display: flex;
+    gap: 0.1rem;
+}
+
+#home .panel .only-buying {
+  padding-top: 1rem;
+  font-family: 'Lexend';
+  font-size: 12px;
+  color: #000;
+}
+
+#home .panel .buy-panel .input-group select option[value="ETH"] {
+  background-image: url("/assets/images/icons/eth-icon.png");
+}
+#home .panel .buy-panel .input-group select option[value="USDT"] {
+  background-image: url("/assets/images/icons/usdt-icon.png");
+}
+
+#home .panel .buy-panel .input-group select option {
+  background-color: #F5A11E;
+  background-image: url("/assets/images/icons/usdt-icon.png");
+  color: #2C3131;
+}
+
+#home .panel  .btn {
+  width: 100%;
+  max-width: 295px;
+  color: white;
+  background-color: #161A22;
+  font-size: 12px;
+  font-weight: normal;
+  font-family: 'Lexend';
+}
+
 
 #dashboard #roadmap .item:hover {
   background-color: #0764a6;
@@ -542,8 +662,8 @@ footer .text-email {
 .countdown {
   display: flex;
   justify-content: center;
-  gap: .5rem;
-  padding: 10px 0 30px;
+  gap: .3rem;
+  padding: 10px 0 20px;
 }
 .countdown .countdown-item {
   font-size: 1rem;
@@ -564,9 +684,13 @@ footer .text-email {
 }
 
 .countdown .countdown-item .countdown-time .countdown-time-item {
+  width: 100%;
+  max-width: 29px;
+  max-height: 37px;
   font-size: 20px;
   font-family: 'DigitalNumber';
   padding: 5px 0.5rem;
+  color: #F5A11E;
   background-color: #161A22;
   border-radius: 5px;
 }

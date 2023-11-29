@@ -8,7 +8,7 @@ const AIInsights = () => {
                     <span className="title">AI-Driven Insights</span>
                     <Link href="#">
                         <p className="btn hidden">
-                            whitepaper <img src="/assets/images/icons/ArrowRight.png" />
+                            WHITEPAPER <img src="/assets/images/icons/ArrowRight.png" />
                         </p>
                     </Link>
                 </div>

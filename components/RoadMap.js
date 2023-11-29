@@ -26,8 +26,8 @@ const RoadMap = () => {
     return (
         <section id="roadmap">
             <div className="container m-auto">
-                <div className="container-header">
-                    <div className="title">RoadMap</div>
+                <div className="container-header text-center pb-10">
+                    <div className="title m-atuo">RoadMap</div>
                 </div>
                 <div className="container-body">
                     <div className="swap-container">

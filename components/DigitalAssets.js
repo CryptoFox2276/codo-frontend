@@ -17,7 +17,7 @@ const DigitalAssets = () => {
                             <div className="assets-item">
                                 <div className="label" style={{backgroundColor: '#86D5E5'}}>01</div>
                                 <div className="assets-item-body flex flex-col lg:grid lg:grid-cols-2">
-                                    <div className="title">Crypto Innovation Hub</div>
+                                    <div className="sub-title">Crypto Innovation Hub</div>
                                     <div className="content"><span className="text-bold text-white">Codo Finance:</span> a visionary launchpad for crypto projects in memes, gaming and A</div>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@ const DigitalAssets = () => {
                             <div className="assets-item">
                                 <div className="label" style={{backgroundColor: '#79919C'}}>02</div>
                                 <div className="assets-item-body flex flex-col lg:grid lg:grid-cols-2">
-                                    <div className="title">Digital Finance Platform</div>
+                                    <div className="sub-title">Digital Finance Platform</div>
                                     <div className="content">Invest with confidence on our platform, accessing exclusive tokens and DeFi tools.</div>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@ const DigitalAssets = () => {
                             <div className="assets-item">
                                 <div className="label" style={{backgroundColor: '#F5A11E'}}>03</div>
                                 <div className="assets-item-body flex flex-col lg:grid lg:grid-cols-2">
-                                    <div className="title"> Digital Finance Platform</div>
+                                    <div className="sub-title"> Digital Finance Platform</div>
                                     <div className="content">Invest with confidence on our platform, accessing exclusive tokens and DeFi tools.</div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@ const DigitalAssets = () => {
                             <div className="assets-item">
                                 <div className="label" style={{backgroundColor: '#FEAA42'}}>04</div>
                                 <div className="assets-item-body flex flex-col lg:grid lg:grid-cols-2">
-                                    <div className="title">Codo: Where Innovation Invests</div>
+                                    <div className="sub-title">Codo: Where Innovation Invests</div>
                                     <div className="content">Explore the future of finance with Codo.</div>
                                 </div>
                             </div>

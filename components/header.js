@@ -59,12 +59,7 @@ export default function Header() {
           <Link href="/" className="-m-1.5 p-1.5">
             <span>
               <span className="sr-only">CODO</span>
-              <img
-                className="h-8 w-auto h-auto cursor-pointer"
-                src="/assets/images/logo.png"
-                alt="codo_logo"
-                style={{width: '200px'}}
-              />
+              <img className=" w-auto cursor-pointer" src="/assets/images/logo.png" alt="codo_logo" height={49} style={{width:"240px"}}/>
             </span>
           </Link>
         </div>
@@ -110,20 +105,18 @@ export default function Header() {
           </a>
         </div>
         <div className="hidden lg:flex lg:justify-end lg:gap-x-6 lg:m-auto lg:mr-0">
-          {saleActive && Date.now() - new Date(startTime) >= 0 && (
             <>
-              <Link href="/presale">
+              <Link href="#">
                 <p className="btn text-uppercase text-center text-sm font-semibold leading-6 text-white bg-gray-700 px-3 py-2">
                   Buy Now
                 </p>
               </Link>
-              <Link href="/presale">
+              <Link href="#">
                 <p className="btn btn-bg-colored text-uppercase text-center text-sm font-semibold leading-6 text-white bg-gray-700 px-3 py-2">
                   Staking
                 </p>
               </Link>
             </>
-          )}
           {/* {address ? (
             <a onClick={onDisconnect} className="btn btn-bg-colored">
               {address}
@@ -143,11 +136,7 @@ export default function Header() {
               <Link href="/" className="-m-1.5 p-1.5">
                 <span>
                   <span className="sr-only">CODO</span>
-                  <img
-                    className="h-8 w-auto h-auto"
-                    src="/assets/images/CODO.png"
-                    alt=""
-                  />
+                  <img src="/assets/images/logo.png" alt="codo_logo" height={49} style={{width:"240px"}}/>
                 </span>
               </Link>
               <button
@@ -251,13 +240,13 @@ export default function Header() {
 
             <div className="flex gap-3">
               <div>
-                <img src="/assets/images/icons/twitter.png" />
+                <img src="/assets/images/icons/twitter.png" alt="twitter" />
               </div>
               <div>
-                <img src="/assets/images/icons/telegram.png" />
+                <img src="/assets/images/icons/telegram.png" alt="telegram"  />
               </div>
               <div>
-                <img src="/assets/images/icons/discord.png"/>
+                <img src="/assets/images/icons/discord.png" alt="discord" />
               </div>
             </div>
           </div>

@@ -33,6 +33,23 @@ section#curated-project .container .container-body {
     justify-content: space-between;
 }
 
+
+section#curated-project .container .container-body .container-body-text .container-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+section#curated-project .container .container-body .container-body-text .container-header .btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 10px;
+    border-radius: 0;
+    background-color: #030303;
+    gap: .8rem;
+}
+
 section#curated-project .container .container-body .container-body-text {
     width: 60%;
     display: flex;
@@ -102,6 +119,10 @@ section#curated-project .container .btn-buy-now {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+    }
+
+    section#curated-project .container .container-body .container-body-text .container-header .btn {
+        display: none;
     }
 
     section#curated-project .container .container-body .container-body-text .content .content-icon {
