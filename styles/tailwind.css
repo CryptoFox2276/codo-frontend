@@ -130,6 +130,10 @@ section .sub-title {
 }
 
 /* Header */
+header {
+  background-color: #161A22;
+  box-shadow: 0px 0px 10px 0px #030303;
+}
 .width-fill-available {
   width: -webkit-fill-available;
 }

@@ -27,7 +27,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky inset-x-0 top-0 z-50 bg-gray-900">
+    <header className="sticky inset-x-0 top-0 z-50">
       <nav
         className="flex items-center p-6 lg:px-8 justify-between"
         aria-label="Global"
