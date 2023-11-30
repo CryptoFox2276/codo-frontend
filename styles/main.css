@@ -718,6 +718,9 @@ video {
 .gap-5 {
   gap: 1.25rem;
 }
+.gap-1 {
+  gap: 0.25rem;
+}
 .gap-x-52 {
   -moz-column-gap: 13rem;
        column-gap: 13rem;
@@ -881,6 +884,9 @@ video {
 }
 .pt-6 {
   padding-top: 1.5rem;
+}
+.pb-1 {
+  padding-bottom: 0.25rem;
 }
 .text-left {
   text-align: left;

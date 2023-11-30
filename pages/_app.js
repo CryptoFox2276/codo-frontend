@@ -1,6 +1,6 @@
 import App from "next/app";
 import { Provider } from "react-redux";
-import { createWrapper } from "next-redux-wrapper";
+import { PrimeReactProvider } from 'primereact/api';
 import store from "../store/store";
 import "../styles/main.css";
 import Layout from "../components/layout";
@@ -10,9 +10,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <StateProvider>
       <Provider store={store}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+      <PrimeReactProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </PrimeReactProvider>
       </Provider>
     </StateProvider>
   );
