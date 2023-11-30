@@ -46,7 +46,7 @@
 @import url(./faq.css);
 @import url(./footer.css);
 @import url(./dashboard/userdashboard.css);
-@import url(./dashboard/buyandstake.css);
+@import url(./dashboard/dashboardcard.css);
 
 /* Common */
 .bg-gray-300 {

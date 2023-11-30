@@ -34,6 +34,10 @@
     font-size: 12px;
 }
 
+.dashboard-card .card-body .card-body-content .content-value span{
+    font-size: 10px;
+}
+
 .dashboard-card .card-action {}
 .dashboard-card .card-action .btn{
     width: 100%;

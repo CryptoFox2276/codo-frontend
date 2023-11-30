@@ -3,7 +3,7 @@ export default function Pool() {
         <div className="dashboard-card">
             <div className="card-header">
                 <div className="header-icon">
-                    <img src="/assets/images/icons/solar_user.png" alt="solar-user" height={33} />
+                    <img src="/assets/images/icons/solar_pool.png" alt="solar-user" height={33} />
                 </div>
                 <div className="header-title">
                     Pool

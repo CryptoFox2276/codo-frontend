@@ -1,5 +1,6 @@
 import BuyAndStake from "../components/dashboard/BuyAndStake";
 import Pool from "../components/dashboard/Pool";
+import Rewards from "../components/dashboard/Rewards";
 
 export default function Dashboard() {
     return (
@@ -8,7 +9,7 @@ export default function Dashboard() {
                 <div className="flex gap-10">
                     <BuyAndStake />
                     <Pool />
-                    <BuyAndStake />
+                    <Rewards />
                 </div>
                 <div className="flex"></div>
                 <div className="flex"></div>
