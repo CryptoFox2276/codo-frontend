@@ -138,9 +138,27 @@ header {
   width: -webkit-fill-available;
 }
 
-.header-menu {
-
+.header-menu a{
+  font-family: 'Lexend';
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  color: white;
 }
+
+.header-menu-mobile a{
+  display: block;
+  font-family: 'Lexend';
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  color: white;
+}
+
 .header-menu .menu-item {
 
 }

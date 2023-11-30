@@ -9,7 +9,7 @@ export default function Dashboard() {
     return (
         <main id="user-dashboard">
             <div  className="container m-auto">
-                <div className="container-header pb-5">
+                <div className="container-header px-5 xs:pm-5 sm:px-5 md:px-3 lg:px-0 pb-5">
                     <div className="container-header-title pb-2">User</div>
                     <div className="container-header-menu flex gap-3">Dashboard <img src="/assets/images/dot.png" alt="dot" style={{marginTop:'auto', marginBottom: 'auto'}} /> <span className="container-header-submenu">User</span></div>
                 </div>

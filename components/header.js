@@ -65,44 +65,44 @@ export default function Header() {
         </div>
         
         <div className="hidden lg:flex border-l-3 lg:pl-5 header-menu">
-          <a
-            href="#"
+          <Link
+            href="/dashboard"
             className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
           >
             Home
-          </a>
-          <a href="#" className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white">
+          </Link>
+          <Link href="#" className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white">
             Token Sales
-          </a>
-          <a href="#" className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white">
+          </Link>
+          <Link href="#" className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white">
             Staking & Rewards
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
           >
             RoadMap
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="#"
             className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
           >
             About Us
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="#"
             className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
           >
             Contact
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
           >
             FAQs
-          </a>
+          </Link>
         </div>
         <div className="hidden lg:flex lg:justify-end lg:gap-x-6 lg:m-auto lg:mr-0">
             <>
@@ -163,48 +163,48 @@ export default function Header() {
             </div>
             <div className="mt-6 mb-5 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
+                <div className="space-y-2 py-6 header-menu-mobile">
+                  <Link
+                    href="/dashboard"
+                    className="mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     HOME
-                  </a>
+                  </Link>
 
-                  <a
+                  <Link
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
+                    className="mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     Token Sale
-                  </a>
+                  </Link>
 
-                  <a
+                  <Link
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
+                    className="mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     Staking & Rewards
-                  </a>
+                  </Link>
 
-                  <a
+                  <Link
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
+                    className="mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     About Us
-                  </a>
+                  </Link>
 
-                  <a
+                  <Link
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
+                    className="mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     Contact
-                  </a>
+                  </Link>
 
-                  <a
+                  <Link
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
+                    className="mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     FAQs
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
