@@ -6,7 +6,7 @@
     color: #919EAB;
     font-family: 'PublicSans';
     width: 100%;
-    max-width: 420px;
+    /* max-width: 420px; */
 }
 
 .dashboard-card .card-header {
@@ -41,7 +41,14 @@
 .dashboard-card .card-action {}
 .dashboard-card .card-action .btn{
     width: 100%;
-    max-width: 420px;
+    max-width: 100%;
+    /* max-width: 420px; */
     margin: auto;
     color: #F68F31;
+}
+
+@media (max-width: 768px) {
+    .dashboard-card {
+        margin: auto
+    }
 }
