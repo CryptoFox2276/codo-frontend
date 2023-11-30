@@ -998,6 +998,11 @@ video {
   src: url('/assets/fonts/Inter/static/Inter-Regular.ttf')
 }
 
+@font-face {
+  font-family: 'PublicSans';
+  src: url('/assets/fonts/Public_Sans/static/PublicSans-Regular.ttf');
+}
+
 @import url(./sponsor.css);
 @import url(./aboutus.css);
 @import url(./curatedproject.css);
@@ -1011,6 +1016,8 @@ video {
 @import url(./roadmap.css);
 @import url(./faq.css);
 @import url(./footer.css);
+@import url(./dashboard/userdashboard.css);
+@import url(./dashboard/buyandstake.css);
 
 /* Common */
 .bg-gray-300 {
