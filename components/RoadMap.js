@@ -8,10 +8,7 @@ import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeli
 import 'react-vertical-timeline-component/style.min.css';
 
 const RoadMapData = [
-    {
-        title: "2022 Q3-Q4",
-        content: "Project Start Website Launch CODO Smart Contracts Whitepaper Launch Social Media Launch"
-    },
+    
     {
         title: "2022 Q1-Q2",
         content: "Marketing Activities Smart Contracts Audit Presale Start Token Claim Token Listing Burn Presale 2 Unsold tokens CodoHub Testnet Codo Vip Club Publish Community Expansion"
@@ -19,6 +16,18 @@ const RoadMapData = [
     {
         title: "2022 Q2-Q3",
         content: "CodoHub Publish (Beta) CodoHub Vip Club INO New Partnerships First IGO Start Marketplace launch (Beta) New Exchanges"
+    },
+    {
+        title: "2022 Q3-Q4",
+        content: "CodoHub Publish (Beta) CodoHub Vip Club INO New Partnerships First IGO Start Marketplace launch (Beta) New Exchanges"
+    },
+    {
+        title: "2022 Q4-Q5",
+        content: "Project Start Website Launch CODO Smart Contracts Whitepaper Launch Social Media Launch"
+    },
+    {
+        title: "2022 Q5-Q6",
+        content: "Project Start Website Launch CODO Smart Contracts Whitepaper Launch Social Media Launch"
     },
 ]
 
@@ -35,10 +44,12 @@ const RoadMap = () => {
                             slidesPerView={3}
                             centeredSlides={true}
                             spaceBetween={30}
-                            pagination={{
-                                type: 'fraction',
-                            }}
                             loop={true}
+                            autoplay={{
+                                delay: 1500,
+                                disableOnInteraction: false,
+                            }}
+                            modules={[Autoplay]}
                             className="roadmapSwiper"
                         >
                             {RoadMapData.map((item, index) => (
