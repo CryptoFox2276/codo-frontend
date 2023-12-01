@@ -1,11 +1,23 @@
+import { useRouter } from "next/router";
+import { eth } from "../state/eth";
 import BuyAndStake from "../components/dashboard/BuyAndStake";
 import ClaimRewards from "../components/dashboard/ClaimRewards";
 import Pool from "../components/dashboard/Pool";
 import Rewards from "../components/dashboard/Rewards";
 import TotalSupply from "../components/dashboard/TotalSupply";
 import WithdrawTokens from "../components/dashboard/WithdrawTokens";
+import { useEffect } from "react";
 
 export default function Dashboard() {
+    const router = useRouter();
+    const {walletConnected, loadUserBalance, loadCurrentBalance} = eth.useContainer();
+
+    useEffect(() => {
+        if(!walletConnected) router.replace('/');
+        loadCurrentBalance();
+        loadUserBalance();
+    },[walletConnected])
+
     return (
         <main id="user-dashboard">
             <div  className="container m-auto">

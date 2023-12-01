@@ -1,4 +1,15 @@
+import Link from "next/link";
+import { eth } from "../../state/eth";
+
 export default function BuyAndStake() {
+
+    const {
+        totalSoldAmount,
+        userBalance,
+        userStakedTokenBalance,
+        addCommas,
+      } = eth.useContainer();
+
     return (
         <div className="dashboard-card">
             <div className="card-header">
@@ -11,16 +22,20 @@ export default function BuyAndStake() {
             </div>
             <div className="card-body">
                 <div className="card-body-content">
-                    <div className="content-value">0</div>
+                    <div className="content-value">{addCommas(totalSoldAmount)}</div>
                     <div className="content-label">CODO</div>
                 </div>
                 <div className="card-body-content">
-                    <div className="content-value">0</div>
+                    <div className="content-value">{addCommas(userStakedTokenBalance)}</div>
                     <div className="content-label">Your staked balance</div>
                 </div>
             </div>
             <div className="card-action">
-                <button className="btn">Buy And Stake</button>
+                <Link href="/">
+                <p className="btn">
+                    Buy And Stake
+                </p>
+                </Link>
             </div>
         </div>
     )

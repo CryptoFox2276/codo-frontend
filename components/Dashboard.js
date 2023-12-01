@@ -258,7 +258,35 @@ const Dashboard = () => {
   }
 
   const Completionist = () => (
-      <></>
+      <>
+        <div>
+            <div className="center pb-3">
+              <p
+                className="font-bold text-black text-uppercase"
+                style={{ fontFamily: "Lexend" }}
+              >
+                Please purchase token.
+              </p>
+            </div>
+            <div className="countdown">
+              <div className="countdown-item">
+                <SplitedItem data={"00"} />
+              </div>
+              <div className=" text-2xl font-bold">:</div>
+              <div className="countdown-item">
+                <SplitedItem data={"00"} />
+              </div>
+              <div className=" text-2xl font-bold">:</div>
+              <div className="countdown-item">
+                <SplitedItem data={"00"} />
+              </div>
+              <div className=" text-2xl font-bold">:</div>
+              <div className="countdown-item">
+                <SplitedItem data={"00"} />
+              </div>
+            </div>
+          </div>
+      </>
   );
 
   const startPresaleRenderer = ({ days, hours, minutes, seconds, completed }) => {

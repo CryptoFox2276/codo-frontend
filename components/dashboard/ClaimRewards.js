@@ -1,4 +1,20 @@
+import { useCallback } from "react";
+import { eth } from "../../state/eth"
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function ClaimRewards() {
+    const {harvestRewards} = eth.useContainer();
+
+    const onClaim = useCallback(()=>{
+        harvestRewards().then(res => {
+            if(res) {
+                toast.success("Successfully claimed reward token");
+            } else {
+                toast.error("Failed claiming");
+            }
+        })
+    }, [harvestRewards])
     return (
         <div className="dashboard-card">
             <div className="card-header">
@@ -10,7 +26,7 @@ export default function ClaimRewards() {
                 </div>
             </div>
             <div className="card-action">
-                <button className="btn">Claim Rewards</button>
+                <button className="btn" onClick={onClaim}>Claim Rewards</button>
             </div>
         </div>
     )

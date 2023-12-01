@@ -97,6 +97,8 @@ function useEth() {
   const [saleActive, setSaleActive] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [tierEndTime, setTierEndTime] = useState(0);
+  const [rewardTokenPerBlock, setRewardTokenPerBlock] = useState(0) // Amount of reward token per block in the staking
+  const [endBlockNumber, setEndBlockNumber] = useState(0) // Number of block that staking can be ended
 
   const [bnbPriceFeed, setBnbPriceFeed] = useState(0);
 
@@ -106,8 +108,10 @@ function useEth() {
   const [totalSoldCost, setTotalSoldCost] = useState(0);
   const [totalRaised, setTotalRaised] = useState(0);
   const [totalSoldPercent, setTotalSoldPercent] = useState(0);
+  const [totalStaked, setTotalStaked] = useState(0);
 
-  const [userBalance, setUserBalance] = useState(0);
+  const [userBalance, setUserBalance] = useState(0);  // Amount of token user purchased
+  const [userStakedTokenBalance, setUserStakedTokenBalance] = useState(0);  // Amount of token staked to the pool by user
   const [userUSDCIsApproved, setUserUSDCIsApproved] = useState(false);
   const [userBUSDIsApproved, setUserBUSDIsApproved] = useState(false);
   const [userUSDCBalance, setUserUSDCBalance] = useState(0);
@@ -211,6 +215,28 @@ function useEth() {
         },
       ],
     });
+    calls.push({
+      reference: "Stake",
+      contractAddress: process.env.NEXT_PUBLIC_STAKING,
+      abi: abiStaking,
+      calls: [
+        {
+          reference: "tokensStaked",
+          methodName: "tokensStaked",
+          methodParameters: [],
+        },
+        {
+          reference: "rewardTokensPerBlock",
+          methodName: "rewardTokensPerBlock",
+          methodParameters: []
+        },
+        {
+          reference: "endBlock",
+          methodName: "endBlock",
+          methodParameters: [],
+        }
+      ]
+    })
 
     try {
       const result = await multicall.call(calls);
@@ -311,6 +337,14 @@ function useEth() {
       );
       setSaleActive(_saleActive);
       setStartTime(ethers.BigNumber.from(_startTime.hex).toNumber() * 1000);
+
+      let _totalStaked = result.results["Stake"].callsReturnContext[0].success ? result.results["Stake"].callsReturnContext[0].returnValues[0] : 0;
+      let _rewardTokenPerBlock = result.results["Stake"].callsReturnContext[1].success ? result.results["Stake"].callsReturnContext[1].returnValues[0] : 0;
+      let _endBlock = result.results["Stake"].callsReturnContext[2].success ? result.results["Stake"].callsReturnContext[2].returnValues[0] : 0;
+      setTotalStaked(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_totalStaked).toString(),18)).toFixed());
+      setRewardTokenPerBlock(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_rewardTokenPerBlock).toString(),18)).toFixed())
+      console.log("_endblock", (ethers.BigNumber.from(_endBlock).toString()));
+      setEndBlockNumber(ethers.BigNumber.from(_endBlock).toString());
     } catch (err) {
       console.error(err);
     }
@@ -434,6 +468,18 @@ function useEth() {
         { reference: "decimals", methodName: "decimals", methodParameters: [] },
       ],
     });
+    calls.push({
+      reference: "Stake",
+      contractAddress: process.env.NEXT_PUBLIC_STAKING,
+      abi: abiStaking,
+      calls: [
+        {
+          reference: "poolStaker",
+          methodName: "poolStakers",
+          methodParameters: [address],
+        }
+      ]
+    });
 
     try {
       const result = await multicall.call(calls);
@@ -441,8 +487,7 @@ function useEth() {
         console.error("!Operating failed");
         return;
       }
-      const _getUserBalance = result.results["CODO"].callsReturnContext[0]
-        .success
+      const _getUserBalance = result.results["CODO"].callsReturnContext[0].success
         ? result.results["CODO"].callsReturnContext[0].returnValues[0]
         : 0;
       const _allowance = result.results["USDC"].callsReturnContext[0].success
@@ -454,10 +499,14 @@ function useEth() {
       const _decimals = result.results["USDC"].callsReturnContext[2].success
         ? result.results["USDC"].callsReturnContext[2].returnValues[0]
         : 0;
-
+      const _userStakedBalance = result.results["Stake"].callsReturnContext[0].success
+        ? result.results["Stake"].callsReturnContext[0].returnValues[0]
+        : 0;
+      
       setUserUSDCIsApproved(ethers.BigNumber.from(_allowance).gt(0));
       setUserUSDCBalance(ethers.utils.formatUnits(_balanceOf, _decimals));
-      setUserBalance(ethers.utils.formatEther(_getUserBalance));
+      setUserBalance(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_getUserBalance).toString(),18)).toFixed());
+      setUserStakedTokenBalance(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_userStakedBalance).toString(),18)).toFixed())
     } catch (err) {
       console.error(err);
     }
@@ -542,7 +591,7 @@ function useEth() {
         abiCodoPresale,
         signer
       );
-      const tx = await presale.buyWithEth(ethers.utils.parseEther(Number(tokenAmount).toString()), {value: ethers.utils.parseEther(ethAmount)});
+      const tx = await presale.buyWithEth(ethers.utils.parseEther(Number(tokenAmount.toString()).toString()), {value: ethers.utils.parseEther(ethAmount.toString())});
       await tx.wait();
       await loadBalance();
       await loadUserBalance();
@@ -605,6 +654,38 @@ function useEth() {
         signer
       );
       const tx = await presale.stakeToken(ethers.utils.parseEther(Number(amount).toString()));
+      await tx.wait();
+      setLoading(false);
+      return true;
+    } catch(e) {
+      console.error(e);
+      setLoading(false);
+      return false;
+    }
+  }
+
+  const harvestRewards = async () => {
+    try {
+      if (!signer) return false;
+      setLoading(true);
+      const stakingContract = new ethers.Contract(process.env.NEXT_PUBLIC_STAKING, abiStaking, signer);
+      const tx = await stakingContract.harvestRewards();
+      await tx.wait();
+      setLoading(false);
+      return true;
+    } catch(e) {
+      console.error(e);
+      setLoading(false);
+      return false;
+    }
+  }
+
+  const withdrawStakedToken = async () => {
+    try {
+      if (!signer) return false;
+      setLoading(true);
+      const stakingContract = new ethers.Contract(process.env.NEXT_PUBLIC_STAKING, abiStaking, signer);
+      const tx = await stakingContract.withdraw();
       await tx.wait();
       setLoading(false);
       return true;
@@ -689,6 +770,7 @@ function useEth() {
     if (provider?.on) {
       const handleAccountsChanged = (accounts) => {
         setAddress(accounts[0]);
+        setWalletConnected(false);
         // dispatch({
         //   type: "SET_ADDRESS",
         //   address: accounts[0],
@@ -768,11 +850,13 @@ function useEth() {
     totalSoldCost,
     totalRaised,
     totalSoldPercent,
+    totalStaked,
     soldAmount,
     soldCost,
     soldPercent,
     nextStagePrice,
     userBalance,
+    userStakedTokenBalance,
     userUSDCIsApproved,
     setUserUSDCIsApproved,
     userBUSDIsApproved,
@@ -783,6 +867,8 @@ function useEth() {
     saleActive,
     startTime,
     tierEndTime,
+    rewardTokenPerBlock,
+    endBlockNumber,
     connectWallet,
     disConnectWallet,
     addCommas,
@@ -796,7 +882,9 @@ function useEth() {
     buyTokenWithBNB,
     buyTokenWithBUSD,
     stakingToken,
-    switchNetwork
+    switchNetwork,
+    harvestRewards,
+    withdrawStakedToken
   };
 }
 

@@ -66,11 +66,21 @@ export default function Header() {
         
         <div className="hidden lg:flex border-l-3 lg:pl-5 header-menu">
           <Link
-            href="/dashboard"
+            href="/"
             className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
           >
             Home
           </Link>
+          {
+            walletConnected && (
+              <Link
+                href="/dashboard"
+                className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
+              >
+                Dashboard
+              </Link>
+            )
+          }
           <Link href="#" className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white">
             Token Sales
           </Link>
@@ -170,7 +180,16 @@ export default function Header() {
                   >
                     HOME
                   </Link>
-
+                  {
+                    walletConnected && (
+                      <Link
+                        href="/dashboard"
+                        className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
+                      >
+                        Dashboard
+                      </Link>
+                    )
+                  }
                   <Link
                     href="#"
                     className="mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"

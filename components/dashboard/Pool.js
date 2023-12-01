@@ -1,4 +1,15 @@
+import { useEffect } from "react";
+import { eth } from "../../state/eth";
+
+
 export default function Pool() {
+
+    const {
+        userStakedTokenBalance,
+        totalStaked,
+        addCommas,
+      } = eth.useContainer();
+    
     return (
         <div className="dashboard-card">
             <div className="card-header">
@@ -11,11 +22,11 @@ export default function Pool() {
             </div>
             <div className="card-body">
                 <div className="card-body-content">
-                    <div className="content-value">0</div>
+                    <div className="content-value">{parseFloat(100 * userStakedTokenBalance / totalStaked).toFixed(2)}</div>
                     <div className="content-label">% OF POOL</div>
                 </div>
                 <div className="card-body-content">
-                    <div className="content-value">17,391,426</div>
+                    <div className="content-value">{addCommas(totalStaked)}</div>
                     <div className="content-label">TOTAL STAKED(codo)</div>
                 </div>
             </div>
