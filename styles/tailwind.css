@@ -50,6 +50,7 @@
 @import url(./modals/modal.css);
 @import url(./modals/stakeModal.css);
 @import url(./modals/claimModal.css);
+@import url(./modals/withdrawModal.css);
 
 /* Common */
 .bg-gray-300 {

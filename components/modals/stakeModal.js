@@ -167,7 +167,6 @@ const StakeModal = ({onClose, children, title}) => {
                             x
                         </a>
                     </div>
-                        {title && <h1>{title}</h1>}
                     <div className="modal-body">
                         <div className="content-title">
                             <h1>Buy & Stake</h1>

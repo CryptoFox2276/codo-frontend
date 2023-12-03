@@ -1,22 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { eth } from "../../state/eth";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import WithdrawModal from "../modals/withdrawModal";
 
 export default function WithdrawTokens() {
 
   const {walletConnected, totalStaked, withdrawStakedToken, connectWallet, addCommas} = eth.useContainer()
+  const [showModal, setShowModal] = useState(false);
 
   const onWithdraw = useCallback(()=>{
-    withdrawStakedToken().then(res => {
-      if(res) {
-        toast.success("Successfully withdrawed");
-      } else {
-        toast.error("Failed withdrawing");
-      }
-    })
-  }, [withdrawStakedToken])
+    setShowModal(true)
+    // withdrawStakedToken().then(res => {
+    //   if(res) {
+    //     toast.success("Successfully withdrawed");
+    //   } else {
+    //     toast.error("Failed withdrawing");
+    //   }
+    // })
+  }, [])
 
   const onConnectWallet = useCallback(()=>{
     connectWallet();
@@ -49,6 +52,13 @@ export default function WithdrawTokens() {
         )
       }
       </div>
+      {
+        showModal && (
+          <WithdrawModal 
+            onClose={()=>setShowModal(false)}
+          />
+        )
+      }
     </div>
   );
 }

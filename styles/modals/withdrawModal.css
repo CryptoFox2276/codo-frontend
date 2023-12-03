@@ -1,0 +1,27 @@
+.withdraw-modal .modal {
+    max-width: 400px;
+    background-color: white;
+    font-family: Lexend;
+}
+
+.withdraw-modal .modal .modal-body {
+    text-align: center;
+}
+
+.withdraw-modal .modal .modal-body .content-title {
+    padding-bottom: 1.5em;
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
+    text-align: center;
+}
+
+.withdraw-modal .modal .modal-body .content-body {
+    font-size: 14px;
+    font-weight: 500;
+    color: #F7931A;
+}
+
+.withdraw-modal .modal .modal-footer .btn.btn-cancel {
+    background-color: #E6E8EC;
+}
