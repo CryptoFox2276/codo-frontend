@@ -163,6 +163,10 @@ header {
   color: white;
 }
 
+.lang-select {
+  background-color: unset;
+}
+
 .header-menu .menu-item {
 
 }

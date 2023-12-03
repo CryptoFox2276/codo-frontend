@@ -7,7 +7,8 @@ const WithdrawModal = ({onClose}) => {
     const {
         loading,
         userStakedTokenBalance,
-        withdrawStakedToken
+        withdrawStakedToken,
+        isWithdrawable
     } = eth.useContainer();
 
     const handleCloseClick = (e) => {
@@ -16,6 +17,10 @@ const WithdrawModal = ({onClose}) => {
     };
 
     const handleWidthdraw = () => {
+        if(!isWithdrawable()) {
+            toast.warn("You are not allowed to withdraw before locked Time")
+            return;
+        }
         withdrawStakedToken().then(res => {
             if(res) {
                 toast.success("Successfully withdrawed");

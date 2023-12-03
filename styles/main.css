@@ -974,6 +974,9 @@ video {
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
+.outline {
+  outline-style: solid;
+}
 
 @font-face {
   font-family: 'BlackOpsOne';
@@ -1135,6 +1138,10 @@ header {
   padding: 0.75rem;
   border-radius: 0.25rem;
   color: white;
+}
+
+.lang-select {
+  background-color: unset;
 }
 
 .header-menu .menu-item {

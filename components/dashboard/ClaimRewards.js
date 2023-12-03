@@ -9,13 +9,16 @@ export default function ClaimRewards() {
         walletConnected,
         harvestRewards,
         connectWallet,
+        isHarvestable,
     } = eth.useContainer();
 
     const [showModal, setShowModal] = useState(false);
 
     const onClaim = useCallback(()=>{
-        setShowModal(true);
-        return;
+        if(!isHarvestable()) {
+            setShowModal(true);
+            return;
+        }
         harvestRewards().then(res => {
             if(res) {
                 toast.success("Successfully claimed reward token");
@@ -23,7 +26,7 @@ export default function ClaimRewards() {
                 toast.error("Failed claiming");
             }
         })
-    }, [harvestRewards])
+    }, [harvestRewards, isHarvestable])
 
     const onConnectWallet = useCallback(()=>{
         connectWallet()

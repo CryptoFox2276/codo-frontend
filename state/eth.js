@@ -112,12 +112,17 @@ function useEth() {
 
   const [userBalance, setUserBalance] = useState(0);  // Amount of token user purchased
   const [userStakedTokenBalance, setUserStakedTokenBalance] = useState(0);  // Amount of token staked to the pool by user
+  const [userStakedTime, setUserStakedTime] = useState(0);
   const [userUSDCIsApproved, setUserUSDCIsApproved] = useState(false);
   const [userBUSDIsApproved, setUserBUSDIsApproved] = useState(false);
   const [userUSDCBalance, setUserUSDCBalance] = useState(0);
   const [userBUSDCBalance, setUserBUSDCBalance] = useState(0);
   const [userETHBalance, setUserETHBalance] = useState(0);
   const [userBNBBalance, setUserBNBBalance] = useState(0)
+
+  const [claimStart, setClaimStart] = useState(0); // Time to start claim
+  const [lockedTime, setLockedTime] = useState(0); // Time to lock withdraw
+  const [harvestLock, setHarvestLock] = useState(true); // Is locked to harvest rewards from staking contract
 
   const connectWallet = async () => {
     try {
@@ -477,6 +482,21 @@ function useEth() {
           reference: "poolStaker",
           methodName: "poolStakers",
           methodParameters: [address],
+        },
+        {
+          reference: "claimStart",
+          methodName: "claimStart",
+          methodParameters: [],
+        },
+        {
+          reference: "lockedTime",
+          methodName: "lockedTime",
+          methodParameters: [],
+        },
+        {
+          reference: "harvestLock",
+          methodName: "harvestLock",
+          methodParameters: [],
         }
       ]
     });
@@ -502,11 +522,29 @@ function useEth() {
       const _userStakedBalance = result.results["Stake"].callsReturnContext[0].success
         ? result.results["Stake"].callsReturnContext[0].returnValues[0]
         : 0;
-      
+      const _userStakedTime = result.results["Stake"].callsReturnContext[0].success
+        ? result.results["Stake"].callsReturnContext[0].returnValues[1]
+        : 0;
+      const _claimStart = result.results["Stake"].callsReturnContext[1].success
+        ? result.results["Stake"].callsReturnContext[1].returnValues[0]
+        : 0;
+      const _lockedTime = result.results["Stake"].callsReturnContext[2].success
+        ? result.results["Stake"].callsReturnContext[2].returnValues[0]
+        : 0;
+      const _harvestLock = result.results["Stake"].callsReturnContext[3].success
+        ? result.results["Stake"].callsReturnContext[3].returnValues[0]
+        : 0;
       setUserUSDCIsApproved(ethers.BigNumber.from(_allowance).gt(0));
       setUserUSDCBalance(ethers.utils.formatUnits(_balanceOf, _decimals));
       setUserBalance(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_getUserBalance).toString(),18)).toFixed());
       setUserStakedTokenBalance(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_userStakedBalance).toString(),18)).toFixed())
+      setUserStakedTime(ethers.BigNumber.from(_userStakedTime).toNumber() * 1000);
+      setClaimStart(ethers.BigNumber.from(_claimStart).toNumber() * 1000);
+      setLockedTime(ethers.BigNumber.from(_lockedTime).toNumber() * 1000);
+      setHarvestLock(_harvestLock)
+
+      console.log(_harvestLock);
+
     } catch (err) {
       console.error(err);
     }
@@ -714,6 +752,16 @@ function useEth() {
     }
   }, []);
 
+  const isWithdrawable = () => {
+    var nowTime= new Date().getTime();
+    console.log(nowTime, userStakedTime + lockedTime, claimStart + lockedTime)
+    return nowTime >= userStakedTime + lockedTime && nowTime >= claimStart + lockedTime;
+  }
+
+  const isHarvestable = () => {
+    return !harvestLock;
+  }
+
   const addCommas = (num) => {
     var str = num.toString().split(".");
     if (str[0].length >= 5) {
@@ -884,7 +932,9 @@ function useEth() {
     stakingToken,
     switchNetwork,
     harvestRewards,
-    withdrawStakedToken
+    withdrawStakedToken,
+    isWithdrawable,
+    isHarvestable
   };
 }
 

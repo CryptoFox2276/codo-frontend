@@ -1,7 +1,25 @@
 import React from "react";
 import Link from "next/link";
 import { useState } from "react";
+import Select from "react-select";
 import { eth } from "../state/eth";
+
+
+const langOptions = [
+  { value: 'English', label: <img src="/assets/images/icons/flag.png" style={{height:'20px', margin:'auto'}} />},
+  { value: 'Portuguese', label: <img src="/assets/images/icons/portugal.png" style={{height:'30px',margin:'auto'}} />}
+]
+
+const colourStyles = {
+  control: styles => ({ ...styles, backgroundColor: 'unset', outline: 'none', paddingBottom: '2px', paddingTop: '2px'}),
+  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+    return {
+      ...styles,
+      backgroundColor: 'unset',
+    };
+  },
+};
+
 
 export default function Header() {
   const {
@@ -13,6 +31,7 @@ export default function Header() {
     disConnectWallet,
   } = eth.useContainer();
   const [active, setActive] = useState(false);
+  const [selectedLangOption, setSelectedLangOption] = useState(langOptions[0]);
 
   const handleClick = () => {
     setActive(!active);
@@ -122,6 +141,7 @@ export default function Header() {
                   Staking
                 </p>
               </Link>
+              <Select options={langOptions} defaultValue={selectedLangOption} className="lang-select" styles={colourStyles}/>
             </>
           {/* {address ? (
             <a onClick={onDisconnect} className="btn btn-bg-colored">
