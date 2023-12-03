@@ -1,0 +1,145 @@
+.dashboard-card .stake-modal {
+    padding: .5rem;
+}
+
+.dashboard-card .stake-modal .modal-wrapper {
+    width: 650px;
+    height: 444px;
+}
+.stake-modal .modal-body .content-title {
+    display: flex;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.stake-modal .modal-body .content-title h1 {
+    margin: auto;
+    font-family: 'Lexend';
+    font-size: 32px;
+    font-weight: 500;
+    color: white;
+}
+
+.stake-modal .modal-body .content-coin {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding-bottom: 2rem
+}
+
+.stake-modal .modal-body .content-coin .coin-item {
+    background-color: white;
+    display: flex;
+    gap: 10px;
+    padding: .5rem 1.5rem;
+    border-radius: 5px;
+    color: black;
+    font-family: 'Lexend';
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.stake-modal .modal-body .content-coin .coin-item.active {
+    background-color: #F5A11E;
+}
+
+.stake-modal .modal-body .content-coin .coin-item img {
+    width: 20px;
+    height: 20px;
+}
+
+.stake-modal .modal-body .content-warning {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    background-color: #F5A11E;
+    color: white;
+    font-size: 14px;
+}
+
+.stake-modal .modal-body .content-warning img {
+    height: 24px;
+}
+
+.stake-modal .content-value {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-top: .5rem;
+}
+
+.stake-modal .content-value .coin-amount {
+    display: flex;
+    position: relative;
+    margin: auto;
+}
+
+.stake-modal .content-value .coin-amount span {
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 5px;
+    align-items: center;
+    gap: 5px;
+    margin: auto;
+    background-color: #161A22;
+    z-index: 1;
+}
+
+.stake-modal .content-value .coin-amount span img {
+    height: 20px;
+}
+
+.stake-modal .content-value .coin-amount input {
+    width: 100%;
+    padding: 1rem;
+    padding-left: 5.5rem;
+    background-color: unset;
+    border: 1px solid gray;
+    border-radius: 5px;
+    z-index: 2;
+    text-align: right;
+    font-size: 14px;
+    outline: none;
+}
+
+
+.stake-modal .modal-footer .btn-group .balance-label {
+    max-width: 100%;
+    width: 100%;
+    margin: auto;
+    padding: 8px 25px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 15%);
+    border-radius: 0.3rem;
+    font-family: 'Lexend';
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .stake-modal .content-value {
+        flex-direction: column;
+    }
+
+    .stake-modal .coin-amount {
+        width: 100%;
+    }
+
+    .stake-modal .modal-body .content-title {
+        padding: 1rem 0 1.5rem;
+    }
+
+    .stake-modal .modal-body .content-coin {
+        padding-bottom: 1rem;
+    }
+
+    .stake-modal .modal-body .content-value .coin-amount input {
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+    }
+}

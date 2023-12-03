@@ -71,16 +71,12 @@ export default function Header() {
           >
             Home
           </Link>
-          {
-            walletConnected && (
-              <Link
-                href="/dashboard"
-                className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
-              >
-                Dashboard
-              </Link>
-            )
-          }
+        <Link
+            href="/dashboard"
+            className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
+          >
+            Dashboard
+          </Link>
           <Link href="#" className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white">
             Token Sales
           </Link>
@@ -175,21 +171,17 @@ export default function Header() {
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6 header-menu-mobile">
                   <Link
-                    href="/dashboard"
+                    href="/"
                     className="mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"
                   >
                     HOME
                   </Link>
-                  {
-                    walletConnected && (
-                      <Link
-                        href="/dashboard"
-                        className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
-                      >
-                        Dashboard
-                      </Link>
-                    )
-                  }
+                  <Link
+                    href="/dashboard"
+                    className="menu-item text-sm font-semibold leading-6 px-3 py-2 rounded text-white"
+                  >
+                    Dashboard
+                  </Link>
                   <Link
                     href="#"
                     className="mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-50"

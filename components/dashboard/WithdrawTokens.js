@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function WithdrawTokens() {
 
-  const {totalStaked, withdrawStakedToken, addCommas} = eth.useContainer()
+  const {walletConnected, totalStaked, withdrawStakedToken, connectWallet, addCommas} = eth.useContainer()
 
   const onWithdraw = useCallback(()=>{
     withdrawStakedToken().then(res => {
@@ -17,6 +17,10 @@ export default function WithdrawTokens() {
       }
     })
   }, [withdrawStakedToken])
+
+  const onConnectWallet = useCallback(()=>{
+    connectWallet();
+  },[connectWallet])
 
   return (
     <div className="dashboard-card">
@@ -37,7 +41,13 @@ export default function WithdrawTokens() {
         </div>
       </div>
       <div className="card-action">
-        <button className="btn" onClick={onWithdraw}>Withdraw Staked Tokens</button>
+      {
+        walletConnected ? (
+          <button className="btn" onClick={onWithdraw}>Withdraw Staked Tokens</button>
+        ) : (
+          <button className="btn" onClick={onConnectWallet}>Connect Wallet</button>
+        )
+      }
       </div>
     </div>
   );

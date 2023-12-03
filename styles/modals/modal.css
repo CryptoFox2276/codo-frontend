@@ -1,0 +1,65 @@
+.dashboard-card .modal-wrapper {
+  width: 500px;
+  height: 600px;
+  position: relative;
+  padding: .5rem;
+}
+
+.dashboard-card .modal {
+  position: absolute;
+  background-color: #161A22;
+  height: fit-content;
+  width: 100%;
+  border: 1px solid #f5a11e;
+  border-radius: 15px;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.dashboard-card .modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dashboard-card .modal-body {
+  padding-top: 10px;
+  gap: 10px;
+}
+
+.dashboard-card .modal-header {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: none;
+  font-size: 25px;
+}
+
+.dashboard-card .modal-footer {
+    width: 100%;
+    padding: 1.5rem 0;
+}
+
+.dashboard-card .modal-footer .btn-group {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.dashboard-card .modal-footer .btn-group .btn {
+    max-width: 100%;
+    width: 100%;
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+    .dashboard-card .modal-footer .btn-group {
+        flex-direction: column;
+    }
+}

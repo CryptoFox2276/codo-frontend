@@ -4,7 +4,11 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function ClaimRewards() {
-    const {harvestRewards} = eth.useContainer();
+    const {
+        walletConnected,
+        harvestRewards,
+        connectWallet,
+    } = eth.useContainer();
 
     const onClaim = useCallback(()=>{
         harvestRewards().then(res => {
@@ -15,6 +19,11 @@ export default function ClaimRewards() {
             }
         })
     }, [harvestRewards])
+
+    const onConnectWallet = useCallback(()=>{
+        connectWallet()
+    }, []);
+    
     return (
         <div className="dashboard-card">
             <div className="card-header">
@@ -26,7 +35,11 @@ export default function ClaimRewards() {
                 </div>
             </div>
             <div className="card-action">
-                <button className="btn" onClick={onClaim}>Claim Rewards</button>
+                {walletConnected ? (
+                    <button className="btn" onClick={onClaim}>Claim Rewards</button>
+                ) : (
+                    <button className="btn" onClick={onConnectWallet}>Connect Wallet</button>
+                )}
             </div>
         </div>
     )

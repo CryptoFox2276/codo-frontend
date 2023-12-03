@@ -13,7 +13,6 @@ export default function Dashboard() {
     const {walletConnected, loadUserBalance, loadCurrentBalance} = eth.useContainer();
 
     useEffect(() => {
-        if(!walletConnected) router.replace('/');
         loadCurrentBalance();
         loadUserBalance();
     },[walletConnected])

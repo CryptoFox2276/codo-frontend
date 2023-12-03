@@ -1,14 +1,24 @@
+import { useCallback, useState } from "react";
 import Link from "next/link";
 import { eth } from "../../state/eth";
+import StakeModal from "../modals/stakeModal";
 
 export default function BuyAndStake() {
 
+    const [showModal, setShowModal] = useState(false);
+
     const {
+        walletConnected,
         totalSoldAmount,
         userBalance,
         userStakedTokenBalance,
+        connectWallet,
         addCommas,
       } = eth.useContainer();
+
+    const onConnectWallet = useCallback(() => {
+        connectWallet();
+    }, [])
 
     return (
         <div className="dashboard-card">
@@ -31,12 +41,24 @@ export default function BuyAndStake() {
                 </div>
             </div>
             <div className="card-action">
-                <Link href="/">
-                <p className="btn">
-                    Buy And Stake
-                </p>
-                </Link>
+            {
+                walletConnected ? (
+                    <button className="btn" onClick={()=>setShowModal(true)}>
+                            Buy And Stake
+                    </button>
+                ) : (
+                    <button className="btn" onClick={onConnectWallet}>
+                        Connect Wallet
+                    </button>
+                )
+            }
             </div>
+
+            {
+                showModal && <StakeModal onClose={()=>setShowModal(false)}>
+                    Hello World
+                </StakeModal>
+            }
         </div>
     )
 }
