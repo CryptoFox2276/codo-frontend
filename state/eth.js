@@ -348,7 +348,6 @@ function useEth() {
       let _endBlock = result.results["Stake"].callsReturnContext[2].success ? result.results["Stake"].callsReturnContext[2].returnValues[0] : 0;
       setTotalStaked(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_totalStaked).toString(),18)).toFixed());
       setRewardTokenPerBlock(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_rewardTokenPerBlock).toString(),18)).toFixed())
-      console.log("_endblock", (ethers.BigNumber.from(_endBlock).toString()));
       setEndBlockNumber(ethers.BigNumber.from(_endBlock).toString());
     } catch (err) {
       console.error(err);
@@ -542,9 +541,6 @@ function useEth() {
       setClaimStart(ethers.BigNumber.from(_claimStart).toNumber() * 1000);
       setLockedTime(ethers.BigNumber.from(_lockedTime).toNumber() * 1000);
       setHarvestLock(_harvestLock)
-
-      console.log(_harvestLock);
-
     } catch (err) {
       console.error(err);
     }
@@ -754,7 +750,6 @@ function useEth() {
 
   const isWithdrawable = () => {
     var nowTime= new Date().getTime();
-    console.log(nowTime, userStakedTime + lockedTime, claimStart + lockedTime)
     return nowTime >= userStakedTime + lockedTime && nowTime >= claimStart + lockedTime;
   }
 
