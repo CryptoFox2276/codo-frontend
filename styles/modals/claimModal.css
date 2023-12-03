@@ -1,0 +1,21 @@
+.claim-modal .modal {
+    max-width: 400px;
+    background-color: white;
+}
+
+.claim-modal .modal .content-body p {
+    padding-top: 20px;
+    text-align: center;
+    color: black;
+    font-family: 'Lexend';
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.claim-modal .modal-footer .btn-group .btn {
+    background-color: #F5A11E;
+    color: white;
+    font-family: 'Lexend';
+    font-size: 14px;
+    font-weight: 500;
+}

@@ -49,6 +49,7 @@
 @import url(./dashboard/dashboardcard.css);
 @import url(./modals/modal.css);
 @import url(./modals/stakeModal.css);
+@import url(./modals/claimModal.css);
 
 /* Common */
 .bg-gray-300 {

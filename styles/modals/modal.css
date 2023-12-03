@@ -1,8 +1,9 @@
 .dashboard-card .modal-wrapper {
   width: 500px;
   height: 600px;
-  position: relative;
+  position: fixed;
   padding: .5rem;
+  z-index: 10;
 }
 
 .dashboard-card .modal {

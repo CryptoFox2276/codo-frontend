@@ -1022,6 +1022,7 @@ video {
 @import url(./dashboard/dashboardcard.css);
 @import url(./modals/modal.css);
 @import url(./modals/stakeModal.css);
+@import url(./modals/claimModal.css);
 
 /* Common */
 .bg-gray-300 {
@@ -1813,10 +1814,6 @@ footer .text-email {
     flex-direction: column;
   }
 
-  .sm\:flex-col-reverse {
-    flex-direction: column-reverse;
-  }
-
   .sm\:gap-2 {
     gap: 0.5rem;
   }
@@ -1991,10 +1988,6 @@ footer .text-email {
 
   .lg\:flex-row {
     flex-direction: row;
-  }
-
-  .lg\:flex-row-reverse {
-    flex-direction: row-reverse;
   }
 
   .lg\:justify-end {

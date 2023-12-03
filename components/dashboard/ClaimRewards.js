@@ -1,7 +1,8 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { eth } from "../../state/eth"
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import ClaimModal from "../modals/claimModal";
 
 export default function ClaimRewards() {
     const {
@@ -10,7 +11,11 @@ export default function ClaimRewards() {
         connectWallet,
     } = eth.useContainer();
 
+    const [showModal, setShowModal] = useState(false);
+
     const onClaim = useCallback(()=>{
+        setShowModal(true);
+        return;
         harvestRewards().then(res => {
             if(res) {
                 toast.success("Successfully claimed reward token");
@@ -41,6 +46,10 @@ export default function ClaimRewards() {
                     <button className="btn" onClick={onConnectWallet}>Connect Wallet</button>
                 )}
             </div>
+            {
+                showModal && <ClaimModal onClose={()=>setShowModal(false)}>
+                </ClaimModal>
+            }
         </div>
     )
 }
