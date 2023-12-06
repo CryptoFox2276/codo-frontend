@@ -16,6 +16,7 @@ const StakeModal = ({onClose, children, title}) => {
         buyTokenWithETH,
         buyTokenWithUSDT,
         stakingToken,
+        isStakable,
         addCommas,
     } = eth.useContainer();
 
@@ -31,7 +32,7 @@ const StakeModal = ({onClose, children, title}) => {
         onClose();
     };
 
-    const onBuyAndStake = useCallback(() => {
+    const onBuyAndStake = useCallback(async () => {
         if(Number(tokenAmount) === 0 || Number(coinAmount) === 0) {
             setWarning("Pleaase enter amount");
             return;
@@ -40,6 +41,10 @@ const StakeModal = ({onClose, children, title}) => {
             setWarning("CODO Token amount is not available.");
             return;
         }
+        if (await isStakable() === false) {
+            toast.warn("Staking has been ended");
+            return;
+          }
         if(isEthActived) {
             if(Number(coinAmount) > Number(userETHBalance)) {
                 setWarning("You do not have enough ETH to pay for this transaction.");
@@ -140,23 +145,23 @@ const StakeModal = ({onClose, children, title}) => {
         setCoinAmount(0)
     }, [isEthActived]);
 
-    useEffect(() => {
-        var _tokenAmount = 0;
-        if(isEthActived) {
-            _tokenAmount = (priceETH > 0 ? Math.round((coinAmount / priceETH) ): 0);
-        } else {
-            _tokenAmount = (price > 0 ? Math.round((coinAmount / price) ): 0);
-        }
-        setTokenAmount(_tokenAmount);
-    }, [coinAmount, price, priceETH]);
+    // useEffect(() => {
+    //     var _tokenAmount = 0;
+    //     if(isEthActived) {
+    //         _tokenAmount = (priceETH > 0 ? Math.round((coinAmount / priceETH) ): 0);
+    //     } else {
+    //         _tokenAmount = (price > 0 ? Math.round((coinAmount / price) ): 0);
+    //     }
+    //     setTokenAmount(_tokenAmount);
+    // }, [coinAmount, price, priceETH]);
 
-    useEffect(() => {
-        if(isEthActived) {
-            setCoinAmount(Number(tokenAmount * priceETH).toFixed(4));
-        } else {
-            setCoinAmount(Number(tokenAmount * price).toFixed(2));
-        }
-    }, [price, priceETH, tokenAmount]);
+    // useEffect(() => {
+    //     if(isEthActived) {
+    //         setCoinAmount(Number(tokenAmount * priceETH).toFixed(4));
+    //     } else {
+    //         setCoinAmount(Number(tokenAmount * price).toFixed(2));
+    //     }
+    // }, [price, priceETH, tokenAmount]);
 
     return (
         <div className="stake-modal modal-overlay">

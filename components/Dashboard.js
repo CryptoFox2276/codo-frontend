@@ -56,7 +56,8 @@ const Dashboard = () => {
     buyTokenWithBNB,
     buyTokenWithBUSD,
     stakingToken,
-    switchNetwork
+    switchNetwork,
+    isStakable
   } = eth.useContainer();
 
   const [selected, setSelected] = useState('ETH');
@@ -64,6 +65,7 @@ const Dashboard = () => {
   const [isExchange, setIsExchange] = useState(false)
   const [isEth, setIsEth] = useState(true)
   const [selectedCoin, setSelectedCoin] = useState('USDT');
+  const [realPayAmount, setRealPayAmount] = useState(0);
   const [payAmount, setPayAamount] = useState(0.0);
   const [codoAmount, setCodoAmount] = useState('');
 
@@ -78,7 +80,8 @@ const Dashboard = () => {
   }, [selected])
 
   const onChangePayAmount = useCallback((e) => {
-  var _amount = parseFloat(e.target.value);
+    setRealPayAmount(Math.fround(e.target.value).toFixed(10));
+    var _amount = parseFloat(e.target.value);
     if(_amount < 0) _amount = 0;
     if(selectedCoin === 'ETH') {
       if(Number(_amount) > Number(userETHBalance)) _amount = Number(userETHBalance);    
@@ -102,10 +105,13 @@ const Dashboard = () => {
     setCodoAmount(_amount);
 
     if(selectedCoin === 'ETH') {
+      setRealPayAmount(Math.fround(_amount * priceETH).toFixed(10))
       setPayAamount(Number(_amount * priceETH).toFixed(6));
     } else if (selectedCoin === 'BNB'){
+      setRealPayAmount(Math.fround(_amount * priceETH).toFixed(10))
       setPayAamount(Number(_amount * priceBNB).toFixed(6));
     } else{
+      setRealPayAmount(Math.fround(_amount * priceETH).toFixed(10))
       setPayAamount(Number(_amount * price).toFixed(2));
     }
   }
@@ -114,16 +120,17 @@ const Dashboard = () => {
     const _selectedCoin = e.target.value;
     setSelectedCoin(_selectedCoin);
     if(_selectedCoin === 'ETH') {
-      setCodoAmount(priceETH > 0 ? Math.round((payAmount / priceETH) ): 0);
+      setCodoAmount(priceETH > 0 ? Math.round((realPayAmount / priceETH) ): 0);
     } else if(_selectedCoin === 'BNB') {
-      setCodoAmount(priceBNB > 0 ? Math.round((payAmount / priceBNB) ): 0);
+      setCodoAmount(priceBNB > 0 ? Math.round((realPayAmount / priceBNB) ): 0);
     } else {
-      setCodoAmount(price > 0 ? Math.round((payAmount / price) ): 0);
+      setCodoAmount(price > 0 ? Math.round((realPayAmount / price) ): 0);
     }
   }
 
-  const onBuyAndStake = () => {
+  const onBuyAndStake = async () => {
     if(payAmount === 0 || payAmount === '' || codoAmount === 0 ||codoAmount === '') {
+      setRealPayAmount(0);
       toast.info(`Pleaase enter amount`)
       return;
     }
@@ -131,9 +138,13 @@ const Dashboard = () => {
       toast.info(`Token amount is insufficient`);
       return;
     }
+    if (await isStakable() === false) {
+      toast.warn("Staking has been ended");
+      return;
+    }
     if(selected === 'ETH') {
       if(selectedCoin === 'ETH') {
-        buyTokenWithETH(codoAmount, payAmount).then(res => {
+        buyTokenWithETH(codoAmount, realPayAmount).then(res => {
           if(res) {
             stakingToken(codoAmount).then(ret => {
               if(ret) {
@@ -164,7 +175,7 @@ const Dashboard = () => {
       }
     } else {
       if(selectedCoin === 'BNB') {
-        buyTokenWithBNB(payAmount).then(res => {
+        buyTokenWithBNB(realPayAmount).then(res => {
           if(res) {
             toast.success("Purchased successfully with BNB");
           } else {

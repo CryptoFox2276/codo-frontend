@@ -536,7 +536,7 @@ function useEth() {
       setUserUSDCIsApproved(ethers.BigNumber.from(_allowance).gt(0));
       setUserUSDCBalance(ethers.utils.formatUnits(_balanceOf, _decimals));
       setUserBalance(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_getUserBalance).toString(),18)).toFixed());
-      setUserStakedTokenBalance(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_userStakedBalance).toString(),18)).toFixed())
+      setUserStakedTokenBalance(parseFloat(ethers.utils.formatUnits(ethers.BigNumber.from(_userStakedBalance).toString(),18)).toFixed());
       setUserStakedTime(ethers.BigNumber.from(_userStakedTime).toNumber() * 1000);
       setClaimStart(ethers.BigNumber.from(_claimStart).toNumber() * 1000);
       setLockedTime(ethers.BigNumber.from(_lockedTime).toNumber() * 1000);
@@ -757,6 +757,13 @@ function useEth() {
     return !harvestLock;
   }
 
+  const isStakable = async () => {
+    const latestBlockNumber = await DEFAULT_PROVIDER.getBlockNumber();
+    console.log("LatestBlockNumber", latestBlockNumber, endBlockNumber, Number(latestBlockNumber) < Number(endBlockNumber));
+    if(Number(latestBlockNumber) < Number(endBlockNumber)) return true;
+    return false;
+  }
+
   const addCommas = (num) => {
     var str = num.toString().split(".");
     if (str[0].length >= 5) {
@@ -775,9 +782,9 @@ function useEth() {
         theme: "light",
         cacheProvider: false,
         providerOptions,
-        // disableInjectedProvider: false,
+        disableInjectedProvider: false,
       });
-
+      console.log("new web3modal");
     }
     if (walletConnected) connectWallet();
     
@@ -839,7 +846,7 @@ function useEth() {
 
       const handleDisconnect = (error) => {
         // eslint-disable-next-line no-console
-        // disconnectWallet();
+        disconnectWallet();
       };
 
       provider.on("accountsChanged", handleAccountsChanged);
@@ -929,7 +936,8 @@ function useEth() {
     harvestRewards,
     withdrawStakedToken,
     isWithdrawable,
-    isHarvestable
+    isHarvestable,
+    isStakable
   };
 }
 
